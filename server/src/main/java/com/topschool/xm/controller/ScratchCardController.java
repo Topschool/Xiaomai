@@ -31,7 +31,7 @@ public class ScratchCardController {
         result.setPartnerStatus(scratchCardService.getPartnerTodayStatus(id));
         result.setCurrentScratchResult(scratchCardService.scratch(id));
         result.setLastList(scratchCardService.getTodayLastList(0, 2));
-        result.setTopList(scratchCardService.getTodayLastList(0, 2));
+        result.setTopList(scratchCardService.getTodayTopList(0, 2));
         result.setTodayList(scratchCardService.getTodayResult(0, 2));
         result.setTotalTop(scratchCardService.getTotalTopResult(0, 3));
         result.setTotalNum(scratchCardService.getTodayTotal(new Date()));
