@@ -1,6 +1,7 @@
 package com.topschool.xm.dao;
 
 import com.topschool.xm.BaseTest;
+import com.topschool.xm.dao.scratchcard.ScratchLogMapper;
 import com.topschool.xm.model.scratchcard.ScratchLog;
 import org.junit.Test;
 

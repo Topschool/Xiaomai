@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.topschool.xm.dao.orderfood.FoodMapper">
+
+    <resultMap id="food" type="com.topschool.xm.model.orderfood.Food">
+        <id property="id" column=""/>
+        <result property="name" column="name"/>
+        <result property="price" column="price"/>
+        <result property="restaurantId" column="kind"/>
+        <result property="logoUrl" column="img"/>
+    </resultMap>
+
+    <insert id="insert">
+        insert into
+        order_food
+        (name, price, kind, img)
+        values (
+        #{name}, #{price}, #{restaurantId},#{logoUrl}
+        )
+    </insert>
+    <update id="update">
+        <trim prefix="UPDATE order_food set" suffix="where id = #{id}" prefixOverrides=",">
+            <if test="name!=null">
+                name=#{name},
+            </if>
+            <if test="price!=null">
+                price=#{price},
+            </if>
+            <if test="restaurantId!=null">
+                kind=#{restaurantId},
+            </if>
+            <if test="logoUrl!=null">
+                img=#{logoUrl},
+            </if>
+        </trim>
+    </update>
+    <delete id="deleteById">
+        DELETE FROM order_food WHERE id=#{id}
+    </delete>
+    <select id="getById" resultMap="food">
+        select * from order_food WHERE id = #{id};
+    </select>
+    <select id="getAll" resultMap="food">
+        select * from order_food;
+    </select>
+    <select id="getByRestaurantId" resultMap="food">
+        select * from order_food WHERE kind=#{id};
+    </select>
+</mapper>

@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.topschool.xm.dao.ScratchLogMapper">
+<mapper namespace="com.topschool.xm.dao.scratchcard.ScratchLogMapper">
 
     <resultMap id="scratch_log" type="com.topschool.xm.model.scratchcard.ScratchLog">
         <id property="id" column="id"/>

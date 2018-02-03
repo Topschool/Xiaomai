@@ -1,4 +1,4 @@
-package com.topschool.xm.dao;
+package com.topschool.xm.dao.scratchcard;
 
 import com.topschool.xm.model.scratchcard.ScratchLog;
 import org.apache.ibatis.annotations.MapKey;

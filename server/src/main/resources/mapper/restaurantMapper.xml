@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.topschool.xm.dao.orderfood.RestaurantMapper">
+
+    <resultMap id="restaurant" type="com.topschool.xm.model.orderfood.Restaurant">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="logo" column="logo"/>
+        <result property="description" column="description"/>
+    </resultMap>
+
+    <insert id="insert">
+        insert into restaurant (name, logo, description) values (#{name}, #{logo}, #{description});
+    </insert>
+    <update id="update">
+        <trim prefix="UPDATE restaurant set" suffix="where id = #{id}" suffixOverrides=",">
+            <if test="name!=null">
+                name = #{name},
+            </if>
+            <if test="logo!=null">
+                logo = #{logo},
+            </if>
+            <if test="description!=null">
+                description=#{description},
+            </if>
+        </trim>
+    </update>
+    <delete id="deleteById">
+        DELETE FROM restaurant WHERE id=#{id}
+    </delete>
+    <select id="getById" resultMap="restaurant">
+        select * from restaurant WHERE id=#{id}
+    </select>
+    <select id="getAll" resultMap="restaurant">
+        select * from restaurant;
+    </select>
+</mapper>

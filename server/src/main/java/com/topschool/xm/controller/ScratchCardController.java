@@ -31,17 +31,17 @@ public class ScratchCardController {
         System.out.printf("id:%15s isScratch:%5s\n", id, isScratch);
         scratchCardService.initCardPool(100);
         ScratchResult result = new ScratchResult();
-        result.setPartnerStatus(0);
+        result.setPartnerStatus(-1);
         result.setCurUserGroup(1);
-        if (isScratch == 1) {
-            result.setCurrentScratchResult(scratchCardService.scratch(id.trim()));
-            result.setPartnerStatus(1);
-        }
         if (scratchCardService.getPartnerTodayStatus(id)){
             result.setPartnerStatus(1);
         }
+        if (isScratch == 1) {
+            result.setCurrentScratchResult(scratchCardService.scratch(id.trim()));
+            result.setPartnerStatus(0);
+        }
         if (isScratch!=1 && isScratch!=-1){
-            throw new Exception("");
+            throw new Exception("Illegal parameters");
         }
         result.setLastList(scratchCardService.getTodayLastList(0, 2));
         result.setTopList(scratchCardService.getTodayTopList(0, 2));

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.topschool.xm.dao.orderfood.OrderLogMapper">
+
+    <insert id="insert">
+        insert into order_log (user_id, food_id, create_time) values (#{userId},#{foodId},#{createTime});
+    </insert>
+    <select id="getByRestaurantId" resultType="com.topschool.xm.model.orderfood.OrderLog">
+        select L.* from order_log L, order_food F WHERE F.kind=#{id} and L.food_id=F.id;
+    </select>
+    <select id="getByDate" resultType="com.topschool.xm.model.orderfood.OrderLog">
+        select * from order_log WHERE to_days(create_time)=to_days(#{date});
+    </select>
+    <select id="getByUserId" resultType="com.topschool.xm.model.orderfood.OrderLog">
+        select * from order_log WHERE user_id = #{id};
+    </select>
+    <select id="getByFoodId" resultType="com.topschool.xm.model.orderfood.OrderLog">
+        select * from order_log WHERE food_id=#{id};
+    </select>
+    <select id="exist" resultType="boolean">
+        SELECT count(*)
+        FROM order_log
+          WHERE user_id = #{userId} AND to_days(from_unixtime(create_time DIV 1000)) = to_days(from_unixtime(#{createTime} DIV 1000))
+    </select>
+</mapper>

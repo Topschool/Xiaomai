@@ -1,6 +1,6 @@
 package com.topschool.xm.service.impl;
 
-import com.topschool.xm.dao.ScratchLogMapper;
+import com.topschool.xm.dao.scratchcard.ScratchLogMapper;
 import com.topschool.xm.model.scratchcard.Card;
 import com.topschool.xm.model.scratchcard.CardPool;
 import com.topschool.xm.model.scratchcard.ScratchLog;

@@ -22,6 +22,12 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/admin/**"/>
+            <bean class="com.topschool.xm.interceptor.AdminInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
 
     <bean id="templateResolver"
