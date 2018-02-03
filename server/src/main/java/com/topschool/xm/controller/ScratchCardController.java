@@ -31,9 +31,13 @@ public class ScratchCardController {
         System.out.printf("id:%15s isScratch:%5s\n", id, isScratch);
         scratchCardService.initCardPool(100);
         ScratchResult result = new ScratchResult();
+        result.setPartnerStatus(0);
         result.setCurUserGroup(1);
         if (isScratch == 1) {
             result.setCurrentScratchResult(scratchCardService.scratch(id.trim()));
+            result.setPartnerStatus(1);
+        }
+        if (scratchCardService.getPartnerTodayStatus(id)){
             result.setPartnerStatus(1);
         }
         if (isScratch!=1 && isScratch!=-1){
