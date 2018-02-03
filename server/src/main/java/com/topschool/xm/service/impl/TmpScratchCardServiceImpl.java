@@ -1,7 +1,5 @@
 package com.topschool.xm.service.impl;
 
-import com.sun.corba.se.spi.ior.ObjectKey;
-import com.topschool.xm.model.Partner;
 import com.topschool.xm.service.ScratchCardService;
 import org.springframework.stereotype.Service;
 
@@ -9,16 +7,15 @@ import java.util.*;
 
 @Service
 public class TmpScratchCardServiceImpl implements ScratchCardService {
+    public void initCardPool(Integer size) {
+    }
+
     public Integer scratch(String wxId) {
         return 1;
     }
 
-    public Partner getPartnerInfo(String wxId) {
-        return null;
-    }
-
-    public Boolean getPartnerTodayStatus(String wxId) {
-        return false;
+    public boolean getPartnerTodayStatus(String wxId) {
+        return true;
     }
 
     public List<Map<String, Object>> getTodayResult(Integer page, Integer pageSize) {
@@ -37,7 +34,6 @@ public class TmpScratchCardServiceImpl implements ScratchCardService {
     public List<Map<String, Object>> getTodayTopList(Integer page, Integer pageSize) {
         List list = getTodayResult(0, 10);
         return Arrays.asList(new HashMap<String, Object>(), (Map<String, Object>) list.get(list.size() - 2));
-//        return null;
     }
 
     public List<Map<String, Object>> getTodayLastList(Integer page, Integer pageSize) {
@@ -45,9 +41,9 @@ public class TmpScratchCardServiceImpl implements ScratchCardService {
         return Arrays.asList((Map<String, Object>) list.get(1), (Map<String, Object>) list.get(2));
     }
 
-    public List<Map<String, Object>> getTotalTopResult(Integer page, Integer pageSize) {
+    public List<Map> getTotalTopResult(Integer page, Integer pageSize) {
         List list = getTodayResult(0, 10);
-        return Arrays.asList((Map<String, Object>) list.get(list.size() - 1), (Map<String, Object>) list.get(list.size() - 2), (Map<String, Object>) list.get(list.size() - 3));
+        return Arrays.asList((Map) list.get(list.size() - 1), (Map) list.get(list.size() - 2), (Map) list.get(list.size() - 3));
     }
 
     public Map getScratchSummary(String id) {

@@ -1,18 +1,16 @@
 package com.topschool.xm.service;
 
-import com.topschool.xm.model.Partner;
-
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 public interface ScratchCardService {
 
-    Integer scratch(String wxId);
+    void initCardPool(Integer size);
 
-    Partner getPartnerInfo(String wxId);
+    Integer scratch(String wxId) throws Exception;
 
-    Boolean getPartnerTodayStatus(String wxId);
+    boolean getPartnerTodayStatus(String wxId);
 
     List<Map<String, Object>> getTodayResult(Integer page, Integer pageSize);
 
@@ -20,7 +18,7 @@ public interface ScratchCardService {
 
     List<Map<String, Object>> getTodayLastList(Integer page, Integer pageSize);
 
-    List<Map<String, Object>> getTotalTopResult(Integer page, Integer pageSize);
+    List<Map> getTotalTopResult(Integer page, Integer pageSize);
 
     Map getScratchSummary(String id);
 

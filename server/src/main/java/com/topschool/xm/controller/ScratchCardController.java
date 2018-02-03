@@ -7,6 +7,7 @@ import com.topschool.xm.dto.ScratchResult;
 import com.topschool.xm.service.ScratchCardService;
 import jdk.nashorn.internal.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,15 +22,23 @@ import static org.springframework.http.HttpStatus.OK;
 @RequestMapping("/game/scratch-card")
 public class ScratchCardController {
 
+    @Qualifier("defaultScratchCardServiceImpl")
     @Autowired
     private ScratchCardService scratchCardService;
 
     @GetMapping("")
-    public ResponseEntity<?> scratch(String id) {
+    public ResponseEntity<?> scratch(String id, int isScratch) throws Exception {
+        System.out.printf("id:%15s isScratch:%5s\n", id, isScratch);
+        scratchCardService.initCardPool(100);
         ScratchResult result = new ScratchResult();
         result.setCurUserGroup(1);
-        result.setPartnerStatus(scratchCardService.getPartnerTodayStatus(id));
-        result.setCurrentScratchResult(scratchCardService.scratch(id));
+        if (isScratch == 1) {
+            result.setCurrentScratchResult(scratchCardService.scratch(id.trim()));
+            result.setPartnerStatus(1);
+        }
+        if (isScratch!=1 && isScratch!=-1){
+            throw new Exception("");
+        }
         result.setLastList(scratchCardService.getTodayLastList(0, 2));
         result.setTopList(scratchCardService.getTodayTopList(0, 2));
         result.setTodayList(scratchCardService.getTodayResult(0, 2));

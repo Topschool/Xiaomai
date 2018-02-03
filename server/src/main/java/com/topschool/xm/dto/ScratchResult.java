@@ -1,7 +1,5 @@
 package com.topschool.xm.dto;
 
-import com.topschool.xm.model.Partner;
-
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +8,7 @@ public class ScratchResult implements Serializable{
 
     private Integer totalNum;
     private Integer curUserGroup;
-    private Boolean partnerStatus;
+    private Integer partnerStatus;
     private Integer currentScratchResult;
     /**
      * size: 2
@@ -34,7 +32,7 @@ public class ScratchResult implements Serializable{
      * map key:
      *      key1: id, key2: nickname, key3: money
      */
-    private List<Map<String, Object>> totalTop;
+    private List<Map> totalTop;
 
     public Integer getCurUserGroup() {
         return curUserGroup;
@@ -52,7 +50,7 @@ public class ScratchResult implements Serializable{
         this.totalNum = totalNum;
     }
 
-    public Boolean getPartnerStatus() {
+    public Integer getPartnerStatus() {
         return partnerStatus;
     }
 
@@ -64,7 +62,7 @@ public class ScratchResult implements Serializable{
         this.currentScratchResult = currentScratchResult;
     }
 
-    public void setPartnerStatus(Boolean partnerStatus) {
+    public void setPartnerStatus(Integer partnerStatus) {
         this.partnerStatus = partnerStatus;
     }
 
@@ -92,11 +90,11 @@ public class ScratchResult implements Serializable{
         this.todayList = todayList;
     }
 
-    public List<Map<String, Object>> getTotalTop() {
+    public List<Map> getTotalTop() {
         return totalTop;
     }
 
-    public void setTotalTop(List<Map<String, Object>> totalTop) {
+    public void setTotalTop(List<Map> totalTop) {
         this.totalTop = totalTop;
     }
 }
