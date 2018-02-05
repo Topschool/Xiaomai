@@ -38,4 +38,6 @@ public class OrderLog {
     public void setCreateTime(Long createTime) {
         this.createTime = createTime;
     }
+
+
 }

@@ -42,4 +42,7 @@
         ORDER BY (sum(result)) DESC
         LIMIT #{size};
     </select>
+    <select id="isExist" resultType="boolean">
+        select * from scratch_log WHERE wx_id=#{wxId} AND to_days(scratch_date)=to_days(#{scratchDate});
+    </select>
 </mapper>

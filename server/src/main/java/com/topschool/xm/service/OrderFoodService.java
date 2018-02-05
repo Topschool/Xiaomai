@@ -1,11 +1,10 @@
 package com.topschool.xm.service;
 
-import java.util.List;
 import java.util.Map;
 
 public interface OrderFoodService {
 
-    List<Map> getFoodList();
+    Map getFoodList();
 
     String booking(String userId, Integer foodId);
 
@@ -14,4 +13,10 @@ public interface OrderFoodService {
     Map getUserStatus(String userId);
 
     Map getUsersOrder(String userId);
+
+    void initOrderFoodSystem(int restaurantId);
+
+    boolean submit() throws Exception;
+
+    boolean clean();
 }

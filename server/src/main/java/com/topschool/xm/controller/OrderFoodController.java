@@ -2,7 +2,7 @@ package com.topschool.xm.controller;
 
 import com.topschool.xm.service.OrderFoodService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,13 +18,14 @@ import static org.springframework.http.HttpStatus.OK;
 @RequestMapping("/order_food")
 public class OrderFoodController {
 
+    @Qualifier("defaultOrderFoodServiceImpl")
     @Autowired
     private OrderFoodService orderFoodService;
 
     @GetMapping("/food_list")
     public ResponseEntity<?> getList(String uid){
-       List list = orderFoodService.getFoodList();
-        return new ResponseEntity<Object>(list, OK);
+       Map map = orderFoodService.getFoodList();
+        return new ResponseEntity<Object>(map, OK);
     }
 
     @PostMapping("/booking")

@@ -43,17 +43,17 @@ public class DefaultScratchCardServiceImpl implements ScratchCardService {
         card.setWxId(wxId);
         card.setPrice(result);
         cardPool.getTodayList().add(card);
-        if (result==8){
+        if (result == 8) {
             cardPool.getTop2().add(1, card);
         }
-        if (result==6){
+        if (result == 6) {
             cardPool.getTop2().add(2, card);
         }
-        if (result==0){
+        if (result == 0) {
             cardPool.getLast2().add(card);
         }
 //        sum
-        cardPool.setTodayTotal(cardPool.getTodayTotal()+result);
+        cardPool.setTodayTotal(cardPool.getTodayTotal() + result);
         return result;
     }
 
@@ -90,7 +90,7 @@ public class DefaultScratchCardServiceImpl implements ScratchCardService {
         return cardPool.getTodayTotal();
     }
 
-    private Map changeToMap(Card card){
+    private Map changeToMap(Card card) {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("id", card.getWxId());
         map.put("nickname", card.getNickname());
@@ -99,7 +99,7 @@ public class DefaultScratchCardServiceImpl implements ScratchCardService {
         return map;
     }
 
-    private List<Map<String, Object>> changeList(List<Card> list){
+    private List<Map<String, Object>> changeList(List<Card> list) {
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>(list.size());
         for (Card card : list) {
             result.add(changeToMap(card));

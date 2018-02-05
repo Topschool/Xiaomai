@@ -11,12 +11,15 @@ import java.util.Map;
 
 @Service
 public class TmpOrderFoodServiceImpl implements OrderFoodService {
-    public List<Map> getFoodList() {
-        List<Map> list = new ArrayList<Map>();
+    public Map getFoodList() {
+        Map map = new HashMap();
+        List<Map> list = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             list.add(get(i));
         }
-        return list;
+        map.put("foodList", list);
+        map.put("systemStatus", true);
+        return map;
     }
 
     public String booking(String userId, Integer foodId) {
@@ -33,25 +36,39 @@ public class TmpOrderFoodServiceImpl implements OrderFoodService {
     public Map getUserStatus(String userId) {
         Map map = new HashMap();
         map.put("id", userId);
-        map.put("name", "test_user"+userId);
+        map.put("name", "test_user" + userId);
         map.put("scratchCardStatus", true);
         map.put("orderFoodStatus", true);
 //        map.put("orderFoodList", "");
         return map;
     }
 
-    public Map getUsersOrder(String userId){
+    public Map getUsersOrder(String userId) {
         List<Map> order = new ArrayList<Map>();
         order.add(get(110));
         order.add(get(111));
         Map map = new HashMap();
         map.put("id", userId);
-        map.put("name", "test_user"+userId);
+        map.put("name", "test_user" + userId);
         map.put("orderList", order);
         return map;
     }
 
-    private Map get(int i){
+    public void initOrderFoodSystem(int restaurantId) {
+
+    }
+
+    @Override
+    public boolean submit() throws Exception {
+        return false;
+    }
+
+    @Override
+    public boolean clean() {
+        return false;
+    }
+
+    private Map get(int i) {
         Map map = new HashMap();
         map.put("id", i);
         map.put("name", "test_food_" + i);

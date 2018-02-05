@@ -25,4 +25,6 @@ public interface ScratchLogMapper {
 
     @MapKey("id")
     List<Map> getCurrentMouthTop(Integer size);
+
+    boolean isExist(String id);
 }

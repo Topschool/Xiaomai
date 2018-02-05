@@ -7,7 +7,7 @@ public class BaseTest {
     private ApplicationContext context;
 
     public BaseTest(){
-        context = new ClassPathXmlApplicationContext("classpath:application.xml");
+        context = new ClassPathXmlApplicationContext("classpath:configuration/application.xml");
     }
 
     public <T extends Object>T getBean(String clazz){
