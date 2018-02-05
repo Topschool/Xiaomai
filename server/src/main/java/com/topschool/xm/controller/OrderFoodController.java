@@ -22,32 +22,32 @@ public class OrderFoodController {
     private OrderFoodService orderFoodService;
 
     @GetMapping("/food_list")
-    public ResponseEntity<?> getList(String id){
+    public ResponseEntity<?> getList(String uid){
        List list = orderFoodService.getFoodList();
         return new ResponseEntity<Object>(list, OK);
     }
 
     @PostMapping("/booking")
-    public ResponseEntity<?> booking(String userId, Integer foodId){
-        String msg = orderFoodService.booking(userId, foodId);
+    public ResponseEntity<?> booking(String uid, Integer foodId){
+        String msg = orderFoodService.booking(uid, foodId);
         return new ResponseEntity<Object>(msg, OK);
     }
 
     @PostMapping("/cancel")
-    public ResponseEntity<?> cancel(String id){
-        String msg = orderFoodService.cancel(id);
+    public ResponseEntity<?> cancel(String uid){
+        String msg = orderFoodService.cancel(uid);
         return new ResponseEntity<Object>(msg, OK);
     }
 
     @GetMapping("/user_status")
-    public ResponseEntity<?> getUserStatus(String id){
-        Map status = orderFoodService.getUserStatus(id);
+    public ResponseEntity<?> getUserStatus(String uid){
+        Map status = orderFoodService.getUserStatus(uid);
         return new ResponseEntity<Object>(status, OK);
     }
 
     @GetMapping("/user_order")
-    public ResponseEntity<?> getUserOrder(String id){
-        Map map = orderFoodService.getUsersOrder(id);
+    public ResponseEntity<?> getUserOrder(String uid){
+        Map map = orderFoodService.getUsersOrder(uid);
         return new ResponseEntity<Object>(map, OK);
     }
 }
