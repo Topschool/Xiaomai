@@ -36,7 +36,7 @@ public class DefaultOrderFoodServiceImpl implements OrderFoodService {
     public Map getFoodList() {
         Map result = new HashMap();
         List<Map> foods = new ArrayList<>();
-        if (null == orderPool.getFoodList()){
+        if (null == orderPool.getFoodList()) {
             result.put("systemStatus", false);
             result.put("foods", null);
             return result;
@@ -88,8 +88,15 @@ public class DefaultOrderFoodServiceImpl implements OrderFoodService {
     }
 
     public Map getUsersOrder(String userId) {
-        List<OrderLog> orders = orderLogMapper.getTodayOrderByUserId(userId);
-
+        List<OrderLog> orderLogs = orderLogMapper.getTodayOrderByUserId(userId);
+        List<Map> orders = new ArrayList<>();
+        for (OrderLog order : orderLogs) {
+            for (Food food : orderPool.getFoodList()) {
+                if (food.getId().equals(order.getFoodId())) {
+                    orders.add(changeFoodInfoToMap(food));
+                }
+            }
+        }
         Map map = new HashMap();
         map.put("id", userId);
 //        map.put("name", "test_user"+userId);
