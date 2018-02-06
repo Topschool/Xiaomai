@@ -1,5 +1,6 @@
 package com.topschool.xm.service.impl;
 
+import com.sun.javafx.binding.StringFormatter;
 import com.topschool.xm.dao.orderfood.FoodMapper;
 import com.topschool.xm.dao.orderfood.OrderLogMapper;
 import com.topschool.xm.dao.scratchcard.ScratchLogMapper;
@@ -87,15 +88,16 @@ public class DefaultOrderFoodServiceImpl implements OrderFoodService {
         return map;
     }
 
-    public Map getUsersOrder(String userId) {
+    public Map getUsersOrder(String userId) throws Exception {
         List<OrderLog> orderLogs = orderLogMapper.getTodayOrderByUserId(userId);
         List<Map> orders = new ArrayList<>();
+
         for (OrderLog order : orderLogs) {
-            for (Food food : orderPool.getFoodList()) {
-                if (food.getId().equals(order.getFoodId())) {
-                    orders.add(changeFoodInfoToMap(food));
-                }
+            Food food = foodMapper.getById(order.getFoodId());
+            if (null==food){
+                throw new Exception(String.valueOf(StringFormatter.format("id为%d的food不存在!", order.getFoodId())));
             }
+            orders.add(changeFoodInfoToMap(food));
         }
         Map map = new HashMap();
         map.put("id", userId);

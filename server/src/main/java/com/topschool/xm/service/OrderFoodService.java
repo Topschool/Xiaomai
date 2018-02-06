@@ -43,7 +43,7 @@ public interface OrderFoodService {
      * @param userId 用户id
      * @return 今日订单信息
      */
-    Map getUsersOrder(String userId);
+    Map getUsersOrder(String userId) throws Exception;
 
     /**
      * 初始化今日菜单
