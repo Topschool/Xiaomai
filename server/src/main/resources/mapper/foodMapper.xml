@@ -6,7 +6,7 @@
 <mapper namespace="com.topschool.xm.dao.orderfood.FoodMapper">
 
     <resultMap id="food" type="com.topschool.xm.model.orderfood.Food">
-        <id property="id" column=""/>
+        <id property="id" column="id"/>
         <result property="name" column="name"/>
         <result property="price" column="price"/>
         <result property="restaurantId" column="kind"/>

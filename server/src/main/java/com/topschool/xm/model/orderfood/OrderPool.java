@@ -9,7 +9,6 @@ import java.util.List;
 @Scope("singleton")
 public class OrderPool {
     private List<Food> foodList;
-    private List<OrderLog> orderList;
     private String status;
 
     public List<Food> getFoodList() {
@@ -18,14 +17,6 @@ public class OrderPool {
 
     public void setFoodList(List<Food> foodList) {
         this.foodList = foodList;
-    }
-
-    public List<OrderLog> getOrderList() {
-        return orderList;
-    }
-
-    public void setOrderList(List<OrderLog> orderList) {
-        this.orderList = orderList;
     }
 
     public String getStatus() {

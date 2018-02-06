@@ -29,9 +29,17 @@ public class OrderFoodController {
     }
 
     @PostMapping("/booking")
-    public ResponseEntity<?> booking(String uid, Integer foodId){
+    public ResponseEntity<?> booking(String uid, Integer foodId) throws Exception {
         String msg = orderFoodService.booking(uid, foodId);
         return new ResponseEntity<Object>(msg, OK);
+    }
+
+    @PostMapping("/foods_booking")
+    public ResponseEntity<?> foodsBooking(String uid, Integer[] foods) throws Exception {
+        for (Integer food : foods) {
+            orderFoodService.booking(uid, food);
+        }
+        return new ResponseEntity(OK);
     }
 
     @PostMapping("/cancel")

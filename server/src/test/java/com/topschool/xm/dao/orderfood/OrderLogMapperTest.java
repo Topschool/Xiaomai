@@ -5,6 +5,7 @@ import com.topschool.xm.model.orderfood.OrderLog;
 import org.junit.Test;
 
 import java.sql.Date;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -48,5 +49,11 @@ public class OrderLogMapperTest extends BaseTest {
     @Test
     public void getByFoodId() {
         assertNotNull(orderLogMapper.getByFoodId(1));
+    }
+
+    @Test
+    public void getTodayOrderByUserId(){
+        List<OrderLog> orderLogs = orderLogMapper.getTodayOrderByUserId("2");
+        System.out.println();
     }
 }

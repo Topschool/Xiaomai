@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,22 +40,31 @@ public class DefaultOrderFoodServiceImpl implements OrderFoodService {
         return result;
     }
 
-    public String booking(String userId, Integer foodId) {
+    public String booking(String userId, Integer foodId) throws Exception {
+        assert userId != null;
+        assert foodId != null;
+        Boolean flag = scratchLogMapper.isExist(userId, new Date(System.currentTimeMillis()));
+        if (null == flag || !flag) {
+            throw new Exception("今日未刮卡，不能点餐");
+        }
         OrderLog orderLog = new OrderLog();
         orderLog.setFoodId(foodId);
         orderLog.setUserId(userId);
         orderLog.setCreateTime(System.currentTimeMillis());
-        orderPool.getOrderList().add(orderLog);
+        if (orderLogMapper.exist(orderLog)) {
+            return "已经订餐";
+        }
+        orderLogMapper.insert(orderLog);
         return "订餐成功";
     }
 
     public String cancel(String userId) {
-        List<OrderLog> orders = orderPool.getOrderList();
-        List usersOrders = new ArrayList();
-        for (OrderLog order : orders) {
-            if (order.getUserId().equals(userId)) {
-                usersOrders.add(order);
-            }
+        List<OrderLog> orderLogs = orderLogMapper.getTodayOrderByUserId(userId);
+        if (orderLogs == null || orderLogs.size() < 1) {
+            return "还未订餐";
+        }
+        for (OrderLog order : orderLogs) {
+            orderLogMapper.delete(order.getUserId(), order.getFoodId());
         }
         return "取消成功";
     }
@@ -63,23 +73,18 @@ public class DefaultOrderFoodServiceImpl implements OrderFoodService {
         Map map = new HashMap();
         map.put("id", userId);
 //        map.put("name", );
-        map.put("scratchCardStatus", scratchLogMapper.isExist(userId));
+        map.put("scratchCardStatus", scratchLogMapper.isExist(userId, new Date(System.currentTimeMillis())));
         map.put("orderFoodStatus", isExist(userId));
         return map;
     }
 
     public Map getUsersOrder(String userId) {
-        List<OrderLog> orders = orderPool.getOrderList();
-        List usersOrders = new ArrayList();
-        for (OrderLog order : orders) {
-            if (order.getUserId().equals(userId)) {
-                usersOrders.add(order);
-            }
-        }
+        List<OrderLog> orders = orderLogMapper.getTodayOrderByUserId(userId);
+
         Map map = new HashMap();
         map.put("id", userId);
 //        map.put("name", "test_user"+userId);
-        map.put("orderList", usersOrders);
+        map.put("orderList", orders);
         return map;
     }
 
@@ -91,11 +96,7 @@ public class DefaultOrderFoodServiceImpl implements OrderFoodService {
 
     @Override
     public boolean submit() throws Exception {
-        for (OrderLog orderLog : orderPool.getOrderList()) {
-            if (!orderLogMapper.insert(orderLog)) {
-                throw new Exception("提交失败");
-            }
-        }
+
         return true;
     }
 
@@ -103,16 +104,12 @@ public class DefaultOrderFoodServiceImpl implements OrderFoodService {
     public boolean clean() {
         orderPool.setStatus("未开始");
         orderPool.setFoodList(null);
-        orderPool.setOrderList(null);
+//        orderPool.setOrderList(null);
         return false;
     }
 
-    boolean isExist(String uid) {
-        for (OrderLog orderLog : orderPool.getOrderList()) {
-            if (orderLog.getUserId().equals(uid)) {
-                return true;
-            }
-        }
-        return false;
+    private boolean isExist(String uid) {
+        List<OrderLog> orderLogs = orderLogMapper.getTodayOrderByUserId(uid);
+        return null != orderLogs && orderLogs.size() > 0;
     }
 }

@@ -72,4 +72,10 @@ public class ScratchLogMapperTest extends BaseTest {
     public void randomTest() {
         System.out.println(new Date(System.currentTimeMillis()).toString());
     }
+
+    @Test
+    public void isExist(){
+        Boolean flog = scratchLogMapper.isExist("2", new Date(System.currentTimeMillis()));
+        System.out.printf("");
+    }
 }

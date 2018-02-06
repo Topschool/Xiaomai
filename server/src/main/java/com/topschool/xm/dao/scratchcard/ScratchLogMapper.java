@@ -2,7 +2,9 @@ package com.topschool.xm.dao.scratchcard;
 
 import com.topschool.xm.model.scratchcard.ScratchLog;
 import org.apache.ibatis.annotations.MapKey;
+import org.apache.ibatis.annotations.Param;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -26,5 +28,5 @@ public interface ScratchLogMapper {
     @MapKey("id")
     List<Map> getCurrentMouthTop(Integer size);
 
-    boolean isExist(String id);
+    Boolean isExist(@Param("id")String id, @Param("scratchDate")Date scratchDate);
 }

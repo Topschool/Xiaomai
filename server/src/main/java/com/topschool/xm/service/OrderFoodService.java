@@ -6,7 +6,7 @@ public interface OrderFoodService {
 
     Map getFoodList();
 
-    String booking(String userId, Integer foodId);
+    String booking(String userId, Integer foodId) throws Exception;
 
     String cancel(String userId);
 
