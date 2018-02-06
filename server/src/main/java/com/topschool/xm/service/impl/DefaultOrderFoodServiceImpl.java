@@ -35,8 +35,17 @@ public class DefaultOrderFoodServiceImpl implements OrderFoodService {
 
     public Map getFoodList() {
         Map result = new HashMap();
+        List<Map> foods = new ArrayList<>();
+        if (null == orderPool.getFoodList()){
+            result.put("systemStatus", false);
+            result.put("foods", null);
+            return result;
+        }
+        for (Food food : orderPool.getFoodList()) {
+            foods.add(changeFoodInfoToMap(food));
+        }
         result.put("systemStatus", orderPool.getStatus());
-        result.put("foods", orderPool.getFoodList());
+        result.put("foods", foods);
         return result;
     }
 
@@ -91,7 +100,7 @@ public class DefaultOrderFoodServiceImpl implements OrderFoodService {
     public void initOrderFoodSystem(int restaurantId) {
         List<Food> list = foodMapper.getByRestaurantId(restaurantId);
         orderPool.setFoodList(list);
-        orderPool.setStatus("正在订餐");
+        orderPool.setStatus(true);
     }
 
     @Override
@@ -102,7 +111,7 @@ public class DefaultOrderFoodServiceImpl implements OrderFoodService {
 
     @Override
     public boolean clean() {
-        orderPool.setStatus("未开始");
+        orderPool.setStatus(false);
         orderPool.setFoodList(null);
 //        orderPool.setOrderList(null);
         return false;
@@ -111,5 +120,15 @@ public class DefaultOrderFoodServiceImpl implements OrderFoodService {
     private boolean isExist(String uid) {
         List<OrderLog> orderLogs = orderLogMapper.getTodayOrderByUserId(uid);
         return null != orderLogs && orderLogs.size() > 0;
+    }
+
+    Map changeFoodInfoToMap(Food food) {
+        Map map = new HashMap();
+        map.put("id", food.getId());
+        map.put("name", food.getName());
+        map.put("price", food.getPrice());
+        map.put("difference", food.getPrice() > 20 ? food.getPrice() - 20 : null);
+        map.put("imageUrl", food.getLogoUrl());
+        return map;
     }
 }

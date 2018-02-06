@@ -9,7 +9,7 @@ import java.util.List;
 @Scope("singleton")
 public class OrderPool {
     private List<Food> foodList;
-    private String status;
+    private boolean status;
 
     public List<Food> getFoodList() {
         return foodList;
@@ -19,11 +19,11 @@ public class OrderPool {
         this.foodList = foodList;
     }
 
-    public String getStatus() {
+    public boolean getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 }
