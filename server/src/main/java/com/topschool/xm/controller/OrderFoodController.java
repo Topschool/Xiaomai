@@ -55,7 +55,7 @@ public class OrderFoodController {
     }
 
     @GetMapping("/user_order")
-    public ResponseEntity<?> getUserOrder(String uid){
+    public ResponseEntity<?> getUserOrder(String uid) throws Exception {
         Map map = orderFoodService.getUsersOrder(uid);
         return new ResponseEntity<Object>(map, OK);
     }
