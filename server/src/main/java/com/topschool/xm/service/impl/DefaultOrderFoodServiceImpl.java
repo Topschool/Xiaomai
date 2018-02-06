@@ -4,6 +4,7 @@ import com.sun.javafx.binding.StringFormatter;
 import com.topschool.xm.dao.orderfood.FoodMapper;
 import com.topschool.xm.dao.orderfood.OrderLogMapper;
 import com.topschool.xm.dao.scratchcard.ScratchLogMapper;
+import com.topschool.xm.exception.FoodNotExistException;
 import com.topschool.xm.model.orderfood.Food;
 import com.topschool.xm.model.orderfood.OrderLog;
 import com.topschool.xm.model.orderfood.OrderPool;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.naming.NoPermissionException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,12 +52,15 @@ public class DefaultOrderFoodServiceImpl implements OrderFoodService {
         return result;
     }
 
-    public String booking(String userId, Integer foodId) throws Exception {
+    public String booking(String userId, Integer foodId) throws NoPermissionException, FoodNotExistException {
         assert userId != null;
         assert foodId != null;
         Boolean flag = scratchLogMapper.isExist(userId, new Date(System.currentTimeMillis()));
         if (null == flag || !flag) {
-            throw new Exception("今日未刮卡，不能点餐");
+            throw new NoPermissionException("今日未刮卡，不能点餐");
+        }
+        if (null == foodMapper.getById(foodId)) {
+            throw new FoodNotExistException(String.format("id为%d的food不存在", foodId));
         }
         OrderLog orderLog = new OrderLog();
         orderLog.setFoodId(foodId);
@@ -88,14 +93,14 @@ public class DefaultOrderFoodServiceImpl implements OrderFoodService {
         return map;
     }
 
-    public Map getUsersOrder(String userId) throws Exception {
+    public Map getUsersOrder(String userId) throws FoodNotExistException {
         List<OrderLog> orderLogs = orderLogMapper.getTodayOrderByUserId(userId);
         List<Map> orders = new ArrayList<>();
 
         for (OrderLog order : orderLogs) {
             Food food = foodMapper.getById(order.getFoodId());
             if (null==food){
-                throw new Exception(String.valueOf(StringFormatter.format("id为%d的food不存在!", order.getFoodId())));
+                throw new FoodNotExistException(String.format("id为%d的food不存在", order.getFoodId()));
             }
             orders.add(changeFoodInfoToMap(food));
         }
