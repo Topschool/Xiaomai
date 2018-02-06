@@ -97,6 +97,7 @@ public class DefaultOrderFoodServiceImpl implements OrderFoodService {
         return map;
     }
 
+    @Override
     public void initOrderFoodSystem(int restaurantId) {
         List<Food> list = foodMapper.getByRestaurantId(restaurantId);
         orderPool.setFoodList(list);
@@ -122,7 +123,7 @@ public class DefaultOrderFoodServiceImpl implements OrderFoodService {
         return null != orderLogs && orderLogs.size() > 0;
     }
 
-    Map changeFoodInfoToMap(Food food) {
+    private Map changeFoodInfoToMap(Food food) {
         Map map = new HashMap();
         map.put("id", food.getId());
         map.put("name", food.getName());
