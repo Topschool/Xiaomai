@@ -66,9 +66,9 @@ public class DefaultOrderFoodServiceImpl implements OrderFoodService {
         orderLog.setFoodId(foodId);
         orderLog.setUserId(userId);
         orderLog.setCreateTime(System.currentTimeMillis());
-        if (orderLogMapper.exist(orderLog)) {
-            return "已经订餐";
-        }
+//        if (orderLogMapper.exist(orderLog)) {
+//            return "已经订餐";
+//        }
         orderLogMapper.insert(orderLog);
         return "订餐成功";
     }
