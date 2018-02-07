@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.topschool.xm.dao.PartnerMapper">
+
+    <resultMap id="partner" type="com.topschool.xm.model.Partner">
+        <id property="id" column="id"/>
+        <result property="uid" column="uid"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="openId" column="open_id"/>
+        <result property="area" column="area"/>
+        <result property="isAdmin" column="is_admin"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+    <insert id="insert">
+        insert into user_info (uid, username, password, open_id, area, is_admin, create_time)
+        values
+            (#{uid}, #{username}, #{password}, #{openId}, #{area}, #{isAdmin}, #{createTime});
+    </insert>
+    <select id="getById" resultMap="partner">
+        select *
+        from user_info WHERE id=#{id};
+    </select>
+    <select id="getByOpenId" resultMap="partner">
+        select *
+        from user_info WHERE open_id=#{open_id};
+    </select>
+    <select id="getByUid" resultMap="partner">
+        select *
+        from user_info WHERE uid=#{uid};
+    </select>
+    <select id="getAll" resultMap="partner">
+        select *
+        from user_info;
+    </select>
+
+
+</mapper>

@@ -1,4 +1,4 @@
-package com.topschool.xm.controller;
+package com.topschool.xm.controller.wechatapplet;
 
 import com.topschool.xm.exception.FoodNotExistException;
 import com.topschool.xm.service.OrderFoodService;
@@ -17,7 +17,7 @@ import java.util.Map;
 import static org.springframework.http.HttpStatus.OK;
 
 @RestController
-@RequestMapping("/order_food")
+@RequestMapping("/wechat_applet_api/order_food")
 public class OrderFoodController {
 
     @Qualifier("defaultOrderFoodServiceImpl")

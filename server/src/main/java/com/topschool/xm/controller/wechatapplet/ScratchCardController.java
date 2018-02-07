@@ -1,4 +1,4 @@
-package com.topschool.xm.controller;
+package com.topschool.xm.controller.wechatapplet;
 
 import com.alibaba.druid.support.json.JSONUtils;
 import com.alibaba.fastjson.JSON;
@@ -20,7 +20,7 @@ import java.util.Date;
 import static org.springframework.http.HttpStatus.OK;
 
 @RestController
-@RequestMapping("/game/scratch-card")
+@RequestMapping("/wechat_applet_api/scratch-card")
 public class ScratchCardController {
 
     @Qualifier("defaultScratchCardServiceImpl")

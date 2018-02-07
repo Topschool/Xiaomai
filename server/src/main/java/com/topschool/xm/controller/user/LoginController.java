@@ -1,4 +1,4 @@
-package com.topschool.xm.controller.admin;
+package com.topschool.xm.controller.user;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
