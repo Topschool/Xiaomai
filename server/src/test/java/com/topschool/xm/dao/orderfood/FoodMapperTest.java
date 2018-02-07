@@ -1,11 +1,14 @@
 package com.topschool.xm.dao.orderfood;
 
 import com.topschool.xm.BaseTest;
+import com.topschool.xm.model.orderfood.Food;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 public class FoodMapperTest extends BaseTest{
+
+    private FoodMapper foodMapper = this.getBean(FoodMapper.class);
 
     @Test
     public void insert() {
@@ -13,6 +16,8 @@ public class FoodMapperTest extends BaseTest{
 
     @Test
     public void getById() {
+        Food food = foodMapper.getById(12);
+        System.out.println();
     }
 
     @Test

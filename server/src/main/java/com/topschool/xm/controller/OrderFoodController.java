@@ -1,5 +1,6 @@
 package com.topschool.xm.controller;
 
+import com.topschool.xm.exception.FoodNotExistException;
 import com.topschool.xm.service.OrderFoodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.naming.NoPermissionException;
 import java.util.List;
 import java.util.Map;
 
@@ -29,13 +31,13 @@ public class OrderFoodController {
     }
 
     @PostMapping("/booking")
-    public ResponseEntity<?> booking(String uid, Integer foodId) throws Exception {
+    public ResponseEntity<?> booking(String uid, Integer foodId) throws Exception, FoodNotExistException {
         String msg = orderFoodService.booking(uid, foodId);
         return new ResponseEntity<Object>(msg, OK);
     }
 
     @PostMapping("/foods_booking")
-    public ResponseEntity<?> foodsBooking(String uid, Integer[] foods) throws Exception {
+    public ResponseEntity<?> foodsBooking(String uid, Integer[] foods) throws NoPermissionException, FoodNotExistException {
         for (Integer food : foods) {
             orderFoodService.booking(uid, food);
         }
@@ -55,7 +57,7 @@ public class OrderFoodController {
     }
 
     @GetMapping("/user_order")
-    public ResponseEntity<?> getUserOrder(String uid){
+    public ResponseEntity<?> getUserOrder(String uid) throws FoodNotExistException {
         Map map = orderFoodService.getUsersOrder(uid);
         return new ResponseEntity<Object>(map, OK);
     }

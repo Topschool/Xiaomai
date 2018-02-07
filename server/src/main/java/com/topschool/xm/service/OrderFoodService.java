@@ -1,5 +1,8 @@
 package com.topschool.xm.service;
 
+import com.topschool.xm.exception.FoodNotExistException;
+
+import javax.naming.NoPermissionException;
 import java.util.Map;
 
 public interface OrderFoodService {
@@ -17,9 +20,10 @@ public interface OrderFoodService {
      * @param userId 用户id
      * @param foodId food id
      * @return 订餐结果
-     * @throws Exception 无订餐资格
+     * @throws NoPermissionException 无订餐资格
+     * @throws FoodNotExistException 不存在food
      */
-    String booking(String userId, Integer foodId) throws Exception;
+    String booking(String userId, Integer foodId) throws NoPermissionException, FoodNotExistException;
 
     /**
      * 取消订餐，取消当日所有记录
@@ -43,7 +47,7 @@ public interface OrderFoodService {
      * @param userId 用户id
      * @return 今日订单信息
      */
-    Map getUsersOrder(String userId);
+    Map getUsersOrder(String userId) throws FoodNotExistException;
 
     /**
      * 初始化今日菜单

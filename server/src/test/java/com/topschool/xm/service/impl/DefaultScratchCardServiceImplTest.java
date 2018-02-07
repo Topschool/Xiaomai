@@ -1,6 +1,7 @@
 package com.topschool.xm.service.impl;
 
 import com.topschool.xm.BaseTest;
+import com.topschool.xm.exception.ScratchCardException;
 import com.topschool.xm.model.scratchcard.CardPool;
 import com.topschool.xm.service.ScratchCardService;
 import org.junit.Test;
@@ -22,7 +23,7 @@ public class DefaultScratchCardServiceImplTest extends BaseTest {
     }
 
     @Test
-    public void scratch() throws Exception {
+    public void scratch() throws ScratchCardException {
         cardPool.init(100);
         scratchCardService.scratch("hello-world");
         System.out.println();
