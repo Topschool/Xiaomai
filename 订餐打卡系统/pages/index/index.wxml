@@ -1,0 +1,12 @@
+<!--index.wxml-->
+<view class='root'>
+  <view class='header'>
+  <!-- <text class='header_text1'>顶上小卖部</text>
+  <text class='header_text2'></text> -->
+  <image src='../../images/001.png' class='header_image'></image>
+  </view>
+  <view class='scratch'>
+      <canvas canvas-id='guagua_card' class='guagua_card' bindtouchstart='touchStart' bindtouchmove='touchMove' bindtouchend='touchEnd' disable-scroll='false'></canvas>
+  </view>
+
+</view>

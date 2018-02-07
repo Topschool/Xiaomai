@@ -1,0 +1,150 @@
+page {
+  height: 100%;
+}
+
+.root {
+  height: 100%;
+  width: 100%;
+  background-color: #d05744;
+}
+
+::-webkit-scrollbar {
+  height: 0;
+  width: 0;
+  color: transparent;
+}
+
+.header {
+  display: flex;
+  position: relative;
+  /* align-items: center;
+  align-content: center; */
+  border-top: 1px solid black;
+  /* border-bottom: 1px solid black; */
+  height: 40%;
+  width: 100%;
+  background-color: white;
+}
+
+.header_image {
+  height: 100%;
+  width: 100%;
+  background-color: #d05744;
+}
+
+.scratch {
+  height: 23%;
+  width: 90%;
+  background-color: white;
+  margin-left: 5%;
+  position: absolute;
+  top: 25%;
+}
+
+.scratch .guagua_card {
+  height: 100%;
+  width: 100%;
+}
+
+.guagua_card {
+  display: flex;
+  /* align-items: center;  */
+  flex-direction: column;
+  position: relative;
+}
+
+.scratch_text {
+  position: absolute;
+  top: 33%;
+  color: #919fae;
+  margin-left: 30%;
+}
+
+.class_erweima {
+  margin-top: 14%;
+  width: 100%;
+  /* background-color: black; */
+}
+
+.erweima {
+  /* display: grid; */
+  height: 80px;
+  width: 20%;
+  margin-left: 36%;
+}
+
+.famous {
+  width: 100%;
+  height: 60%;
+  /* margin-top: 15%;  */
+}
+
+.famous_image {
+  height: 30%;
+  width: 90%;
+  margin-left: 5%;
+  position: relative;
+}
+
+.top_Name {
+  position: absolute;
+  top: 60%;
+  left: 43%;
+  color: white;
+}
+
+.list {
+  height: 80%;
+  width: 90%;
+  margin-top: 30%;
+  margin-left: 5%;
+}
+
+.toplist {
+  height: 10%;
+  width: 100%;
+  background-color: #BBADDF;
+  margin-top: 20%;
+  display: flex;
+  align-items: center;
+}
+
+.block_toplist1 {
+  height: 24%;
+  width: 100%;
+  background-color: blue;
+}
+.block_toplist2 {
+  height: 24%;
+  width: 100%;
+  background-color: blue;
+}
+.taptext{
+  margin-left: 75%;
+  border: 1px solid black;
+  background-color: red;
+}
+
+.item {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-top: 1px solid black;
+  position:  relative;
+}
+
+.block_image {
+  height: 100%;
+  width: 40%;
+  position: absolute;
+  left: 60%;
+  /* margin-left: 50%;  */
+}
+.erweima_picture{
+      height: 20%;
+      width: 30%;
+      margin-left: 34%;
+      margin-top: 20%;
+}

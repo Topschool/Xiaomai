@@ -1,0 +1,14 @@
+{
+  "pages":[
+    "pages/dinnerOrder/dinnerOrder",    
+    "pages/scratch_card/scratch_card",    
+    "pages/index/index",
+    "pages/logs/logs"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "订餐打卡",
+    "navigationBarTextStyle":"black"
+  }
+}
