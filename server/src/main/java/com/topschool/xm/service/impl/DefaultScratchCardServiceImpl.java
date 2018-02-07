@@ -1,6 +1,7 @@
 package com.topschool.xm.service.impl;
 
 import com.topschool.xm.dao.scratchcard.ScratchLogMapper;
+import com.topschool.xm.exception.ScratchCardException;
 import com.topschool.xm.model.scratchcard.Card;
 import com.topschool.xm.model.scratchcard.CardPool;
 import com.topschool.xm.model.scratchcard.ScratchLog;
@@ -24,9 +25,9 @@ public class DefaultScratchCardServiceImpl implements ScratchCardService {
         }
     }
 
-    public Integer scratch(String wxId) throws Exception {
+    public Integer scratch(String wxId) throws ScratchCardException {
         if (getPartnerTodayStatus(wxId)) {
-            throw new Exception("today's log has exist");
+            throw new ScratchCardException("today's log has exist");
         }
         Integer result = cardPool.popFromPool();
 //        save into db
@@ -36,7 +37,7 @@ public class DefaultScratchCardServiceImpl implements ScratchCardService {
         scratchLog.setCreateDate(System.currentTimeMillis());
         scratchLog.setResult(result);
         if (!scratchLogMapper.insert(scratchLog)) {
-            throw new Exception("scratch fail");
+            throw new ScratchCardException("scratch fail");
         }
 //        push into toady's scratch log
         Card card = new Card();

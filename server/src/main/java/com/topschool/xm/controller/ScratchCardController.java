@@ -4,6 +4,7 @@ import com.alibaba.druid.support.json.JSONUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.topschool.xm.dto.ScratchResult;
+import com.topschool.xm.exception.ScratchCardException;
 import com.topschool.xm.service.ScratchCardService;
 import jdk.nashorn.internal.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class ScratchCardController {
     private ScratchCardService scratchCardService;
 
     @GetMapping("")
-    public ResponseEntity<?> scratch(String id, int isScratch) throws Exception {
+    public ResponseEntity<?> scratch(String id, int isScratch) throws ScratchCardException {
         System.out.printf("id:%15s isScratch:%5s\n", id, isScratch);
         scratchCardService.initCardPool(100);
         ScratchResult result = new ScratchResult();
@@ -41,7 +42,7 @@ public class ScratchCardController {
             result.setPartnerStatus(0);
         }
         if (isScratch!=1 && isScratch!=-1){
-            throw new Exception("Illegal parameters");
+            throw new IllegalArgumentException("请求存在非法参数");
         }
         result.setLastList(scratchCardService.getTodayLastList(0, 2));
         result.setTopList(scratchCardService.getTodayTopList(0, 2));

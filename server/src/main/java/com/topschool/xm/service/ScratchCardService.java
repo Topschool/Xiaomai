@@ -1,5 +1,7 @@
 package com.topschool.xm.service;
 
+import com.topschool.xm.exception.ScratchCardException;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +22,7 @@ public interface ScratchCardService {
      * @return 刮刀的结果
      * @throws Exception
      */
-    Integer scratch(String wxId) throws Exception;
+    Integer scratch(String wxId) throws ScratchCardException;
 
     /**
      * 获取今日用户状态

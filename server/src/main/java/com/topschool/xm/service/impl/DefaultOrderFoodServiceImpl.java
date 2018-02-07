@@ -88,7 +88,7 @@ public class DefaultOrderFoodServiceImpl implements OrderFoodService {
         Map map = new HashMap();
         map.put("id", userId);
 //        map.put("name", );
-        map.put("scratchCardStatus", scratchLogMapper.isExist(userId, new Date(System.currentTimeMillis())));
+        map.put("scratchCardStatus", scratchLogMapper.isExist(userId, new Date(System.currentTimeMillis())) != null);
         map.put("orderFoodStatus", isExist(userId));
         return map;
     }
