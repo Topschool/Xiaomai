@@ -1,0 +1,12 @@
+<!--pages/homepage/homepage.wxml-->
+<view class='root'>
+   <view class='header'>
+     <text class='header_text'>顶上小卖部</text> 
+   </view>  
+  <view class='Interface_scratchCard'>
+    <button class='button' bindtap='taphandle'>刮刮卡</button>
+  </view>
+  <view class='Interface_dinnerOrder'>
+    <button class='button' bindtap='bindtaphandle'>晚餐</button>
+  </view>
+</view>

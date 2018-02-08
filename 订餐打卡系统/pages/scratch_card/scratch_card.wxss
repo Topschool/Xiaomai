@@ -19,7 +19,7 @@ page {
   position: relative;
   /* align-items: center;
   align-content: center; */
-  border-top: 1px solid black;
+  /* border-top: 1px solid black; */
   /* border-bottom: 1px solid black; */
   height: 40%;
   width: 100%;

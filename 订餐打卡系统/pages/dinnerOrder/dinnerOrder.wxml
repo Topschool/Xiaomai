@@ -41,32 +41,32 @@
   </view>
   <!-- 订餐未开始 -->
   <view wx:if="{{dinner_status=='order_waiting'}}">
-    <view>
+    <view class='description'>
       <text>订餐还未开始</text>
     </view>
   </view>
   <!-- 订餐已经结束 -->
   <view wx:if="{{dinner_status=='order_end'}}">
-    <view>
-      <text>订餐还未开始</text>
+    <view class='description'>
+      <text>订餐已经结束 </text>
     </view>
   </view>
   <!-- 订餐完成 -->
   <view wx:if="{{dinner_status=='order_finished'}}">
-    <view>
-      <text>订餐完成</text>
-    </view>
-    <!-- <view wx:for="{{length}}"> -->
+  <view class='description'>
+  <text>订餐完成</text>
+  </view>
     <view wx:for='{{orderFood_2.data.orderList.length}}'>
-    <!-- <text>{{food.data.foodList[orderFood_1[index]].name}}</text> -->
-    <text>{{orderFood_2.data.orderList[index].name}}</text>
+      <text>{{orderFood_2.data.orderList[index].name}}</text>
     </view>
-    <button bindtap='tapCancleHandle '>取消</button>
+    <view class='bottom'>
+    <button bindtap='tapCancleHandle'>取消</button>
+    </view>
   </view>
   <!-- 未刮卡 -->
-  <view wx:if="{{dinner_status=='needscratchCard '}}">
-    <view>
-      <text>订餐还未开始</text>
+  <view wx:if="{{dinner_status=='needscratchCard'}}">
+    <view class='description'>
+      <text>您还未刮卡</text>
     </view>
   </view>
 

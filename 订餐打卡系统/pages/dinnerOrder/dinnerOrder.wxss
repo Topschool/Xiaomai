@@ -5,13 +5,14 @@ page {
 .root {
   height: 100%;
   width: 100%;
-  background-color: white;
+  background-color: #d05744;
 }
 
 .header {
-  display: flex;
+   display: flex; 
   /* background-color: blue; */
 }
+
 
 .item {
   flex: 1;
@@ -22,7 +23,9 @@ page {
 .icon{
   margin-left: 30%;
 }
-
+.description{
+  margin-left: 40%;
+}
 .header_item {
   display: flex;
   height: 5%;

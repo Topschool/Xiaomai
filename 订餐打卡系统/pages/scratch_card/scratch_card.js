@@ -1,6 +1,7 @@
 // pages/scratch_card/scratch_card.js
-
 const app = getApp()
+var uid = wx.getStorageSync('uid')
+console.log(uid)
 const ctx = wx.createCanvasContext('guagua_card') //加载画布
 var startX = 0; //保存X坐标轴变量
 var startY = 0;//保存X坐标轴变量
@@ -24,10 +25,11 @@ Page({
   },
   toGet_Card() {                    //请求数据
     var self = this;
+    console.log(uid + '-----------')    
     wx.request({
-      url: 'http://localhost:8080/game/scratch-card',
+      url: 'http://192.168.3.27:8080/wechat_applet_api/scratch-card',
       data: {
-        id: '25',
+        uid: wx.getStorageSync('uid'),
         isScratch: num      //1挂卡请求
       },
       header: {
@@ -82,15 +84,15 @@ Page({
   
   touchStart: function (start) {
     var self = this;
-    num = num + 1;
-    self.toGet_Card();
+    num = 1;
     timer = setTimeout(function () {
+      self.toGet_Card();      
       console.log("----Countdown----");
       ctx.draw();
       self.setData({
         hidden: ''
       }),
-      num=1;
+      num=-1;
         self.toGet_Card()
     }, 3000);
   },
@@ -146,6 +148,7 @@ Page({
   onShow: function () {
     var self = this;
     self.toGet_Card(); 
+    console.log(uid)
   },
 
   /**

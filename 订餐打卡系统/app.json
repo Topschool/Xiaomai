@@ -1,14 +1,18 @@
 {
-  "pages":[
-    "pages/dinnerOrder/dinnerOrder",    
-    "pages/scratch_card/scratch_card",    
+  "pages": [
+  
+    "pages/login/login",
+    "pages/homepage/homepage",
+      "pages/waiting/waiting",
+    "pages/dinnerOrder/dinnerOrder",
+    "pages/scratch_card/scratch_card",
     "pages/index/index",
     "pages/logs/logs"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "订餐打卡",
-    "navigationBarTextStyle":"black"
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#DD7042",
+    "navigationBarTitleText": "顶上小卖部",
+    "navigationBarTextStyle": "white"
   }
 }

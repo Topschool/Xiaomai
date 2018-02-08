@@ -1,0 +1,9 @@
+/* pages/waiting/waiting.wxss */
+page{
+  height: 100%;
+}
+.root{
+  height: 100%;
+  width: 100%;
+  background-color: #DD7042;
+}

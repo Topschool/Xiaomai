@@ -1,6 +1,10 @@
 var num = 0;
+const app = getApp();
+// var userNummber ='abcdefg';
+var userNummber=wx.getStorageSync('uid');
+console.log(userNummber)
 var number = new Array();
-var num_tap = -1;
+var num_tap = 0;
 var str = new Array();
 Page({
 
@@ -23,9 +27,9 @@ Page({
   toGet() {
     var self = this;
     wx.request({
-      url: 'http://localhost:8080/order_food/user_status',
+      url: 'http://192.168.3.27:8080/wechat_applet_api/order_food/user_status',
       data: {
-        uid: '25',      //1挂卡请求
+        uid: wx.getStorageSync('uid'),      //1挂卡请求
       },
       header: {
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -70,7 +74,7 @@ Page({
     var self = this;
     self.checkDinnerStatus()
     // self.taphandle()
-    self.toGet()
+    // self.toGet()
   },
 
   /**
@@ -110,9 +114,9 @@ Page({
   checkDinnerStatus: function () {
     var self = this;
     wx.request({
-      url: 'http://localhost:8080/order_food/user_status',
+      url: 'http://192.168.3.27:8080/wechat_applet_api/order_food/user_status',
       data: {
-        uid: '25',
+        uid: wx.getStorageSync('uid'),
       },
       header: {
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -122,9 +126,9 @@ Page({
         console.log(res.data.scratchCardStatus)
         if (res.data.scratchCardStatus == true) {
           wx.request({
-            url: 'http://localhost:8080/order_food/food_list',
+            url: 'http://192.168.3.27:8080/wechat_applet_api/order_food/food_list',
             data: {
-              uid: '25',
+              uid: userNummber,
             },
             header: {
               'Content-Type': 'application/x-www-form-urlencoded'
@@ -135,11 +139,33 @@ Page({
               console.log(res_1.data.systemStatus);
               if (res_1.data.systemStatus == true) {
                 console.log(res_1.data)
-                // self.bindtaphandle();
-                self.setData({
-                  food: res_1,
-                  dinner_status: 'order_begin',
-                })
+                if (res.data.orderFoodStatus == false) {
+                  console.log(123)
+                  self.setData({
+                    food: res_1,
+                    dinner_status: 'order_begin',
+                  })
+                } else {
+                  wx.request({
+                    url: 'http://192.168.3.27:8080/wechat_applet_api/order_food/user_order',
+                    data: {
+                      uid: wx.getStorageSync('uid'),
+                    },
+                    header: {
+                      'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    method: 'GET',
+                    success: function (res_3) {
+                      console.log(res_3.data)
+                      self.setData({
+                        orderFood_2: res_3,
+                        dinner_status: 'order_finished',
+                      })
+                    },
+                    fail: function (err) {
+                    }
+                  })
+                }
                 console.log(res_1)
               } else if (res_1.data.systemStatus == false) {
                 self.setData({
@@ -152,11 +178,11 @@ Page({
             fail: function (err) {
             }
           })
-        } else if (res.data.scratchCardStatus == 'false') {
+        } else if (res.data.scratchCardStatus == null) {
           wx.request({
-            url: 'http://localhost:8080/order_food/food_list',
+            url: 'http://192.168.3.27:8080/wechat_applet_api/order_food/food_list',
             data: {
-              uid: '25',
+              uid: wx.getStorageSync('uid'),
             },
             header: {
               'Content-Type': 'application/x-www-form-urlencoded'
@@ -180,71 +206,113 @@ Page({
 
   },
   bindtaphandle: function (e) {
-    var self = this;
-    var num_length;
-    num_tap++;
-    console.log(e.detail.value);
-    console.log(e.currentTarget.dataset.index)
-    if (e.detail.value = true) {
-      number[num_tap] = e.currentTarget.dataset.index
-    } else {
-      num_length=number.length-1;
-    }
+    var self = this;console.log
+    wx.request({
+      url: 'http://192.168.3.27:8080/wechat_applet_api/order_food/food_list',
+      data: {
+        uid: wx.getStorageSync('uid'),
+      },
+      header: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: function (res_2) {
+        if (e.detail.value == true) {
+          console.log(e.currentTarget.dataset.index)
+          number[num_tap] = res_2.data.foods[e.currentTarget.dataset.index].id;
+          num_tap++;
+        } else {
+          for (var i = 0; i < number.length; i++) {
+            if (number[i] == (res_2.data.foods[e.currentTarget.dataset.index].id)) {
+              number.splice(i, 1);
+            }
+          }
+          num_tap--;
+        }
+      }
+    })
     
   },
   taphandle: function () {
     var self = this;
+    var number_new=[];
+    for (var i = 0; i < number.length; i++) {
+      if (typeof (number[i]) != 'undefined') {
+        number_new.push(number[i]);
+      }
+    }
     console.log(number)
     wx.request({
-      url: 'http://locahost:8080/order_food/foods_booking',
+      url: 'http://192.168.3.27:8080/wechat_applet_api/order_food/foods_booking',
       data: {
-        uid: '25',
-        foods: number
+        uid: wx.getStorageSync('uid'),
+        foods: number_new
       },
       header: {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
       method: 'POST',
       success: function (res_2) {
-        // console.log(111)
+        console.log(111)
+        wx.request({
+          url: 'http://192.168.3.27:8080/wechat_applet_api/order_food/user_order',
+          data: {
+            uid: wx.getStorageSync('uid'),
+          },
+          header: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          method: 'GET',
+          success: function (res_3) {
+            console.log(res_3.data)
+            self.setData({
+              orderFood_2: res_3,
+
+            })
+          },
+          fail: function (err) {
+          }
+        })
       },
       fail: function (err) {
-        console.log(111)
       }
     })
-    // wx.request({
-    //   url: 'http://localhost:8080/order_food/user_order',
-    //   data: {
-    //     uid: '25',
-    //   },
-    //   header: {
-    //     'Content-Type': 'application/x-www-form-urlencoded'
-    //   },
-    //   method: 'GET',
-    //   success: function (res_2) {
-    //     self.setData({
-    //       orderFood_2:res_2,
-    //       dinner_status: 'order_finished',
-    //     })
-    //   },
-    //   fail: function (err) {
-    //   }
-    // })
+    self.setData({
+      dinner_status: 'order_finished'
+    })
   },
   tapCancleHandle: function () {
     var self = this;
-    number = [];
+    number.splice(0, number.length);
     console.log(number)
     wx.request({
-      url: 'http://localhost:8080/order_food/cancel',
+      url: 'http://192.168.3.27:8080/wechat_applet_api/order_food/cancel',
       data: {
-        uid: '25',
+        uid: wx.getStorageSync('uid'),
       },
       header: {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
-      method: 'GET',
+      method: 'POST',
       success: function (res) {
+        wx.request({
+          url: 'http://192.168.3.27:8080/wechat_applet_api/order_food/food_list',
+          data: {
+            uid: wx.getStorageSync('uid'),
+          },
+          header: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          method: 'GET',
+          success: function (res_2) {
+            // console.log(res_2),
+            self.setData({
+              food: res_2,
+            })
+          },
+          fail: function (err) {
+          }
+        })
         self.setData({
           dinner_status: 'order_begin',
         })

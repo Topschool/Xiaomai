@@ -1,0 +1,25 @@
+<!--pages/login/login.wxml-->
+<view class='root'>
+  <image src='../../images/001.png' class='headerPicture'></image>
+  <view class='name'>
+    <text class='name_text'>真实姓名</text>
+    <input class='name_input' style="padding-left:10px;font-size:18px;confirm-type:search" value='{{inputname}}' bindinput="nameInput"></input>
+  </view>
+  <view class='invite'>
+    <text class='invite_text' value="{{inputinvite}}">邀请码</text>
+    <input class='invite_input' style="padding-left:10px;;confirm-type:search" bindinput="inviteInput"></input>
+  </view>
+  <view class='city'>
+    <text class='city_text' value='{{inputcity}}'>所在地</text>
+     <input class='city_input' style="padding-left:10px;;confirm-type:search" bindinput="cityInput"> 
+    <!-- <picker-view class='city_input' indicator-style="height: 200%;width:100%;" value="{{casArray}}">
+    <picker-view-column>
+      <view wx:for='{{casArray.length}}' style="line-height: 100%;">{{casArray[index]}}</view>
+      </picker-view-column>
+    </picker-view> -->
+     </input> 
+  </view>
+  <view class='button'>
+    <button class='button_text' bindtap='taphandle'>提交</button>
+  </view>
+</view>
