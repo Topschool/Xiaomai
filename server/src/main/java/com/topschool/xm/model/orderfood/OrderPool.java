@@ -26,4 +26,13 @@ public class OrderPool {
     public void setStatus(boolean status) {
         this.status = status;
     }
+
+    public boolean inFoodList(Integer foodId){
+        for (Food food : foodList) {
+            if (food.getId().equals(foodId)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.naming.NoPermissionException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,7 +19,8 @@ public class DefaultPartnerServiceImpl implements PartnerService {
     private PartnerMapper partnerMapper;
 
     @Override
-    public void register(String uid, String username, String invitationCode, String openId, int area) {
+    public Map register(String uid, String username, String invitationCode, String openId, int area) {
+        Map userInfo = new HashMap();
         Partner partner = new Partner();
         partner.setUid(uid);
         partner.setUsername(username);
@@ -26,6 +28,9 @@ public class DefaultPartnerServiceImpl implements PartnerService {
         partner.setOpenId(openId);
         partner.setCreateTime(System.currentTimeMillis());
         partnerMapper.insert(partner);
+        userInfo.put("username", username);
+        userInfo.put("uid", uid);
+        return userInfo;
     }
 
     @Override
@@ -48,6 +53,18 @@ public class DefaultPartnerServiceImpl implements PartnerService {
     @Override
     public void deletePartner(String uid) {
 
+    }
+
+    @Override
+    public Map getUserInfoByOpenId(String openId) {
+        Map userInfo = new HashMap();
+        Partner u = partnerMapper.getByOpenId(openId);
+        if (null == u) {
+            return null;
+        }
+        userInfo.put("uid", u.getUid());
+        userInfo.put("username", u.getUsername());
+        return userInfo;
     }
 
     @Override

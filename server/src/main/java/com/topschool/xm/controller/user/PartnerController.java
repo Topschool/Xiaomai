@@ -6,10 +6,7 @@ import com.topschool.xm.util.HttpUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.naming.NoPermissionException;
 import java.util.HashMap;
@@ -34,7 +31,7 @@ public class PartnerController {
     public ResponseEntity<?> signUp(@RequestParam String uid,
                                     @RequestParam String username,
                                     @RequestParam String invitationCode,
-                                    @RequestParam Integer area) throws NoPermissionException {
+                                    @RequestParam Integer area){
         String expectOpenId = (String) USER_ID_OPEN_ID_CACHE.get(uid);
         if (expectOpenId == null) {
             throw new IllegalArgumentException("未认证的uid无法注册");
@@ -48,11 +45,9 @@ public class PartnerController {
         if (area < 0 || area > 3) {
             throw new IllegalArgumentException("非法的地址");
         }
-        partnerService.register(uid, username, invitationCode, expectOpenId, area);
-        Map result = new HashMap();
-        result.put("uid", uid);
-        result.put("username", username);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        Map userInfo= partnerService.register(uid, username, invitationCode, expectOpenId, area);
+        USER_ID_OPEN_ID_CACHE.remove(uid);
+        return new ResponseEntity<>(userInfo, HttpStatus.OK);
     }
 
     @PostMapping("/get_uid")
@@ -61,9 +56,17 @@ public class PartnerController {
         if (object.get("openid") == null) {
             throw new IllegalArgumentException("code无效");
         }
+        Map userInfo = partnerService.getUserInfoByOpenId((String) object.get("openid"));
+        if (userInfo!=null) {
+            return new ResponseEntity<>(userInfo.get("uid"), HttpStatus.OK);
+        }
         String uid = UUID.randomUUID().toString().replace("-", "");
         USER_ID_OPEN_ID_CACHE.put(uid, object.get("openid"));
         return new ResponseEntity<>(uid, HttpStatus.OK);
     }
 
+    @GetMapping("/user_info")
+    public ResponseEntity<?> getUserInfo(String userId){
+        return null;
+    }
 }

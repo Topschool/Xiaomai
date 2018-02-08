@@ -59,16 +59,13 @@ public class DefaultOrderFoodServiceImpl implements OrderFoodService {
         if (null == flag || !flag) {
             throw new NoPermissionException("今日未刮卡，不能点餐");
         }
-        if (null == foodMapper.getById(foodId)) {
+        if (!orderPool.inFoodList(foodId)) {
             throw new FoodNotExistException(String.format("id为%d的food不存在", foodId));
         }
         OrderLog orderLog = new OrderLog();
         orderLog.setFoodId(foodId);
         orderLog.setUserId(userId);
         orderLog.setCreateTime(System.currentTimeMillis());
-//        if (orderLogMapper.exist(orderLog)) {
-//            return "已经订餐";
-//        }
         orderLogMapper.insert(orderLog);
         return "订餐成功";
     }
@@ -99,7 +96,7 @@ public class DefaultOrderFoodServiceImpl implements OrderFoodService {
 
         for (OrderLog order : orderLogs) {
             Food food = foodMapper.getById(order.getFoodId());
-            if (null==food){
+            if (null == food) {
                 throw new FoodNotExistException(String.format("id为%d的food不存在", order.getFoodId()));
             }
             orders.add(changeFoodInfoToMap(food));
