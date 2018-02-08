@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.naming.NoPermissionException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -27,6 +25,7 @@ public class PartnerController {
     private static final String SECRET = "1d8dcd22cb939840d73e995094ce99d9";
     private static final String INVITATION_CODE = "1234567890";
     private static final String[] AREAS = {"北京", "上海", "南京", "无锡"};
+    private static final Map USER_ID_OPEN_ID_CACHE = new HashMap();
 
     @Autowired
     private PartnerService partnerService;
@@ -35,15 +34,10 @@ public class PartnerController {
     public ResponseEntity<?> signUp(@RequestParam String uid,
                                     @RequestParam String username,
                                     @RequestParam String invitationCode,
-                                    @RequestParam Integer area,
-                                    HttpServletRequest request) throws NoPermissionException {
-        HttpSession session = request.getSession();
-        String expectUid = (String) session.getAttribute("uid");
-        if (expectUid == null) {
-            throw new NoPermissionException("没有权限注册用户");
-        }
-        if (!expectUid.equals(uid)) {
-            throw new IllegalArgumentException("uid不正确");
+                                    @RequestParam Integer area) throws NoPermissionException {
+        String expectOpenId = (String) USER_ID_OPEN_ID_CACHE.get(uid);
+        if (expectOpenId == null) {
+            throw new IllegalArgumentException("未认证的uid无法注册");
         }
         if (username.trim().length() <= 2) {
             throw new IllegalArgumentException("姓名非法");
@@ -54,8 +48,7 @@ public class PartnerController {
         if (area < 0 || area > 3) {
             throw new IllegalArgumentException("非法的地址");
         }
-        String openId = (String) session.getAttribute("openId");
-        partnerService.register(uid, username, invitationCode, openId, area);
+        partnerService.register(uid, username, invitationCode, expectOpenId, area);
         Map result = new HashMap();
         result.put("uid", uid);
         result.put("username", username);
@@ -63,15 +56,13 @@ public class PartnerController {
     }
 
     @PostMapping("/get_uid")
-    public ResponseEntity<?> getUid(String code, HttpServletRequest request) {
+    public ResponseEntity<?> getUid(String code) {
         JSONObject object = HttpUtil.getJson(String.format(GET_OPEN_ID_URL_TEMPLATE, APP_ID, SECRET, code.trim()));
         if (object.get("openid") == null) {
             throw new IllegalArgumentException("code无效");
         }
-        HttpSession session = request.getSession();
-        session.setAttribute("openId", object.get("openId"));
         String uid = UUID.randomUUID().toString().replace("-", "");
-        session.setAttribute("uid", uid);
+        USER_ID_OPEN_ID_CACHE.put(uid, object.get("openid"));
         return new ResponseEntity<>(uid, HttpStatus.OK);
     }
 
