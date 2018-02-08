@@ -2,6 +2,7 @@ package com.topschool.xm.configuration;
 
 import com.topschool.xm.exception.FoodNotExistException;
 import com.topschool.xm.exception.ScratchCardException;
+import com.topschool.xm.exception.UserNameNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -29,6 +30,16 @@ public class RestApiControlAdvice {
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<?> handle(IllegalArgumentException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(UserNameNotFoundException.class)
+    public ResponseEntity<?> handle(UserNameNotFoundException e){
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<?> handle(Exception e){
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }
