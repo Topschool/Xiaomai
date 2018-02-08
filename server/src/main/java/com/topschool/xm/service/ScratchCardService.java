@@ -18,19 +18,19 @@ public interface ScratchCardService {
     /**
      * 刮卡
      *
-     * @param wxId 用户id
+     * @param uid 用户id
      * @return 刮刀的结果
      * @throws Exception
      */
-    Integer scratch(String wxId) throws ScratchCardException;
+    Integer scratch(String uid) throws ScratchCardException;
 
     /**
      * 获取今日用户状态
      *
-     * @param wxId 用户id
+     * @param uid 用户id
      * @return
      */
-    boolean getPartnerTodayStatus(String wxId);
+    boolean getPartnerTodayStatus(String uid);
 
     /**
      * 获取今天所有人员刮卡记录（分页）

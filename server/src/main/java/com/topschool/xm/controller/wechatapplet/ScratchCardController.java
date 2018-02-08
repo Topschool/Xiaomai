@@ -38,6 +38,9 @@ public class ScratchCardController {
             result.setPartnerStatus(1);
         }
         if (isScratch == 1) {
+            if (scratchCardService.getPartnerTodayStatus(id)) {
+                throw new ScratchCardException("今日已刮卡。");
+            }
             result.setCurrentScratchResult(scratchCardService.scratch(id.trim()));
             result.setPartnerStatus(0);
         }
