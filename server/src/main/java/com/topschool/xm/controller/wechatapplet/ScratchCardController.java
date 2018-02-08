@@ -28,20 +28,17 @@ public class ScratchCardController {
     private ScratchCardService scratchCardService;
 
     @GetMapping("")
-    public ResponseEntity<?> scratch(String id, int isScratch) throws ScratchCardException {
-        System.out.printf("id:%15s isScratch:%5s\n", id, isScratch);
+    public ResponseEntity<?> scratch(String uid, int isScratch) throws ScratchCardException {
+        System.out.printf("id:%15s isScratch:%5s\n", uid, isScratch);
         scratchCardService.initCardPool(100);
         ScratchResult result = new ScratchResult();
         result.setPartnerStatus(-1);
         result.setCurUserGroup(1);
-        if (scratchCardService.getPartnerTodayStatus(id)){
+        if (scratchCardService.getPartnerTodayStatus(uid)){
             result.setPartnerStatus(1);
         }
         if (isScratch == 1) {
-            if (scratchCardService.getPartnerTodayStatus(id)) {
-                throw new ScratchCardException("今日已刮卡。");
-            }
-            result.setCurrentScratchResult(scratchCardService.scratch(id.trim()));
+            result.setCurrentScratchResult(scratchCardService.scratch(uid.trim()));
             result.setPartnerStatus(0);
         }
         if (isScratch!=1 && isScratch!=-1){

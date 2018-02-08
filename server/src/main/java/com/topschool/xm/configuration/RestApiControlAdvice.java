@@ -37,9 +37,4 @@ public class RestApiControlAdvice {
     public ResponseEntity<?> handle(UserNameNotFoundException e){
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
-
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<?> handle(Exception e){
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-    }
 }
