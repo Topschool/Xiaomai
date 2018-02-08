@@ -60,6 +60,11 @@ public class PartnerController {
         if (userInfo!=null) {
             return new ResponseEntity<>(userInfo.get("uid"), HttpStatus.OK);
         }
+        for (Object o : USER_ID_OPEN_ID_CACHE.keySet()) {
+            if (object.get("openid").equals(USER_ID_OPEN_ID_CACHE.get(o))){
+                return new ResponseEntity<>(o, HttpStatus.OK);
+            }
+        }
         String uid = UUID.randomUUID().toString().replace("-", "");
         USER_ID_OPEN_ID_CACHE.put(uid, object.get("openid"));
         return new ResponseEntity<>(uid, HttpStatus.OK);
