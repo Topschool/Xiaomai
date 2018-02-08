@@ -1,7 +1,9 @@
 package com.topschool.xm.service.impl;
 
+import com.topschool.xm.dao.PartnerMapper;
 import com.topschool.xm.dao.scratchcard.ScratchLogMapper;
 import com.topschool.xm.exception.ScratchCardException;
+import com.topschool.xm.model.Partner;
 import com.topschool.xm.model.scratchcard.Card;
 import com.topschool.xm.model.scratchcard.CardPool;
 import com.topschool.xm.model.scratchcard.ScratchLog;
@@ -17,6 +19,8 @@ public class DefaultScratchCardServiceImpl implements ScratchCardService {
     @Autowired
     private ScratchLogMapper scratchLogMapper;
     @Autowired
+    private PartnerMapper partnerMapper;
+    @Autowired
     private CardPool cardPool;
 
     public void initCardPool(Integer size) {
@@ -25,14 +29,14 @@ public class DefaultScratchCardServiceImpl implements ScratchCardService {
         }
     }
 
-    public Integer scratch(String wxId) throws ScratchCardException {
-        if (getPartnerTodayStatus(wxId)) {
+    public Integer scratch(String uid) throws ScratchCardException {
+        if (getPartnerTodayStatus(uid)) {
             throw new ScratchCardException("today's log has exist");
         }
         Integer result = cardPool.popFromPool();
 //        save into db
         ScratchLog scratchLog = new ScratchLog();
-        scratchLog.setWxId(wxId);
+        scratchLog.setUid(uid);
         scratchLog.setScratchDate(new java.sql.Date(System.currentTimeMillis()));
         scratchLog.setCreateDate(System.currentTimeMillis());
         scratchLog.setResult(result);
@@ -41,7 +45,9 @@ public class DefaultScratchCardServiceImpl implements ScratchCardService {
         }
 //        push into toady's scratch log
         Card card = new Card();
-        card.setWxId(wxId);
+        Partner u = partnerMapper.getByUid(uid);
+        card.setUid(uid);
+        card.setNickname(u.getUsername());
         card.setPrice(result);
         cardPool.getTodayList().add(card);
         if (result == 8) {
@@ -58,9 +64,9 @@ public class DefaultScratchCardServiceImpl implements ScratchCardService {
         return result;
     }
 
-    public boolean getPartnerTodayStatus(String wxId) {
+    public boolean getPartnerTodayStatus(String uid) {
         ScratchLog param = new ScratchLog();
-        param.setWxId(wxId);
+        param.setUid(uid);
         param.setScratchDate(new java.sql.Date(System.currentTimeMillis()));
 
         return null != scratchLogMapper.getOnesScratchResult(param);
@@ -93,7 +99,7 @@ public class DefaultScratchCardServiceImpl implements ScratchCardService {
 
     private Map changeToMap(Card card) {
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("id", card.getWxId());
+        map.put("id", card.getUid());
         map.put("nickname", card.getNickname());
         map.put("money", card.getPrice());
 

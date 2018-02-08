@@ -6,7 +6,7 @@ import java.sql.Date;
 public class ScratchLog {
 
     private Integer id;
-    private String wxId;
+    private String uid;
     private Integer result;
     private Date scratchDate;
     private Long createDate;
@@ -19,12 +19,12 @@ public class ScratchLog {
         this.id = id;
     }
 
-    public String getWxId() {
-        return wxId;
+    public String getUid() {
+        return uid;
     }
 
-    public void setWxId(String wxId) {
-        this.wxId = wxId;
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public Integer getResult() {

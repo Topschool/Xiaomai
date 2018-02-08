@@ -24,7 +24,7 @@ public class ScratchLogMapperTest extends BaseTest {
             for (int j = 1; j < 28; j++) {
                 ScratchLog scratchLog = new ScratchLog();
                 for (int k = 0; k < 20; k++) {
-                    scratchLog.setWxId("wx_test" + k);
+                    scratchLog.setUid("wx_test" + k);
                     scratchLog.setResult(Math.abs(random.nextInt() % 10));
                     date.setMonth(i);
                     date.setDate(j);
@@ -39,7 +39,7 @@ public class ScratchLogMapperTest extends BaseTest {
     @Test
     public void getOnesScratchResult() {
         ScratchLog scratchLog = new ScratchLog();
-        scratchLog.setWxId("wx_test1");
+        scratchLog.setUid("wx_test1");
         scratchLog.setScratchDate(new java.sql.Date(System.currentTimeMillis()));
         assertNotNull(scratchLogMapper.getOnesScratchResult(scratchLog));
         System.out.println();

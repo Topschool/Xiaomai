@@ -7,7 +7,7 @@
 
     <resultMap id="scratch_log" type="com.topschool.xm.model.scratchcard.ScratchLog">
         <id property="id" column="id"/>
-        <result property="wxId" column="wx_id"/>
+        <result property="uid" column="wx_id"/>
         <result property="result" column="result"/>
         <result property="scratchDate" column="scratch_date"/>
         <result property="createDate" column="create_time"/>
@@ -16,11 +16,11 @@
 
     <insert id="insert">
         insert into scratch_log (wx_id, result, scratch_date, create_time)
-        values (#{wxId},#{result},#{scratchDate},#{createDate});
+        values (#{uid},#{result},#{scratchDate},#{createDate});
     </insert>
 
     <select id="getOnesScratchResult" resultMap="scratch_log">
-        select * from scratch_log WHERE wx_id=#{wxId} AND to_days(scratch_date)=to_days(#{scratchDate});
+        select * from scratch_log WHERE wx_id=#{uid} AND to_days(scratch_date)=to_days(#{scratchDate});
     </select>
 
     <select id="getCurrentMouthScratchListByWxId" resultMap="scratch_log">

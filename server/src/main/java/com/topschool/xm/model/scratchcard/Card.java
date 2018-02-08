@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope("request")
 public class Card {
-    private String wxId;
+    private String uid;
     private String nickname;
     private Integer price;
     private String imgUrl;
@@ -19,12 +19,12 @@ public class Card {
         this.imgUrl = imgUrl;
     }
 
-    public String getWxId() {
-        return wxId;
+    public String getUid() {
+        return uid;
     }
 
-    public void setWxId(String wxId) {
-        this.wxId = wxId;
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getNickname() {
