@@ -37,7 +37,7 @@ public class DefaultPartnerServiceImpl implements PartnerService {
         if (!u.getIsAdmin()) {
             throw new NoPermissionException("普通用户无权登录管理系统");
         }
-        return u.getPassword().equals(password) ? u.getPassword() : null;
+        return u.getPassword().equals(password) ? u.getUsername() : null;
     }
 
     @Override

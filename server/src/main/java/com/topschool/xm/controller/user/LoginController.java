@@ -32,10 +32,11 @@ public class LoginController {
         if (username!=null) {
             HttpSession session = request.getSession();
             session.setAttribute("username", username);
-            return "/admin/index";
+            return "redirect:/admin/";
         }
         model.addAttribute("uid", uid);
         model.addAttribute("password", password);
+        model.addAttribute("error", "用户名密码不匹配");
 
         return "/admin/login";
     }

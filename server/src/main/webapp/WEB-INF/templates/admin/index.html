@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="cn" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -8,6 +8,21 @@
     <title>Document</title>
 </head>
 <body>
-欢迎${session.username}
+<h3>hello world</h3>
+<p th:text="${session.username}"></p>
+
+<div>
+    初始化订餐:
+    <form action="/admin/food/select_brand">
+        <label>id
+            <input type="text" name="id">
+        </label>
+        <input type="submit" value="确认">
+    </form>
+</div>
+<div>
+    结束订餐：
+</div>
+
 </body>
 </html>
