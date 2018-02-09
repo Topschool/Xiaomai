@@ -99,6 +99,9 @@ public class DefaultScratchCardServiceImpl implements ScratchCardService {
     }
 
     private Map changeToMap(Card card) {
+        if (card==null){
+            return null;
+        }
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("id", card.getUid());
         map.put("nickname", card.getNickname());
