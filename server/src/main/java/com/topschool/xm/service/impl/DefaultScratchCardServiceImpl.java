@@ -16,6 +16,8 @@ import java.util.*;
 @Service
 public class DefaultScratchCardServiceImpl implements ScratchCardService {
 
+    private static final String IMAGE_URL_TEMPLATE = "http://ts-dingup-onlinetest.oss-cn-beijing.aliyuncs.com/img/shop/%d.jpg";
+
     @Autowired
     private ScratchLogMapper scratchLogMapper;
     @Autowired
@@ -85,7 +87,6 @@ public class DefaultScratchCardServiceImpl implements ScratchCardService {
     }
 
     public List<Map> getTotalTopResult(Integer page, Integer pageSize) {
-
         return scratchLogMapper.getCurrentMouthTop(3);
     }
 
@@ -102,6 +103,7 @@ public class DefaultScratchCardServiceImpl implements ScratchCardService {
         map.put("id", card.getUid());
         map.put("nickname", card.getNickname());
         map.put("money", card.getPrice());
+        map.put("imgUrl", String.format(IMAGE_URL_TEMPLATE, card.getPrice()));
 
         return map;
     }

@@ -128,7 +128,7 @@ Page({
           wx.request({
             url: 'http://192.168.3.27:8080/wechat_applet_api/order_food/food_list',
             data: {
-              uid: userNummber,
+              uid: wx.getStorageSync('uid'),
             },
             header: {
               'Content-Type': 'application/x-www-form-urlencoded'

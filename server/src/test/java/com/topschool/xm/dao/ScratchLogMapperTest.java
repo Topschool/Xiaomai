@@ -47,6 +47,7 @@ public class ScratchLogMapperTest extends BaseTest {
 
     @Test
     public void getCurrentMouthScratchListByWxId() {
+
         assertNotNull(scratchLogMapper.getCurrentMouthScratchListByWxId("wx_test1"));
     }
 
@@ -63,8 +64,9 @@ public class ScratchLogMapperTest extends BaseTest {
     @Test
     public void getCurrentMouthTop() {
         for (Map map : scratchLogMapper.getCurrentMouthTop(3)) {
-            System.out.println(map.get("wx_id"));
-            System.out.println(map.get("total"));
+            System.out.println(map.get("id"));
+            System.out.println(map.get("money"));
+            System.out.println(map.get("username"));
         }
     }
 
