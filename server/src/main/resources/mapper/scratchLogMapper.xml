@@ -34,12 +34,12 @@
         select sum(result) from scratch_log WHERE wx_id = #{id} AND date_add(scratch_date, interval - day(scratch_date) + 1 day) = date_add(curdate(), interval - day(curdate()) + 1 day);
     </select>
     <select id="getCurrentMouthTop" resultType="java.util.Map">
-        SELECT wx_id id, sum(result) money
-        FROM scratch_log
+        SELECT sl.wx_id id, sum(sl.result) money, ui.username username
+        FROM scratch_log sl , user_info ui
         WHERE
-          date_add(scratch_date, interval - day(scratch_date) + 1 day) = date_add(curdate(), interval - day(curdate()) + 1 day)
-        GROUP BY (wx_id)
-        ORDER BY (sum(result)) DESC
+          date_add(sl.scratch_date, interval - day(sl.scratch_date) + 1 day) = date_add(curdate(), interval - day(curdate()) + 1 day) AND ui.uid=sl.wx_id
+        GROUP BY (sl.wx_id)
+        ORDER BY (sum(sl.result)) DESC
         LIMIT #{size};
     </select>
     <select id="isExist" resultType="java.lang.Boolean">

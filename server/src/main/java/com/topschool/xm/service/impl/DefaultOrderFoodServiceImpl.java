@@ -139,7 +139,7 @@ public class DefaultOrderFoodServiceImpl implements OrderFoodService {
         map.put("id", food.getId());
         map.put("name", food.getName());
         map.put("price", food.getPrice());
-        map.put("difference", food.getPrice() > 20 ? food.getPrice() - 20 : null);
+        map.put("difference", food.getPrice() > 20 ? food.getPrice() - 20 : 0);
         map.put("imageUrl", food.getLogoUrl());
         return map;
     }

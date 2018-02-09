@@ -31,12 +31,12 @@ public class PartnerController {
     public ResponseEntity<?> signUp(@RequestParam String uid,
                                     @RequestParam String username,
                                     @RequestParam String invitationCode,
-                                    @RequestParam Integer area){
+                                    @RequestParam Integer area) {
         String expectOpenId = (String) USER_ID_OPEN_ID_CACHE.get(uid);
         if (expectOpenId == null) {
             throw new IllegalArgumentException("未认证的uid无法注册");
         }
-        if (username.trim().length() <= 2) {
+        if (username.trim().length() < 2 || username.trim().length() > 5) {
             throw new IllegalArgumentException("姓名非法");
         }
         if (!INVITATION_CODE.equals(invitationCode)) {
@@ -45,7 +45,7 @@ public class PartnerController {
         if (area < 0 || area > 3) {
             throw new IllegalArgumentException("非法的地址");
         }
-        Map userInfo= partnerService.register(uid, username, invitationCode, expectOpenId, area);
+        Map userInfo = partnerService.register(uid, username, invitationCode, expectOpenId, area);
         USER_ID_OPEN_ID_CACHE.remove(uid);
         return new ResponseEntity<>(userInfo, HttpStatus.OK);
     }
@@ -57,11 +57,11 @@ public class PartnerController {
             throw new IllegalArgumentException("code无效");
         }
         Map userInfo = partnerService.getUserInfoByOpenId((String) object.get("openid"));
-        if (userInfo!=null) {
+        if (userInfo != null) {
             return new ResponseEntity<>(userInfo.get("uid"), HttpStatus.OK);
         }
         for (Object o : USER_ID_OPEN_ID_CACHE.keySet()) {
-            if (object.get("openid").equals(USER_ID_OPEN_ID_CACHE.get(o))){
+            if (object.get("openid").equals(USER_ID_OPEN_ID_CACHE.get(o))) {
                 return new ResponseEntity<>(o, HttpStatus.OK);
             }
         }
@@ -71,7 +71,7 @@ public class PartnerController {
     }
 
     @GetMapping("/user_info")
-    public ResponseEntity<?> getUserInfo(String userId){
+    public ResponseEntity<?> getUserInfo(String userId) {
         return null;
     }
 }

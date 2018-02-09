@@ -16,6 +16,8 @@ import java.util.*;
 @Service
 public class DefaultScratchCardServiceImpl implements ScratchCardService {
 
+    private static final String IMAGE_URL_TEMPLATE = "http://ts-dingup-onlinetest.oss-cn-beijing.aliyuncs.com/img/shop/%d.jpg";
+
     @Autowired
     private ScratchLogMapper scratchLogMapper;
     @Autowired
@@ -51,10 +53,10 @@ public class DefaultScratchCardServiceImpl implements ScratchCardService {
         card.setPrice(result);
         cardPool.getTodayList().add(card);
         if (result == 8) {
-            cardPool.getTop2().add(1, card);
+            cardPool.getTop2()[0] = card;
         }
         if (result == 6) {
-            cardPool.getTop2().add(2, card);
+            cardPool.getTop2()[1] = card;
         }
         if (result == 0) {
             cardPool.getLast2().add(card);
@@ -77,7 +79,7 @@ public class DefaultScratchCardServiceImpl implements ScratchCardService {
     }
 
     public List<Map<String, Object>> getTodayTopList(Integer page, Integer pageSize) {
-        return changeList(cardPool.getTop2());
+        return changeList(Arrays.asList(cardPool.getTop2()));
     }
 
     public List<Map<String, Object>> getTodayLastList(Integer page, Integer pageSize) {
@@ -85,7 +87,6 @@ public class DefaultScratchCardServiceImpl implements ScratchCardService {
     }
 
     public List<Map> getTotalTopResult(Integer page, Integer pageSize) {
-
         return scratchLogMapper.getCurrentMouthTop(3);
     }
 
@@ -102,6 +103,7 @@ public class DefaultScratchCardServiceImpl implements ScratchCardService {
         map.put("id", card.getUid());
         map.put("nickname", card.getNickname());
         map.put("money", card.getPrice());
+        map.put("imgUrl", String.format(IMAGE_URL_TEMPLATE, card.getPrice()));
 
         return map;
     }
@@ -109,6 +111,9 @@ public class DefaultScratchCardServiceImpl implements ScratchCardService {
     private List<Map<String, Object>> changeList(List<Card> list) {
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>(list.size());
         for (Card card : list) {
+            if (card==null){
+                continue;
+            }
             result.add(changeToMap(card));
         }
         return result;
