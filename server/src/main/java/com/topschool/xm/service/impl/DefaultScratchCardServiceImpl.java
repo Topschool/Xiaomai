@@ -99,9 +99,6 @@ public class DefaultScratchCardServiceImpl implements ScratchCardService {
     }
 
     private Map changeToMap(Card card) {
-        if (card==null){
-            return null;
-        }
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("id", card.getUid());
         map.put("nickname", card.getNickname());
@@ -114,6 +111,9 @@ public class DefaultScratchCardServiceImpl implements ScratchCardService {
     private List<Map<String, Object>> changeList(List<Card> list) {
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>(list.size());
         for (Card card : list) {
+            if (card==null){
+                continue;
+            }
             result.add(changeToMap(card));
         }
         return result;
