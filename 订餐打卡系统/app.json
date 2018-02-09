@@ -1,9 +1,8 @@
 {
   "pages": [
-  
+    "pages/waiting/waiting",
     "pages/login/login",
     "pages/homepage/homepage",
-      "pages/waiting/waiting",
     "pages/dinnerOrder/dinnerOrder",
     "pages/scratch_card/scratch_card",
     "pages/index/index",

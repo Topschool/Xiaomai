@@ -1,6 +1,7 @@
 // pages/login/login.js
 const app = getApp()
 var uid;
+var city_number;
 // uid = getApp().globalData.uid;
 // console.log(getApp().globalData.uid)
 Page({
@@ -42,7 +43,7 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    
   },
 
   /**
@@ -94,24 +95,42 @@ Page({
     console.log(self.data.inputname)
     console.log(self.data.inputinvite)
     console.log(self.data.inputcity)
+    if (self.data.inputcity=='北京'){
+      city_number=0
+    } else if(self.data.inputcity == '上海'){
+      city_number = 1
+    } else if(self.data.inputcity == '无锡'){
+      city_number = 2
+    } else if(self.data.inputcity == '南京'){
+      city_number = 3
+    }
     wx.request({
       url: 'http://192.168.3.27:8080/user/sign_up',
       data: {
         uid: uidplus,
         username: self.data.inputname,
         invitationCode: self.data.inputinvite,
-        area: self.data.inputcity
+        area: city_number
       },
       header: {
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
       },
       method: 'POST',
       success: function (res) {
         console.log(res)
-        wx.setStorageSync('uid', res.data.uid)
-        wx.redirectTo({
-          url: '../homepage/homepage',
-        })
+        // wx.setStorageSync('uid', res.data.uid)
+        if (wx.getStorageSync('uid') == res.data.uid){
+          wx.setStorageSync('key', res.data.uid)
+          wx.redirectTo({
+            url: '../homepage/homepage',
+          })
+        }else{
+          wx.showModal({
+            title: '错误',
+            content: res.data,
+          })
+        }
+        
       },
       fail:function(err){
         console.log(err)

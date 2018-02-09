@@ -10,9 +10,10 @@ page {
 
 .header {
    display: flex; 
-  /* background-color: blue; */
 }
-
+.color{
+  /* background-color: #a6c0e5; */
+}
 
 .item {
   flex: 1;
@@ -33,7 +34,9 @@ page {
   border-top: 1px solid #a6c0e5;
   border-bottom: 1px solid #a6c0e5;
 }
-
+.checkbox{
+  margin-left: 8.5%;
+}
 .item_1 {
   flex: 1;
   display: flex;
@@ -41,7 +44,6 @@ page {
 }
 .click{
   width: 100%;
-
 }
 .item_0{
   flex: 0.5;
@@ -65,7 +67,7 @@ page {
 }
 
 .text_2 {
-  margin-left: 40%;
+  margin-left: 10%;
   font-size: 18px;
 }
 
@@ -112,3 +114,4 @@ page {
   height: 100%;
   width: 100%;
 }
+

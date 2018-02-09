@@ -1,12 +1,12 @@
 <view class='root'>
   <!-- 订餐开始 -->
-  <view wx:if="{{dinner_status=='order_begin'}}">
+  <view class='color' wx:if="{{dinner_status=='order_begin'}}">
     <view class='header_item'>
       <view class='item_0'>
         <text class='text_0'></text>
       </view>
       <view class='item_1'>
-        <text class='text_1'>选择</text>
+        <text class='text_1'>编号</text>
       </view>
       <view class='item_2'>
         <text class='text_2'>名称</text>
@@ -20,7 +20,7 @@
     </view>
     <view class='order_list' wx:for="{{food.data.foods.length}}">
       <view class="item_0">
-        <switch type='checkbox' data-index='{{index}}' bindchange='bindtaphandle'></switch>
+        <switch  class='checkbox' type='checkbox' data-index='{{index}}' bindchange='bindtaphandle'></switch>
       </view>
       <view class='item_1'>
         <text class='text_1'>{{food.data.foods[index].id}}</text>
@@ -42,22 +42,22 @@
   <!-- 订餐未开始 -->
   <view wx:if="{{dinner_status=='order_waiting'}}">
     <view class='description'>
-      <text>订餐还未开始</text>
+      <text style='color:white'>订餐还未开始</text>
     </view>
   </view>
   <!-- 订餐已经结束 -->
   <view wx:if="{{dinner_status=='order_end'}}">
     <view class='description'>
-      <text>订餐已经结束 </text>
+      <text style='color:white'>订餐已经结束 </text>
     </view>
   </view>
   <!-- 订餐完成 -->
   <view wx:if="{{dinner_status=='order_finished'}}">
   <view class='description'>
-  <text>订餐完成</text>
+  <text style='color:white'>订餐完成</text>
   </view>
-    <view wx:for='{{orderFood_2.data.orderList.length}}'>
-      <text>{{orderFood_2.data.orderList[index].name}}</text>
+    <view wx:for='{{orderFood_2.data.orderList.length}}' style='background-color:#A7C0DC'>
+      <text style='color:white'>{{orderFood_2.data.orderList[index].name}}</text>
     </view>
     <view class='bottom'>
     <button bindtap='tapCancleHandle'>取消</button>
@@ -66,7 +66,7 @@
   <!-- 未刮卡 -->
   <view wx:if="{{dinner_status=='needscratchCard'}}">
     <view class='description'>
-      <text>您还未刮卡</text>
+      <text style='color:white'>您还未刮卡</text>
     </view>
   </view>
 
