@@ -11,7 +11,7 @@ import java.util.List;
 @Component
 @Scope("singleton")
 public class CardPool {
-    private List<Card> top2;
+    private Card[] top2;
     private List<Card> last2;
     private List<Card> todayList;
     private List<Integer> pool;
@@ -23,7 +23,7 @@ public class CardPool {
      * @param poolSize pool size
      */
     public void init(int poolSize){
-        top2 = new ArrayList<Card>(2);
+        top2 = new Card[2];
         last2 = new ArrayList<Card>(2);
         todayList = new ArrayList<Card>(poolSize);
         pool = new ArrayList<Integer>(poolSize);
@@ -45,11 +45,11 @@ public class CardPool {
         this.pool = pool;
     }
 
-    public List<Card> getTop2() {
+    public Card[] getTop2() {
         return top2;
     }
 
-    public void setTop2(List<Card> top2) {
+    public void setTop2(Card[] top2) {
         this.top2 = top2;
     }
 

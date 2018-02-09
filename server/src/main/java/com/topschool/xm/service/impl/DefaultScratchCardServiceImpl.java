@@ -53,10 +53,10 @@ public class DefaultScratchCardServiceImpl implements ScratchCardService {
         card.setPrice(result);
         cardPool.getTodayList().add(card);
         if (result == 8) {
-            cardPool.getTop2().add(1, card);
+            cardPool.getTop2()[0] = card;
         }
         if (result == 6) {
-            cardPool.getTop2().add(2, card);
+            cardPool.getTop2()[1] = card;
         }
         if (result == 0) {
             cardPool.getLast2().add(card);
@@ -79,7 +79,7 @@ public class DefaultScratchCardServiceImpl implements ScratchCardService {
     }
 
     public List<Map<String, Object>> getTodayTopList(Integer page, Integer pageSize) {
-        return changeList(cardPool.getTop2());
+        return changeList(Arrays.asList(cardPool.getTop2()));
     }
 
     public List<Map<String, Object>> getTodayLastList(Integer page, Integer pageSize) {
