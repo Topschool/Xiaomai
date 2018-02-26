@@ -6,6 +6,9 @@ import javax.naming.NoPermissionException;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author 小强
+ */
 public interface PartnerService {
 
     Map register(String uid, String username, String invitationCode, String openId, int area);

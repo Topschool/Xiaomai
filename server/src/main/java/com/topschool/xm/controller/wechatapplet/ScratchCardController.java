@@ -1,6 +1,6 @@
 package com.topschool.xm.controller.wechatapplet;
 
-import com.topschool.xm.dto.ScratchResult;
+import com.topschool.xm.model.ScratchResult;
 import com.topschool.xm.exception.ScratchCardException;
 import com.topschool.xm.service.ScratchCardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +14,9 @@ import java.util.Date;
 
 import static org.springframework.http.HttpStatus.OK;
 
+/**
+ * @author 小强
+ */
 @RestController
 @RequestMapping("/wechat_applet_api/scratch-card")
 public class ScratchCardController {
@@ -29,14 +32,14 @@ public class ScratchCardController {
         ScratchResult result = new ScratchResult();
         result.setPartnerStatus(-1);
         result.setCurUserGroup(1);
-        if (scratchCardService.getPartnerTodayStatus(uid)){
+        if (scratchCardService.getPartnerTodayStatus(uid)) {
             result.setPartnerStatus(1);
         }
         if (isScratch == 1) {
             result.setCurrentScratchResult(scratchCardService.scratch(uid.trim()));
             result.setPartnerStatus(0);
         }
-        if (isScratch!=1 && isScratch!=-1){
+        if (isScratch != 1 && isScratch != -1) {
             throw new IllegalArgumentException("请求存在非法参数");
         }
         result.setLastList(scratchCardService.getTodayLastList(0, 2));

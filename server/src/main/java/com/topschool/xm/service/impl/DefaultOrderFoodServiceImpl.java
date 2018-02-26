@@ -19,7 +19,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Transactional(rollbackFor = Exception.class)
+/**
+ * @author 小强
+ */
 @Service
 public class DefaultOrderFoodServiceImpl implements OrderFoodService {
 
@@ -35,6 +37,7 @@ public class DefaultOrderFoodServiceImpl implements OrderFoodService {
     @Autowired
     private ScratchLogMapper scratchLogMapper;
 
+    @Override
     public Map getFoodList() {
         Map result = new HashMap();
         List<Map> foods = new ArrayList<>();
@@ -51,6 +54,8 @@ public class DefaultOrderFoodServiceImpl implements OrderFoodService {
         return result;
     }
 
+    @Transactional(rollbackFor = Exception.class)
+    @Override
     public String booking(String userId, Integer foodId) throws NoPermissionException, FoodNotExistException {
         assert userId != null;
         assert foodId != null;
@@ -69,6 +74,8 @@ public class DefaultOrderFoodServiceImpl implements OrderFoodService {
         return "订餐成功";
     }
 
+    @Transactional(rollbackFor = Exception.class)
+    @Override
     public String cancel(String userId) {
         List<OrderLog> orderLogs = orderLogMapper.getTodayOrderByUserId(userId);
         if (orderLogs == null || orderLogs.size() < 1) {
@@ -80,6 +87,7 @@ public class DefaultOrderFoodServiceImpl implements OrderFoodService {
         return "取消成功";
     }
 
+    @Override
     public Map getUserStatus(String userId) {
         Map map = new HashMap();
         map.put("id", userId);
@@ -89,6 +97,7 @@ public class DefaultOrderFoodServiceImpl implements OrderFoodService {
         return map;
     }
 
+    @Override
     public Map getUsersOrder(String userId) throws FoodNotExistException {
         List<OrderLog> orderLogs = orderLogMapper.getTodayOrderByUserId(userId);
         List<Map> orders = new ArrayList<>();

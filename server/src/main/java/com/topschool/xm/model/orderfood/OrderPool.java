@@ -5,6 +5,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+/**
+ * @author 小强
+ */
 @Component
 @Scope("singleton")
 public class OrderPool {
@@ -27,7 +30,7 @@ public class OrderPool {
         this.status = status;
     }
 
-    public boolean inFoodList(Integer foodId){
+    public boolean inFoodList(Integer foodId) {
         for (Food food : foodList) {
             if (food.getId().equals(foodId)) {
                 return true;

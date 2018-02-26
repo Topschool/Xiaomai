@@ -3,6 +3,9 @@ package com.topschool.xm.model.scratchcard;
 
 import java.sql.Date;
 
+/**
+ * @author 小强
+ */
 public class ScratchLog {
 
     private Integer id;

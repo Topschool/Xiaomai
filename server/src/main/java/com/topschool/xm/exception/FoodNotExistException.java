@@ -1,5 +1,8 @@
 package com.topschool.xm.exception;
 
+/**
+ * @author 小强
+ */
 public class FoodNotExistException extends Throwable {
     public FoodNotExistException() {
         super();

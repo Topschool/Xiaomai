@@ -1,9 +1,13 @@
 package com.topschool.xm.dao.orderfood;
 
 import com.topschool.xm.model.orderfood.Food;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
+/**
+ * @author 小强
+ */
 public interface FoodMapper {
 
     boolean insert(Food food);

@@ -1,5 +1,8 @@
 package com.topschool.xm.model.orderfood;
 
+/**
+ * @author 小强
+ */
 public class Restaurant {
     private Integer id;
     private String name;

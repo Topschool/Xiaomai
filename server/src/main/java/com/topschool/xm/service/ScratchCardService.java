@@ -6,6 +6,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author 小强
+ */
 public interface ScratchCardService {
 
     /**

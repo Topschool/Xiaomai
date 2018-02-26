@@ -13,6 +13,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+/**
+ * @author 小强
+ */
 @Service
 public class DefaultScratchCardServiceImpl implements ScratchCardService {
 
@@ -25,12 +28,14 @@ public class DefaultScratchCardServiceImpl implements ScratchCardService {
     @Autowired
     private CardPool cardPool;
 
+    @Override
     public void initCardPool(Integer size) {
         if (cardPool.getPool() == null) {
             cardPool.init(size);
         }
     }
 
+    @Override
     public Integer scratch(String uid) throws ScratchCardException {
         if (getPartnerTodayStatus(uid)) {
             throw new ScratchCardException("today's log has exist");
@@ -66,6 +71,7 @@ public class DefaultScratchCardServiceImpl implements ScratchCardService {
         return result;
     }
 
+    @Override
     public boolean getPartnerTodayStatus(String uid) {
         ScratchLog param = new ScratchLog();
         param.setUid(uid);
@@ -74,18 +80,22 @@ public class DefaultScratchCardServiceImpl implements ScratchCardService {
         return null != scratchLogMapper.getOnesScratchResult(param);
     }
 
+    @Override
     public List<Map<String, Object>> getTodayResult(Integer page, Integer pageSize) {
         return changeList(cardPool.getTodayList());
     }
 
+    @Override
     public List<Map<String, Object>> getTodayTopList(Integer page, Integer pageSize) {
         return changeList(Arrays.asList(cardPool.getTop2()));
     }
 
+    @Override
     public List<Map<String, Object>> getTodayLastList(Integer page, Integer pageSize) {
         return changeList(cardPool.getLast2());
     }
 
+    @Override
     public List<Map> getTotalTopResult(Integer page, Integer pageSize) {
         return scratchLogMapper.getCurrentMouthTop(3);
     }
@@ -94,6 +104,7 @@ public class DefaultScratchCardServiceImpl implements ScratchCardService {
         return null;
     }
 
+    @Override
     public Integer getTodayTotal(Date date) {
         return cardPool.getTodayTotal();
     }
@@ -111,7 +122,7 @@ public class DefaultScratchCardServiceImpl implements ScratchCardService {
     private List<Map<String, Object>> changeList(List<Card> list) {
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>(list.size());
         for (Card card : list) {
-            if (card==null){
+            if (card == null) {
                 continue;
             }
             result.add(changeToMap(card));

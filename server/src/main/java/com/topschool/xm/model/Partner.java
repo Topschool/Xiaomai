@@ -1,5 +1,8 @@
 package com.topschool.xm.model;
 
+/**
+ * @author 小强
+ */
 public class Partner {
     private Integer id;
     private String uid;

@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * @author 小强
+ */
 @Component
 @Scope("singleton")
 public class CardPool {
@@ -20,9 +23,10 @@ public class CardPool {
 
     /**
      * init card pool
+     *
      * @param poolSize pool size
      */
-    public void init(int poolSize){
+    public void init(int poolSize) {
         top2 = new Card[2];
         last2 = new ArrayList<Card>(2);
         todayList = new ArrayList<Card>(poolSize);
@@ -33,7 +37,7 @@ public class CardPool {
         }
     }
 
-    public Integer popFromPool(){
+    public Integer popFromPool() {
         return this.pool.remove(RandomUtil.generationRandom(0, this.pool.size()));
     }
 
@@ -74,7 +78,7 @@ public class CardPool {
     }
 
     public void setTotalList(List<Card> totalList) throws Exception {
-        if (totalList.size()>3){
+        if (totalList.size() > 3) {
             throw new Exception("total list max size is 3");
         }
         this.totalList = totalList;

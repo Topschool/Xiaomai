@@ -1,5 +1,8 @@
 package com.topschool.xm.exception;
 
+/**
+ * @author 小强
+ */
 public class ScratchCardException extends Throwable {
     public ScratchCardException() {
         super();

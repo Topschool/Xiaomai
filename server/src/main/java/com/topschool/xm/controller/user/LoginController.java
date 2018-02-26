@@ -14,6 +14,9 @@ import javax.naming.NoPermissionException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+/**
+ * @author 小强
+ */
 @Controller
 @RequestMapping("/login")
 public class LoginController {
@@ -29,7 +32,7 @@ public class LoginController {
     @PostMapping("")
     public String login(@RequestParam int uid, @RequestParam String password, Model model, HttpServletRequest request) throws UserNameNotFoundException, NoPermissionException {
         String username = partnerService.getUsername(uid, password);
-        if (username!=null) {
+        if (username != null) {
             HttpSession session = request.getSession();
             session.setAttribute("username", username);
             return "redirect:/admin/";

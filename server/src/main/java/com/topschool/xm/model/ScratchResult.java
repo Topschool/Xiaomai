@@ -1,10 +1,13 @@
-package com.topschool.xm.dto;
+package com.topschool.xm.model;
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-public class ScratchResult implements Serializable{
+/**
+ * @author 小强
+ */
+public class ScratchResult implements Serializable {
 
     private Integer totalNum;
     private Integer curUserGroup;
@@ -13,13 +16,13 @@ public class ScratchResult implements Serializable{
     /**
      * size: 2
      * map key:
-     *      key1: id, key2: nickname, key3: money
+     * key1: id, key2: nickname, key3: money
      */
     private List<Map<String, Object>> topList;
     /**
      * size: 2
      * map key:
-     *      key1: id, key2: nickname, key3: money
+     * key1: id, key2: nickname, key3: money
      */
     private List<Map<String, Object>> lastList;
     /**
@@ -30,7 +33,7 @@ public class ScratchResult implements Serializable{
     /**
      * size: 3
      * map key:
-     *      key1: id, key2: nickname, key3: money
+     * key1: id, key2: nickname, key3: money
      */
     private List<Map> totalTop;
 

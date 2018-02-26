@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.naming.NoPermissionException;
 
+/**
+ * @author 小强
+ */
 @RestControllerAdvice
 public class RestApiControlAdvice {
 
@@ -35,7 +38,7 @@ public class RestApiControlAdvice {
     }
 
     @ExceptionHandler(UserNameNotFoundException.class)
-    public ResponseEntity<?> handle(UserNameNotFoundException e){
+    public ResponseEntity<?> handle(UserNameNotFoundException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }

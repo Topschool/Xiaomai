@@ -3,6 +3,9 @@ package com.topschool.xm.model.scratchcard;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author 小强
+ */
 @Component
 @Scope("request")
 public class Card {

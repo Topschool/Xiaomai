@@ -12,6 +12,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author 小强
+ */
 @Service
 public class DefaultPartnerServiceImpl implements PartnerService {
 

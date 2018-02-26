@@ -5,6 +5,9 @@ import com.topschool.xm.exception.FoodNotExistException;
 import javax.naming.NoPermissionException;
 import java.util.Map;
 
+/**
+ * @author 小强
+ */
 public interface OrderFoodService {
 
     /**

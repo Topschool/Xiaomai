@@ -3,6 +3,7 @@ package com.topschool.xm.configuration;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
+import com.alibaba.fastjson.util.IOUtils;
 import com.topschool.xm.interceptor.AdminInterceptor;
 import com.topschool.xm.interceptor.WxApiInterceptor;
 import org.springframework.beans.BeansException;
@@ -49,6 +50,7 @@ public class WebConfiguration extends WebMvcConfigurerAdapter implements Applica
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         super.configureMessageConverters(converters);
         FastJsonHttpMessageConverter converter = new FastJsonHttpMessageConverter();
+        converter.setDefaultCharset(IOUtils.UTF8);
         FastJsonConfig fastJsonConfig = new FastJsonConfig();
         fastJsonConfig.setSerializerFeatures(
                 SerializerFeature.WriteNullListAsEmpty,

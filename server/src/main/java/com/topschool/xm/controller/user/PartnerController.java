@@ -13,6 +13,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+/**
+ * @author 小强
+ */
 @RestController
 @RequestMapping("/user")
 public class PartnerController {

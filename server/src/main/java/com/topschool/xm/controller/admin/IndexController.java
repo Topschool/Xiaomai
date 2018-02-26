@@ -5,11 +5,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * @author 小强
+ */
 @Controller
 @RequestMapping("/admin")
 public class IndexController {
     @GetMapping("")
-    public String index(){
+    public String index() {
         return "/admin/index";
     }
 

@@ -16,6 +16,9 @@ import java.util.Map;
 
 import static org.springframework.http.HttpStatus.OK;
 
+/**
+ * @author 小强
+ */
 @RestController
 @RequestMapping("/wechat_applet_api/order_food")
 public class OrderFoodController {
@@ -25,8 +28,8 @@ public class OrderFoodController {
     private OrderFoodService orderFoodService;
 
     @GetMapping("/food_list")
-    public ResponseEntity<?> getList(String uid){
-       Map map = orderFoodService.getFoodList();
+    public ResponseEntity<?> getList(String uid) {
+        Map map = orderFoodService.getFoodList();
         return new ResponseEntity<Object>(map, OK);
     }
 
@@ -45,13 +48,13 @@ public class OrderFoodController {
     }
 
     @PostMapping("/cancel")
-    public ResponseEntity<?> cancel(String uid){
+    public ResponseEntity<?> cancel(String uid) {
         String msg = orderFoodService.cancel(uid);
         return new ResponseEntity<Object>(msg, OK);
     }
 
     @GetMapping("/user_status")
-    public ResponseEntity<?> getUserStatus(String uid){
+    public ResponseEntity<?> getUserStatus(String uid) {
         Map status = orderFoodService.getUserStatus(uid);
         return new ResponseEntity<Object>(status, OK);
     }

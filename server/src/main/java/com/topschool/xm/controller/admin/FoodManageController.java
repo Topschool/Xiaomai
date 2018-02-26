@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * @author 小强
+ */
 @RestController
 @RequestMapping("/admin/food_manage")
 public class FoodManageController {

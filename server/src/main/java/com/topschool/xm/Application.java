@@ -14,18 +14,18 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletRegistration;
 
 /**
- * webapp启动类，替代传统的web.xml配置
+ * webapp启动类，替代传统的web.xml配置文件启动方式
  *
  * @author 小强
  */
-
-@MapperScan("com.topschool.xm.dao")
-@PropertySource("classpath:application.properties")
-@ComponentScan(basePackages = "com.topschool.xm")
 @Configuration
 @EnableWebMvc
 @Configurable
+@MapperScan("com.topschool.xm.dao")
+@PropertySource("classpath:application.properties")
+@ComponentScan(basePackages = "com.topschool.xm")
 public class Application implements WebApplicationInitializer {
+
     @Override
     public void onStartup(ServletContext servletContext) {
         AnnotationConfigWebApplicationContext applicationContext = new AnnotationConfigWebApplicationContext();
