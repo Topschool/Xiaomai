@@ -6,11 +6,11 @@ App({
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
-    wx.getUserInfo({
-      success: function (res) {
-        console.log(res)
-      }
-    })
+    // wx.getUserInfo({
+    //   success: function (res) {
+    //     console.log(res)
+    //   }
+    // })
     // 登录
     wx.login({
       success: res => {
@@ -19,7 +19,7 @@ App({
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
         var name = wx.getStorageSync('uid')
         console.log(name+'asd') 
-        if (name == '' || name == null ){
+        if (name == '' || name == null || wx.getStorageSync('uid') !=wx.getStorageSync('key')){
           console.log('qwerty')
           wx.request({
             url: 'http://192.168.3.27:8080/user/get_uid',
@@ -36,6 +36,9 @@ App({
               wx.redirectTo({
                 url: '../login/login',
               })
+            },
+            fail:function(err){
+              console.log(err)
             }
           })
         }else{

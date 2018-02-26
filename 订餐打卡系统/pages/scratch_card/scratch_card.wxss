@@ -1,5 +1,6 @@
 page {
   height: 100%;
+  background-color: #d05744;
 }
 
 .root {
@@ -43,23 +44,25 @@ page {
 
 .scratch .guagua_card {
   height: 100%;
-  width: 100%;
+  width: 100%; 
 }
 
 .guagua_card {
   display: flex;
-  /* align-items: center;  */
   flex-direction: column;
-  position: relative;
+  position: relative;  
 }
 
 .scratch_text {
   position: absolute;
   top: 33%;
   color: #919fae;
-  margin-left: 30%;
+  margin-left: 20%;
 }
-
+.resoult{
+  color: #d05744;
+  font-size: 30px;
+}
 .class_erweima {
   margin-top: 14%;
   width: 100%;
@@ -76,11 +79,11 @@ page {
 .famous {
   width: 100%;
   height: 60%;
-  /* margin-top: 15%;  */
+   /* margin-left: 5%;   */
 }
 
 .famous_image {
-  height: 30%;
+  height: 40%;
   width: 90%;
   margin-left: 5%;
   position: relative;
@@ -89,28 +92,29 @@ page {
 .top_Name {
   position: absolute;
   top: 60%;
-  left: 43%;
+  left: 70%;
   color: white;
+  font-size: 30px;
 }
 
 .list {
   height: 80%;
   width: 90%;
-  margin-top: 30%;
+  margin-top: 65%;
   margin-left: 5%;
 }
 
 .toplist {
   height: 10%;
   width: 100%;
-  background-color: #BBADDF;
+  background-color: white;
   margin-top: 20%;
   display: flex;
   align-items: center;
 }
 
 .block_toplist1 {
-  height: 24%;
+  height: 10%;
   width: 100%;
   background-color: blue;
 }
@@ -120,26 +124,37 @@ page {
   background-color: blue;
 }
 .taptext{
-  margin-left: 75%;
-  border: 1px solid black;
-  background-color: red;
+  margin-left: 73%;
+  /* border: 1px solid black; */
+  background-color: #A7C0DC;
+  color: white;
+  font-size: 110%;
 }
 
-.item {
+.item1 {
   height: 100%;
   width: 100%;
   display: flex;
   align-items: center;
   background-color: white;
-  border-top: 1px solid black;
+  border-top: 1px solid #A7C0DC;
+  position:  relative;
+}
+.item2 {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-top: 1px solid #A7C0DC;
   position:  relative;
 }
 
 .block_image {
   height: 100%;
-  width: 40%;
+  width: 45%;
   position: absolute;
-  left: 60%;
+  left: 55%;
   /* margin-left: 50%;  */
 }
 .erweima_picture{
@@ -147,4 +162,17 @@ page {
       width: 30%;
       margin-left: 34%;
       margin-top: 20%;
+}
+.item_text1{
+  position: absolute;
+  left: 10%;
+}
+.item_text2{
+   /* margin-left: 80%;  */
+position: absolute;
+  left: 80%;
+}
+.zanzhu{
+  position: absolute;
+  left: 10%;
 }

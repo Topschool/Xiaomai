@@ -1,56 +1,57 @@
 <!--index.wxml-->
-<scroll-view class='root' scroll-y>
+<view class='root' scroll-y>
   <view class='header'>
     <image src='../../images/001.png' class='header_image'></image>
   </view>
   <view class='scratch' wx:if="{{price.data.partnerStatus== -1}}">
-     <canvas canvas-id='guagua_card' class='guagua_card' bindtouchstart='touchStart' bindtouchmove='touchMove' disable-scroll='false'> 
+    <canvas canvas-id='guagua_card' class='guagua_card' bindtouchstart='touchStart' bindtouchmove='touchMove' disable-scroll='true'>
       <text class='scratch_text'>请等候……</text>
-     </canvas> 
+    </canvas>
   </view>
   <view class='scratch' wx:if="{{price.data.partnerStatus==0}}">
-     <canvas canvas-id='guagua_card' class='guagua_card' bindtouchstart='touchStart' bindtouchmove='touchMove' disable-scroll='false'> 
-      <text class='scratch_text'>恭喜刮到{{price.data.currentScratchResult}}</text>
-     </canvas> 
+    <canvas canvas-id='guagua_card' class='guagua_card' bindtouchstart='touchStart' bindtouchmove='touchMove' disable-scroll='true'>
+      <text class='scratch_text'>恭喜刮到<text class='resoult'>{{price.data.currentScratchResult}}</text>元</text>
+    </canvas>
   </view>
-  <view class='scratch' wx:if="{{price.data.partnerStatus==1}}">  
-      <text class='scratch_text'>已经筹集{{price.data.totalNum}}</text>
+  <view class='scratch' wx:if="{{price.data.partnerStatus==1}}">
+    <text class='scratch_text'>感谢亲,今日已经筹集<text class='resoult'>{{price.data.totalNum}}</text>元</text>
   </view>
-  
+
   <view class='class_erweima'>
-    <image src='../../images/002.png' class='erweima' hidden='{{hidden}}'></image>
+    <image src='../../images/002.jpg' class='erweima' hidden='{{hidden}}'></image>
   </view>
   <view class='famous'>
     <image src="{{image_src_0}}" class='famous_image'>
-      <text class='top_Name'>{{price.data.topList[0].nickname}}</text>
+      <text class='top_Name'>{{name_0}}</text>
     </image>
     <image src="{{image_src_1}}" class='famous_image'>
-      <text class='top_Name'>{{price.data.topList[1].nickname}}</text>
+      <text class='top_Name'>{{name_1}}</text>
     </image>
     <image src="{{image_src_2}}" class='famous_image'>
-      <text class='top_Name'>{{price.data.lastList[0].nickname}}</text>
+      <text class='top_Name'>{{name_4}}</text>
     </image>
     <image src="{{image_src_3}}" class='famous_image'>
-      <text class='top_Name'>{{price.data.lastList[1].nickname}}</text>
+      <text class='top_Name'>{{name_3}}</text>
     </image>
   </view>
   <view class='list'>
-    <view class='toplist' >
-    <text  class='taptext' bindtap='taphandle1' hidden='{{toplist}}'>本月三甲</text>
-     <text class='taptext' hidden='{{timelist}}' bindtap='taphandle2'>今日赞助</text>
+    <view class='toplist'>
+      <text class='taptext' bindtap='taphandle1' hidden='{{toplist}}'>今日赞助</text>
+      <text class='taptext' hidden='{{timelist}}' bindtap='taphandle2'>本月三甲</text>
     </view>
     <view class='block_toplist1' wx:for='{{price.data.totalTop.length}}' hidden='{{toplist}}'>
-        <view class='item'>
-        <text>lalalal</text>
-        <image class='block_image' src='{{block_image_src}}'></image>
-        </view>
+      <view class='item1'>
+        <text class='item_text1'>{{price.data.totalTop[index].username}}</text>
+        <text class='item_text2'>{{price.data.totalTop[index].money}}元</text>
+        <!-- <image class='block_image' src='{{price.data.totalTop[index].imgUrl}}'></image> -->
+      </view>
     </view>
     <view class='block_toplist2' wx:for='{{price.data.todayList.length}}' hidden='{{timelist}}'>
-        <view class='item'>
-        <text>{{price.data.todayList[index].nickname}}</text>
-        <image class='block_image' src='{{block_image_src}}'></image>
-        </view>
+      <view class='item2'>
+        <text class='zanzhu'>{{price.data.todayList[index].nickname}}</text>
+        <image class='block_image' src='{{price.data.todayList[index].imgUrl}}'></image>
+      </view>
     </view>
-    <image src='../../images/002.png' class='erweima_picture'></image>
+    <image src='../../images/002.jpg' class='erweima_picture'></image>
   </view>
-</scroll-view>
+</view>
