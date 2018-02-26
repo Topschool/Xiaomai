@@ -56,6 +56,7 @@ public class PartnerController {
         if (object.get("openid") == null) {
             throw new IllegalArgumentException("code无效");
         }
+        System.out.println(code);
         Map userInfo = partnerService.getUserInfoByOpenId((String) object.get("openid"));
         if (userInfo != null) {
             return new ResponseEntity<>(userInfo.get("uid"), HttpStatus.OK);

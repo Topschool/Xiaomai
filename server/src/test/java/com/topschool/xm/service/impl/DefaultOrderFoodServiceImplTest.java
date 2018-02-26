@@ -3,10 +3,7 @@ package com.topschool.xm.service.impl;
 import com.topschool.xm.BaseTest;
 import com.topschool.xm.model.orderfood.OrderPool;
 import com.topschool.xm.service.OrderFoodService;
-import com.topschool.xm.service.ScratchCardService;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class DefaultOrderFoodServiceImplTest extends BaseTest {
 

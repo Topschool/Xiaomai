@@ -18,6 +18,7 @@
     <junit.version>4.12</junit.version>
     <javax-servlet-api.version>3.1.0</javax-servlet-api.version>
     <fastjson.version>1.2.44</fastjson.version>
+    <ts-core.version>1.1.8</ts-core.version>
   </properties>
 
   <dependencies>
@@ -72,6 +73,25 @@
       <scope>provided</scope>
     </dependency>
 
+    <!--内部jar-->
+    <dependency>
+      <groupId>com.dingup</groupId>
+      <artifactId>ts-core</artifactId>
+      <version>${ts-core.version}</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on -->
+    <dependency>
+      <groupId>org.bouncycastle</groupId>
+      <artifactId>bcprov-jdk15on</artifactId>
+      <version>1.59</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
+    <dependency>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
+      <version>1.11</version>
+    </dependency>
 
     <dependency>
       <groupId>org.springframework</groupId>

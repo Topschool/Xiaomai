@@ -1,6 +1,5 @@
 package com.topschool.xm.service.impl;
 
-import com.sun.javafx.binding.StringFormatter;
 import com.topschool.xm.dao.orderfood.FoodMapper;
 import com.topschool.xm.dao.orderfood.OrderLogMapper;
 import com.topschool.xm.dao.scratchcard.ScratchLogMapper;
