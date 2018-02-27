@@ -5,6 +5,9 @@ import java.util.List;
 import com.topschool.xm.model.UserInfo;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author 小强
+ */
 @Component
 public interface UserInfoDao {
 

@@ -1,4 +1,4 @@
-package com.topschool.xm.model.weapp.scratchcard;
+package com.topschool.xm.model;
 
 import java.math.BigDecimal;
 

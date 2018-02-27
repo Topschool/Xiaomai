@@ -1,4 +1,4 @@
-package com.topschool.xm.model.weapp.scratchcard;
+package com.topschool.xm.model;
 
 import com.topschool.xm.util.ScratchCardStatus;
 import org.springframework.stereotype.Component;

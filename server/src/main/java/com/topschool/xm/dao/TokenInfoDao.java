@@ -4,7 +4,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-import com.topschool.xm.model.weapp.TokenInfo;
+import com.topschool.xm.model.TokenInfo;
 import org.springframework.stereotype.Component;
 
 /**

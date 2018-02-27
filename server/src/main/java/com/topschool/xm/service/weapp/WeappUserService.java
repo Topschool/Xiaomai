@@ -1,7 +1,7 @@
 package com.topschool.xm.service.weapp;
 
 import com.alibaba.fastjson.JSONObject;
-import com.topschool.xm.model.weapp.TokenInfo;
+import com.topschool.xm.model.TokenInfo;
 import com.topschool.xm.util.Address;
 
 
@@ -44,4 +44,12 @@ public interface WeappUserService {
      * @return 验证结果
      */
     boolean verificationToken(String token);
+
+    /**
+     * uid对应的用户是否存在
+     *
+     * @param uid uid
+     * @return true表示存在，反之不存在
+     */
+    boolean userExist(long uid);
 }

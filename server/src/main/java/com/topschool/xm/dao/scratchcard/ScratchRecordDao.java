@@ -6,9 +6,12 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 import java.util.Map;
 
-import com.topschool.xm.model.weapp.scratchcard.ScratchRecord;
+import com.topschool.xm.model.ScratchRecord;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author 小强
+ */
 @Component
 public interface ScratchRecordDao {
 

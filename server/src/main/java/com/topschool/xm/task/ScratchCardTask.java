@@ -1,9 +1,7 @@
 package com.topschool.xm.task;
 
-import com.topschool.xm.service.weapp.ScratchCardService;
 import com.topschool.xm.service.weapp.TodayPoolService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -25,6 +23,7 @@ public class ScratchCardTask {
      */
     @Scheduled(cron = "0 0 0 * * MON-FRI")
     public void initScratchCardPool() {
+        todayPoolService.cleanCardPool();
         todayPoolService.init();
     }
 

@@ -1,4 +1,4 @@
-package com.topschool.xm.model.weapp;
+package com.topschool.xm.model;
 
 /**
  * @author 小强

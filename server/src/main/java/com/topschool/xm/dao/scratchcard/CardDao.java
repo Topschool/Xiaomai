@@ -2,9 +2,12 @@ package com.topschool.xm.dao.scratchcard;
 
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
-import com.topschool.xm.model.weapp.scratchcard.Card;
+import com.topschool.xm.model.Card;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author 小强
+ */
 @Component
 public interface CardDao {
 
@@ -17,4 +20,8 @@ public interface CardDao {
     int update(@Param("pojo") Card pojo);
 
     List<Card> selectAll();
+
+    int delete(long id);
+
+    int deleteAll();
 }

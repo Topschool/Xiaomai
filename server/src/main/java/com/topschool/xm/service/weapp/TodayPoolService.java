@@ -7,4 +7,6 @@ public interface TodayPoolService {
 
     void init();
 
+    void cleanCardPool();
+
 }

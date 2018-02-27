@@ -2,14 +2,15 @@ package com.topschool.xm.service.weapp.impl;
 
 import com.topschool.xm.dao.scratchcard.CardDao;
 import com.topschool.xm.dao.scratchcard.ScratchRecordDao;
-import com.topschool.xm.model.weapp.scratchcard.Card;
-import com.topschool.xm.model.weapp.scratchcard.TodayPool;
+import com.topschool.xm.model.Card;
+import com.topschool.xm.model.TodayPool;
 import com.topschool.xm.service.weapp.TodayPoolService;
 import com.topschool.xm.util.RandomUtil;
 import com.topschool.xm.util.ScratchCardStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ public class DefaultTodayPoolServiceImpl implements TodayPoolService {
     @Autowired
     private TodayPool todayPool;
 
+    @Transactional(rollbackFor = Throwable.class)
     @Override
     public void init() {
         todayPool.setStatus(ScratchCardStatus.SCRATCHING);
@@ -69,6 +71,19 @@ public class DefaultTodayPoolServiceImpl implements TodayPoolService {
             }
             todayPool.setTotalTop3(scratchRecordDao.getCurrentMouthTop(3, System.currentTimeMillis()));
         }
+    }
+
+    @Transactional(rollbackFor = Throwable.class)
+    @Override
+    public void cleanCardPool() {
+        cardDao.deleteAll();
+        todayPool.setTop2(null);
+        todayPool.setLast2(null);
+        todayPool.setTodayList(null);
+        todayPool.setPool(null);
+        todayPool.setTotalTop3(null);
+        todayPool.setTodayTotal(0);
+        todayPool.setStatus(ScratchCardStatus.STOPED);
     }
 
     private List<Card> generateCard() {

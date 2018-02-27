@@ -5,9 +5,9 @@ import com.topschool.xm.dao.UserInfoDao;
 import com.topschool.xm.dao.scratchcard.CardDao;
 import com.topschool.xm.dao.scratchcard.ScratchRecordDao;
 import com.topschool.xm.exception.ScratchCardException;
-import com.topschool.xm.model.weapp.scratchcard.Card;
-import com.topschool.xm.model.weapp.scratchcard.ScratchRecord;
-import com.topschool.xm.model.weapp.scratchcard.TodayPool;
+import com.topschool.xm.model.Card;
+import com.topschool.xm.model.ScratchRecord;
+import com.topschool.xm.model.TodayPool;
 import com.topschool.xm.service.weapp.ScratchCardService;
 import com.topschool.xm.util.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +37,9 @@ public class DefaultScratchCardServiceImpl implements ScratchCardService {
     @Transactional(rollbackFor = Throwable.class)
     @Override
     public Map scratch(long uid) throws ScratchCardException {
+        if (getUserTodayStatus(uid)) {
+            throw new ScratchCardException("今日已刮卡");
+        }
         if (todayPool.getStatus().getCode() == 0) {
             throw new ScratchCardException("今日刮卡已经结束");
         }
@@ -74,7 +77,7 @@ public class DefaultScratchCardServiceImpl implements ScratchCardService {
     }
 
     @Override
-    public boolean getPartnerTodayStatus(long uid) {
+    public boolean getUserTodayStatus(long uid) {
         boolean flag = false;
         for (Card card : todayPool.getTodayList()) {
             flag = card.getUid() == uid;
@@ -83,22 +86,22 @@ public class DefaultScratchCardServiceImpl implements ScratchCardService {
     }
 
     @Override
-    public List<Map> getTodayResult(Integer page, Integer pageSize) {
+    public List<Map> getTodayResult() {
         return toMapList(todayPool.getTodayList());
     }
 
     @Override
-    public List<Map> getTodayTopList(Integer page, Integer pageSize) {
+    public List<Map> getTodayTopList() {
         return toMapList(todayPool.getTop2());
     }
 
     @Override
-    public List<Map> getTodayLastList(Integer page, Integer pageSize) {
+    public List<Map> getTodayLastList() {
         return toMapList(todayPool.getLast2());
     }
 
     @Override
-    public List<Map> getTotalTopResult(Integer page, Integer pageSize) {
+    public List<Map> getTotalTopResult() {
         return todayPool.getTotalTop3();
     }
 
@@ -108,12 +111,12 @@ public class DefaultScratchCardServiceImpl implements ScratchCardService {
     }
 
     @Override
-    public Integer getTodayTotal(Date date) {
+    public Integer getTodayTotal() {
         return todayPool.getTodayTotal();
     }
 
     private ConcurrentMap<String, Object> cardToMap(Card card) {
-        ConcurrentMap<String, Object> map = new ConcurrentHashMap<>();
+        ConcurrentMap<String, Object> map = new ConcurrentHashMap<>(3);
         map.put("uid", card.getUid());
         map.put("name", card.getName());
         map.put("money", card.getPrice());

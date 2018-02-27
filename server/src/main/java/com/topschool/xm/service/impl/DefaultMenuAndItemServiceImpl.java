@@ -1,12 +1,8 @@
 package com.topschool.xm.service.impl;
 
 import com.dingup.util.GOssUtil;
-import com.topschool.xm.dao.orderfood.FoodMapper;
-import com.topschool.xm.dao.orderfood.RestaurantMapper;
 import com.topschool.xm.exception.BrandNotFoundException;
 import com.topschool.xm.exception.FoodNotExistException;
-import com.topschool.xm.model.orderfood.Food;
-import com.topschool.xm.model.orderfood.Restaurant;
 import com.topschool.xm.service.MenuItemService;
 import com.topschool.xm.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;

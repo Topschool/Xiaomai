@@ -1,8 +1,6 @@
 package com.topschool.xm.service;
 
 import com.topschool.xm.exception.BrandNotFoundException;
-import com.topschool.xm.model.orderfood.Food;
-import com.topschool.xm.model.orderfood.Restaurant;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;

@@ -3,7 +3,7 @@
 <mapper namespace="com.topschool.xm.dao.scratchcard.CardDao">
 
     <!--auto generated Code-->
-    <resultMap id="AllColumnMap" type="com.topschool.xm.model.weapp.scratchcard.Card">
+    <resultMap id="AllColumnMap" type="com.topschool.xm.model.Card">
         <result column="id" property="id"/>
         <result column="price" property="price"/>
         <result column="uid" property="uid"/>
@@ -91,6 +91,10 @@
     <!--auto generated Code-->
     <delete id="delete">
         DELETE FROM today_scratch_pool
-        WHERE id = #{pojo.id}
+        WHERE id = #{id}
+    </delete>
+
+    <delete id="deleteAll">
+        DELETE FROM today_scratch_pool
     </delete>
 </mapper>

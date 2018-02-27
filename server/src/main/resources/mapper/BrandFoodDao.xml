@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.topschool.xm.dao.orderfood.BrandFoodDao">
+
+<!--auto generated Code-->
+    <resultMap id="AllColumnMap" type="com.topschool.xm.model.BrandFood">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="price" property="price"/>
+        <result column="brand_id" property="brandId"/>
+        <result column="selected" property="selected"/>
+    </resultMap>
+
+<!--auto generated Code-->
+    <sql id="all_column">
+        id,
+        name,
+        price,
+        brand_id,
+        selected
+    </sql>
+
+<!--auto generated Code-->
+    <insert id="insert">
+        INSERT INTO brand_food
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id != null"> id, </if>
+            <if test="pojo.name != null"> name, </if>
+            <if test="pojo.price != null"> price, </if>
+            <if test="pojo.brandId != null"> brand_id, </if>
+            <if test="pojo.selected != null"> selected, </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id != null"> #{pojo.id}, </if>
+            <if test="pojo.name != null"> #{pojo.name}, </if>
+            <if test="pojo.price != null"> #{pojo.price}, </if>
+            <if test="pojo.brandId != null"> #{pojo.brandId}, </if>
+            <if test="pojo.selected != null"> #{pojo.selected}, </if>
+        </trim>
+    </insert>
+
+<!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO brand_food(
+        <include refid="all_column"/>
+        )VALUES
+        <foreach collection="pojos" item="pojo" index="index" separator=",">
+            (
+            #{pojo.id},
+            #{pojo.name},
+            #{pojo.price},
+            #{pojo.brandId}
+            #{pojo.selected}
+            )
+        </foreach>
+    </insert>
+
+<!--auto generated Code-->
+    <update id="update">
+        UPDATE brand_food
+        <set>
+            <if test="pojo.id != null"> id = #{pojo.id}, </if>
+            <if test="pojo.name != null"> name = #{pojo.name}, </if>
+            <if test="pojo.price != null"> price = #{pojo.price}, </if>
+            <if test="pojo.brandId != null"> brand_id = #{pojo.brandId} </if>
+            <if test="pojo.selected != null"> selected = #{pojo.selected} </if>
+        </set>
+         WHERE id = #{pojo.id}
+    </update>
+
+<!--auto generated Code-->
+    <select id="select" resultMap="AllColumnMap">
+        SELECT <include refid="all_column"/>
+        FROM brand_food
+        <where>
+            <if test="pojo.id != null"> AND id = #{pojo.id} </if>
+            <if test="pojo.name != null"> AND name = #{pojo.name} </if>
+            <if test="pojo.price != null"> AND price = #{pojo.price} </if>
+            <if test="pojo.brandId != null"> AND brand_id = #{pojo.brandId} </if>
+            <if test="pojo.selected != null"> AND selected = #{pojo.selected} </if>
+        </where>
+        LIMIT 1000 
+    </select>
+
+<!--auto generated Code-->
+    <delete id="delete">
+        DELETE FROM brand_food where id = #{pojo.id}
+    </delete>
+</mapper>

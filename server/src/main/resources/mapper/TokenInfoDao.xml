@@ -3,7 +3,7 @@
 <mapper namespace="com.topschool.xm.dao.TokenInfoDao">
 
     <!--auto generated Code-->
-    <resultMap id="AllColumnMap" type="com.topschool.xm.model.weapp.TokenInfo">
+    <resultMap id="AllColumnMap" type="com.topschool.xm.model.TokenInfo">
         <result column="id" property="id"/>
         <result column="union_id" property="unionId"/>
         <result column="token" property="token"/>
