@@ -2,7 +2,6 @@ package com.topschool.xm.controller.admin;
 
 import com.topschool.xm.exception.BrandNotFoundException;
 import com.topschool.xm.service.MenuService;
-import com.topschool.xm.service.OrderFoodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,15 +18,15 @@ import java.util.List;
 @RequestMapping("/admin/brand_manage")
 public class MenuManageController {
 
-    @Autowired
-    private OrderFoodService orderFoodService;
+//    @Autowired
+//    private OrderFoodService orderFoodService;
 
     @Autowired
     private MenuService menuService;
 
     @PostMapping("/today_menu/select_brand")
     public ResponseEntity<?> selectBrand(Integer id) {
-        orderFoodService.initOrderFoodSystem(id);
+//        orderFoodService.initOrderFoodSystem(id);
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 

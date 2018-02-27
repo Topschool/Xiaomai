@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.topschool.xm.dao.UserInfoDao">
+
+<!--auto generated Code-->
+    <resultMap id="AllColumnMap" type="com.topschool.xm.model.UserInfo">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="nickname" property="nickname"/>
+        <result column="union_id" property="unionId"/>
+        <result column="password" property="password"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+<!--auto generated Code-->
+    <sql id="all_column">
+        id,
+        name,
+        nickname,
+        union_id,
+        password,
+        create_time
+    </sql>
+
+<!--auto generated Code-->
+    <insert id="insert">
+        INSERT INTO user_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id != null"> id, </if>
+            <if test="pojo.name != null"> name, </if>
+            <if test="pojo.nickname != null"> nickname, </if>
+            <if test="pojo.unionId != null"> union_id, </if>
+            <if test="pojo.password != null"> password, </if>
+            <if test="pojo.createTime != null"> create_time, </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id != null"> #{pojo.id}, </if>
+            <if test="pojo.name != null"> #{pojo.name}, </if>
+            <if test="pojo.nickname != null"> #{pojo.nickname}, </if>
+            <if test="pojo.unionId != null"> #{pojo.unionId}, </if>
+            <if test="pojo.password != null"> #{pojo.password}, </if>
+            <if test="pojo.createTime != null"> #{pojo.createTime}, </if>
+        </trim>
+    </insert>
+
+<!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO user_info(
+        <include refid="all_column"/>
+        )VALUES
+        <foreach collection="pojos" item="pojo" index="index" separator=",">
+            (
+            #{pojo.id},
+            #{pojo.name},
+            #{pojo.nickname},
+            #{pojo.unionId},
+            #{pojo.password},
+            #{pojo.createTime}
+            )
+        </foreach>
+    </insert>
+
+<!--auto generated Code-->
+    <update id="update">
+        UPDATE user_info
+        <set>
+            <if test="pojo.id != null"> id = #{pojo.id}, </if>
+            <if test="pojo.name != null"> name = #{pojo.name}, </if>
+            <if test="pojo.nickname != null"> nickname = #{pojo.nickname}, </if>
+            <if test="pojo.unionId != null"> union_id = #{pojo.unionId}, </if>
+            <if test="pojo.password != null"> password = #{pojo.password}, </if>
+            <if test="pojo.createTime != null"> create_time = #{pojo.createTime} </if>
+        </set>
+         WHERE id = #{pojo.id}
+    </update>
+
+<!--auto generated Code-->
+    <select id="select" resultMap="AllColumnMap">
+        SELECT <include refid="all_column"/>
+        FROM user_info
+        <where>
+            <if test="pojo.id != null"> AND id = #{pojo.id} </if>
+            <if test="pojo.name != null"> AND name = #{pojo.name} </if>
+            <if test="pojo.nickname != null"> AND nickname = #{pojo.nickname} </if>
+            <if test="pojo.unionId != null"> AND union_id = #{pojo.unionId} </if>
+            <if test="pojo.password != null"> AND password = #{pojo.password} </if>
+            <if test="pojo.createTime != null"> AND create_time = #{pojo.createTime} </if>
+        </where>
+        LIMIT 1000 
+    </select>
+    <select id="selectById" resultMap="AllColumnMap">
+        select *
+        from user_info
+        WHERE id=#{id};
+    </select>
+
+    <!--auto generated Code-->
+    <delete id="delete">
+        DELETE FROM user_info where id = #{pojo.id}
+    </delete>
+</mapper>

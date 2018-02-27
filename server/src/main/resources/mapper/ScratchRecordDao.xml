@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.topschool.xm.dao.scratchcard.ScratchRecordDao">
+
+<!--auto generated Code-->
+    <resultMap id="AllColumnMap" type="com.topschool.xm.model.weapp.scratchcard.ScratchRecord">
+        <result column="id" property="id"/>
+        <result column="uid" property="uid"/>
+        <result column="result" property="result"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+<!--auto generated Code-->
+    <sql id="all_column">
+        id,
+        uid,
+        result,
+        create_time
+    </sql>
+
+<!--auto generated Code-->
+    <insert id="insert">
+        INSERT INTO scratch_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id != null"> id, </if>
+            <if test="pojo.uid != null"> uid, </if>
+            <if test="pojo.result != null"> result, </if>
+            <if test="pojo.createTime != null"> create_time, </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id != null"> #{pojo.id}, </if>
+            <if test="pojo.uid != null"> #{pojo.uid}, </if>
+            <if test="pojo.result != null"> #{pojo.result}, </if>
+            <if test="pojo.createTime != null"> #{pojo.createTime}, </if>
+        </trim>
+    </insert>
+
+<!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO scratch_record(
+        <include refid="all_column"/>
+        )VALUES
+        <foreach collection="pojos" item="pojo" index="index" separator=",">
+            (
+            #{pojo.id},
+            #{pojo.uid},
+            #{pojo.result},
+            #{pojo.createTime}
+            )
+        </foreach>
+    </insert>
+
+<!--auto generated Code-->
+    <update id="update">
+        UPDATE scratch_record
+        <set>
+            <if test="pojo.id != null"> id = #{pojo.id}, </if>
+            <if test="pojo.uid != null"> uid = #{pojo.uid}, </if>
+            <if test="pojo.result != null"> result = #{pojo.result}, </if>
+            <if test="pojo.createTime != null"> create_time = #{pojo.createTime} </if>
+        </set>
+         WHERE id = #{pojo.id}
+    </update>
+
+<!--auto generated Code-->
+    <select id="select" resultMap="AllColumnMap">
+        SELECT <include refid="all_column"/>
+        FROM scratch_record
+        <where>
+            <if test="pojo.id != null"> AND id = #{pojo.id} </if>
+            <if test="pojo.uid != null"> AND uid = #{pojo.uid} </if>
+            <if test="pojo.result != null"> AND result = #{pojo.result} </if>
+            <if test="pojo.createTime != null"> AND create_time = #{pojo.createTime} </if>
+        </where>
+        LIMIT 1000 
+    </select>
+    <select id="getCurrentMouthTop" resultType="java.util.Map">
+        SELECT sl.uid id, sum(sl.result) money, ui.name username
+        FROM scratch_record sl , user_info ui
+        WHERE
+            date_add(sl.create_time, interval - day(sl.create_time) + 1 day) = date_add(date(from_unixtime(#{currentTime}/1000)), interval - day(date(from_unixtime(#{currentTime}/1000))) + 1 day) AND ui.id=sl.uid
+        GROUP BY (sl.uid)
+        ORDER BY (sum(sl.result)) DESC
+        LIMIT #{size};
+    </select>
+
+    <!--auto generated Code-->
+    <delete id="delete">
+        DELETE FROM scratch_record where id = #{pojo.id}
+    </delete>
+</mapper>

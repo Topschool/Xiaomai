@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.topschool.xm.dao.TokenInfoDao">
+
+    <!--auto generated Code-->
+    <resultMap id="AllColumnMap" type="com.topschool.xm.model.weapp.TokenInfo">
+        <result column="id" property="id"/>
+        <result column="union_id" property="unionId"/>
+        <result column="token" property="token"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <!--auto generated Code-->
+    <sql id="all_column">
+        id,
+        union_id,
+        token,
+        create_time
+    </sql>
+
+    <!--auto generated Code-->
+    <insert id="insert">
+        INSERT INTO token_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id != null">id,</if>
+            <if test="pojo.unionId != null">union_id,</if>
+            <if test="pojo.token != null">token,</if>
+            <if test="pojo.createTime != null">create_time,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id != null">#{pojo.id},</if>
+            <if test="pojo.unionId != null">#{pojo.unionId},</if>
+            <if test="pojo.token != null">#{pojo.token},</if>
+            <if test="pojo.createTime != null">#{pojo.createTime},</if>
+        </trim>
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO token_info(
+        <include refid="all_column"/>
+        )VALUES
+        <foreach collection="pojos" item="pojo" index="index" separator=",">
+            (
+            #{pojo.id},
+            #{pojo.unionId},
+            #{pojo.token},
+            #{pojo.createTime}
+            )
+        </foreach>
+    </insert>
+
+    <!--auto generated Code-->
+    <update id="update">
+        UPDATE token_info
+        <set>
+            <if test="pojo.id != null">id = #{pojo.id},</if>
+            <if test="pojo.unionId != null">union_id = #{pojo.unionId},</if>
+            <if test="pojo.token != null">token = #{pojo.token},</if>
+            <if test="pojo.createTime != null">create_time = #{pojo.createTime}</if>
+        </set>
+        WHERE id = #{pojo.id}
+    </update>
+
+    <!--auto generated Code-->
+    <select id="select" resultMap="AllColumnMap">
+        SELECT
+        <include refid="all_column"/>
+        FROM token_info
+        <where>
+            <if test="pojo.id != null">AND id = #{pojo.id}</if>
+            <if test="pojo.unionId != null">AND union_id = #{pojo.unionId}</if>
+            <if test="pojo.token != null">AND token = #{pojo.token}</if>
+            <if test="pojo.createTime != null">AND create_time = #{pojo.createTime}</if>
+        </where>
+        LIMIT 1000
+    </select>
+    <select id="getByUnionId" resultMap="AllColumnMap">
+        select
+        <include refid="all_column"/>
+        from token_info
+        WHERE union_id=#{unionId};
+    </select>
+    <select id="getByUid" resultMap="AllColumnMap">
+        select
+            T.*
+        from token_info T, user_info U
+        WHERE U.id=#{uid} AND T.union_id=U.union_id;
+    </select>
+
+    <!--auto generated Code-->
+    <delete id="delete">
+        DELETE FROM token_info
+        WHERE id = #{pojo.id}
+    </delete>
+</mapper>

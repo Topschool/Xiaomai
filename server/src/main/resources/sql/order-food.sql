@@ -1,0 +1,26 @@
+DROP TABLE IF EXISTS brand;
+
+CREATE TABLE brand(
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(255),
+  logo_url VARCHAR(255),
+  selected BOOLEAN DEFAULT FALSE ,
+  description VARCHAR(255)
+);
+
+DROP TABLE IF EXISTS brand_food;
+CREATE TABLE brand_food(
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(255),
+  price DECIMAL,
+  brand_id BIGINT,
+  selected BOOLEAN DEFAULT TRUE
+);
+
+DROP TABLE IF EXISTS order_record;
+CREATE TABLE order_record(
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  food_id BIGINT,
+  user_id BIGINT,
+  create_time BIGINT
+)

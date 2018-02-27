@@ -1,0 +1,9 @@
+DROP TABLE IF EXISTS token_info;
+
+CREATE TABLE token_info(
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  union_id VARCHAR(255) UNIQUE ,
+  token VARCHAR(255),
+  expired BOOLEAN DEFAULT TRUE ,
+  create_time BIGINT
+);

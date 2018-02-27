@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.topschool.xm.dao.scratchcard.CardDao">
+
+    <!--auto generated Code-->
+    <resultMap id="AllColumnMap" type="com.topschool.xm.model.weapp.scratchcard.Card">
+        <result column="id" property="id"/>
+        <result column="price" property="price"/>
+        <result column="uid" property="uid"/>
+        <result column="name" property="name"/>
+        <result column="scratched" property="scratched"/>
+    </resultMap>
+
+    <!--auto generated Code-->
+    <sql id="all_column">
+        id,
+        price,
+        uid,
+        name,
+        scratched
+    </sql>
+
+    <!--auto generated Code-->
+    <insert id="insert">
+        INSERT INTO today_scratch_pool
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id != null">id,</if>
+            <if test="pojo.price != null">price,</if>
+            <if test="pojo.uid != null">uid,</if>
+            <if test="pojo.name != null">name,</if>
+            <if test="pojo.scratched != null">scratched,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id != null">#{pojo.id},</if>
+            <if test="pojo.price != null">#{pojo.price},</if>
+            <if test="pojo.uid != null">#{pojo.uid},</if>
+            <if test="pojo.name != null">#{pojo.name},</if>
+            <if test="pojo.scratched != null">#{pojo.scratched},</if>
+        </trim>
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO today_scratch_pool(
+        <include refid="all_column"/>
+        )VALUES
+        <foreach collection="pojos" item="pojo" index="index" separator=",">
+            (
+            #{pojo.id},
+            #{pojo.price},
+            #{pojo.uid},
+            #{pojo.name},
+            #{pojo.scratched}
+            )
+        </foreach>
+    </insert>
+
+    <!--auto generated Code-->
+    <update id="update">
+        UPDATE today_scratch_pool
+        <set>
+            <if test="pojo.id != null">id = #{pojo.id},</if>
+            <if test="pojo.price != null">price = #{pojo.price},</if>
+            <if test="pojo.uid != null">uid = #{pojo.uid},</if>
+            <if test="pojo.name != null">name = #{pojo.name},</if>
+            <if test="pojo.scratched != null">scratched = #{pojo.scratched},</if>
+        </set>
+        WHERE id = #{pojo.id}
+    </update>
+
+    <!--auto generated Code-->
+    <select id="select" resultMap="AllColumnMap">
+        SELECT
+        <include refid="all_column"/>
+        FROM today_scratch_pool
+        <where>
+            <if test="pojo.id != null">AND id = #{pojo.id}</if>
+            <if test="pojo.price != null">AND price = #{pojo.price}</if>
+            <if test="pojo.uid != null">AND uid = #{pojo.uid}</if>
+            <if test="pojo.name != null">AND name = #{pojo.name}</if>
+            <if test="pojo.scratched != null">#{pojo.scratched}</if>
+        </where>
+        LIMIT 1000
+    </select>
+    <select id="selectAll" resultMap="AllColumnMap">
+        SELECT *
+        FROM today_scratch_pool;
+    </select>
+
+    <!--auto generated Code-->
+    <delete id="delete">
+        DELETE FROM today_scratch_pool
+        WHERE id = #{pojo.id}
+    </delete>
+</mapper>

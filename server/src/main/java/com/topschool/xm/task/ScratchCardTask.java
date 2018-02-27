@@ -1,6 +1,7 @@
 package com.topschool.xm.task;
 
-import com.topschool.xm.service.ScratchCardService;
+import com.topschool.xm.service.weapp.ScratchCardService;
+import com.topschool.xm.service.weapp.TodayPoolService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -16,18 +17,15 @@ import org.springframework.stereotype.Component;
 @EnableScheduling
 public class ScratchCardTask {
 
-    @Value("${scratch.poolSize}")
-    private int scratchPoolSize;
-
     @Autowired
-    private ScratchCardService scratchCardService;
+    private TodayPoolService todayPoolService;
 
     /**
      * 每周工作日凌晨刷新刮刮卡
      */
     @Scheduled(cron = "0 0 0 * * MON-FRI")
     public void initScratchCardPool() {
-        scratchCardService.initCardPool(scratchPoolSize);
+        todayPoolService.init();
     }
 
 }

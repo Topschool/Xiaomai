@@ -1,6 +1,5 @@
 package com.topschool.xm.interceptor;
 
-import com.topschool.xm.service.PartnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -16,15 +15,15 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 public class WxApiInterceptor extends HandlerInterceptorAdapter {
 
-    @Autowired
-    private PartnerService partnerService;
+//    @Autowired
+//    private PartnerService partnerService;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IllegalArgumentException {
-        String uid = request.getParameter("uid");
-        if (!partnerService.uidExist(uid)) {
-            throw new IllegalArgumentException("uid不存在");
-        }
+//        String uid = request.getParameter("uid");
+//        if (!partnerService.uidExist(uid)) {
+//            throw new IllegalArgumentException("uid不存在");
+//        }
         return true;
     }
 }

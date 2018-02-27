@@ -1,0 +1,12 @@
+DROP TABLE IF EXISTS user_info;
+
+CREATE TABLE user_info(
+  id BIGINT PRIMARY KEY AUTO_INCREMENT ,
+  name VARCHAR(4) NOT NULL ,
+  nickname VARCHAR(50),
+  union_id VARCHAR(255) UNIQUE ,
+  password VARCHAR(255),
+  admin BOOLEAN DEFAULT FALSE ,
+  address INTEGER,
+  create_time BIGINT
+) AUTO_INCREMENT=10000;
