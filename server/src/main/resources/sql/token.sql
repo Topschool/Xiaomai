@@ -6,4 +6,4 @@ CREATE TABLE token_info(
   token VARCHAR(255),
   expired BOOLEAN DEFAULT TRUE ,
   create_time BIGINT
-);
+) DEFAULT CHARSET=utf8mb4;

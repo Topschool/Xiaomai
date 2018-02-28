@@ -82,8 +82,13 @@
         </where>
         LIMIT 1000 
     </select>
+    <select id="selectById" resultMap="AllColumnMap">
+        SELECT <include refid="all_column"/>
+        FROM brand_food
+        WHERE id=#{id}
+    </select>
 
-<!--auto generated Code-->
+    <!--auto generated Code-->
     <delete id="delete">
         DELETE FROM brand_food where id = #{pojo.id}
     </delete>

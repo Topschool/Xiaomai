@@ -2,6 +2,7 @@ package com.topschool.xm.service.weapp;
 
 import com.alibaba.fastjson.JSONObject;
 import com.topschool.xm.exception.ScratchCardException;
+import com.topschool.xm.exception.UserNotFoundException;
 
 import java.util.List;
 import java.util.Map;
@@ -18,7 +19,7 @@ public interface ScratchCardService {
      * @return 刮到的结果
      * @throws ScratchCardException 出错
      */
-    Map scratch(long uid) throws ScratchCardException;
+    Map scratch(long uid) throws ScratchCardException, UserNotFoundException;
 
     /**
      * 获取今日用户刮卡状态

@@ -18,6 +18,10 @@ public interface BrandDao {
 
     List<Brand> select(@Param("pojo") Brand pojo);
 
+    Brand selectById(long id);
+
+    Brand selectTodaySelect();
+
     int update(@Param("pojo") Brand pojo);
 
 }

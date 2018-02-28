@@ -85,7 +85,7 @@ public class WebConfiguration extends WebMvcConfigurerAdapter implements Applica
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         super.addInterceptors(registry);
-        registry.addInterceptor(new AdminInterceptor()).addPathPatterns("/admin/**", "admin");
+//        registry.addInterceptor(new AdminInterceptor()).addPathPatterns("/admin/**", "admin");
         registry.addInterceptor(new WxApiInterceptor()).addPathPatterns("/wechat_applet_api/**");
     }
 

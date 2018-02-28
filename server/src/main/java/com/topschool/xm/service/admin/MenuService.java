@@ -1,6 +1,8 @@
-package com.topschool.xm.service;
+package com.topschool.xm.service.admin;
 
 import com.topschool.xm.exception.BrandNotFoundException;
+import com.topschool.xm.model.Brand;
+import com.topschool.xm.model.BrandFood;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -15,7 +17,7 @@ public interface MenuService {
      *
      * @return 所有的菜单列表
      */
-    List<Restaurant> getAllMenu();
+    List<Brand> getAllMenu();
 
     /**
      * 获取菜单中的所有菜的信息
@@ -23,7 +25,7 @@ public interface MenuService {
      * @param id 菜单id
      * @return 菜单中对应的菜
      */
-    List<Food> getMenuItem(Integer id);
+    List<BrandFood> getMenuItem(Integer id);
 
 
     /**
@@ -41,10 +43,10 @@ public interface MenuService {
     /**
      * 删除菜单，包括菜单中的所有菜
      *
-     * @param restaurantId 所需删除的菜单id
+     * @param brandId 所需删除的菜单id
      * @throws BrandNotFoundException 对应的菜单的平拍不存在
      */
-    void deleteMenu(Integer restaurantId) throws BrandNotFoundException;
+    void deleteMenu(long brandId) throws BrandNotFoundException;
 
     /**
      * 添加新的菜单

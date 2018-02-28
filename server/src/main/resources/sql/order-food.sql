@@ -6,7 +6,7 @@ CREATE TABLE brand(
   logo_url VARCHAR(255),
   selected BOOLEAN DEFAULT FALSE ,
   description VARCHAR(255)
-);
+) DEFAULT CHARSET=utf8mb4 ;
 
 DROP TABLE IF EXISTS brand_food;
 CREATE TABLE brand_food(
@@ -15,7 +15,7 @@ CREATE TABLE brand_food(
   price DECIMAL,
   brand_id BIGINT,
   selected BOOLEAN DEFAULT TRUE
-);
+) DEFAULT CHARSET=utf8mb4 ;
 
 DROP TABLE IF EXISTS order_record;
 CREATE TABLE order_record(
@@ -23,4 +23,4 @@ CREATE TABLE order_record(
   food_id BIGINT,
   user_id BIGINT,
   create_time BIGINT
-)
+) DEFAULT CHARSET=utf8mb4;

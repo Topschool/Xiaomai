@@ -17,6 +17,8 @@ public interface BrandFoodDao {
 
     List<BrandFood> select(@Param("pojo") BrandFood pojo);
 
+    BrandFood selectById(long id);
+
     int update(@Param("pojo") BrandFood pojo);
 
 }

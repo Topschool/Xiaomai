@@ -5,9 +5,11 @@ import com.topschool.xm.dao.UserInfoDao;
 import com.topschool.xm.dao.scratchcard.CardDao;
 import com.topschool.xm.dao.scratchcard.ScratchRecordDao;
 import com.topschool.xm.exception.ScratchCardException;
+import com.topschool.xm.exception.UserNotFoundException;
 import com.topschool.xm.model.Card;
 import com.topschool.xm.model.ScratchRecord;
 import com.topschool.xm.model.TodayPool;
+import com.topschool.xm.model.UserInfo;
 import com.topschool.xm.service.weapp.ScratchCardService;
 import com.topschool.xm.util.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +38,11 @@ public class DefaultScratchCardServiceImpl implements ScratchCardService {
 
     @Transactional(rollbackFor = Throwable.class)
     @Override
-    public Map scratch(long uid) throws ScratchCardException {
+    public Map scratch(long uid) throws ScratchCardException, UserNotFoundException {
+        UserInfo userInfo = userInfoDao.selectById(uid);
+        if (userInfo==null) {
+            throw new UserNotFoundException();
+        }
         if (getUserTodayStatus(uid)) {
             throw new ScratchCardException("今日已刮卡");
         }
@@ -53,7 +59,7 @@ public class DefaultScratchCardServiceImpl implements ScratchCardService {
         //初始化card中的用户信息
         card.setScratched(true);
         card.setUid(uid);
-        card.setName(userInfoDao.selectById(uid).getName());
+        card.setName(userInfo.getName());
         //将记录存入用户的刮卡记录表中
         ScratchRecord scratchRecord = new ScratchRecord();
         scratchRecord.setCreateTime(System.currentTimeMillis());
@@ -115,10 +121,12 @@ public class DefaultScratchCardServiceImpl implements ScratchCardService {
         return todayPool.getTodayTotal();
     }
 
-    private ConcurrentMap<String, Object> cardToMap(Card card) {
-        ConcurrentMap<String, Object> map = new ConcurrentHashMap<>(3);
-        map.put("uid", card.getUid());
-        map.put("name", card.getName());
+    private Map<String, Object> cardToMap(Card card) {
+        Map<String, Object> map = new HashMap<>(3);
+        if (card.getName()!=null) {
+            map.put("uid", card.getUid());
+            map.put("name", card.getName());
+        }
         map.put("money", card.getPrice());
         return map;
     }
@@ -134,6 +142,9 @@ public class DefaultScratchCardServiceImpl implements ScratchCardService {
     private List<Map> toMapList(Card[] cards) {
         List<Map> list = new ArrayList<>();
         for (Card card : cards) {
+            if (card==null){
+                continue;
+            }
             list.add(cardToMap(card));
         }
         return list;

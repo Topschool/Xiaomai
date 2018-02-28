@@ -1,8 +1,9 @@
 package com.topschool.xm.configuration;
 
 import com.topschool.xm.exception.FoodNotExistException;
+import com.topschool.xm.exception.OderFoodException;
 import com.topschool.xm.exception.ScratchCardException;
-import com.topschool.xm.exception.UserNameNotFoundException;
+import com.topschool.xm.exception.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -36,8 +37,13 @@ public class RestApiControlAdvice {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(UserNameNotFoundException.class)
-    public ResponseEntity<?> handle(UserNameNotFoundException e) {
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<?> handle(UserNotFoundException e) {
+        return new ResponseEntity<>("用户不存在", HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(OderFoodException.class)
+    public ResponseEntity<?> handle(OderFoodException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 

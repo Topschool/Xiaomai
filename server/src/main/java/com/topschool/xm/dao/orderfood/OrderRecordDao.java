@@ -19,7 +19,9 @@ public interface OrderRecordDao {
 
     int update(@Param("pojo") OrderRecord pojo);
 
-    int delete(@Param("uid") long uid, @Param("currentTime") long now);
+    int delete(@Param("uid") long uid, @Param("foodId") long foodId, @Param("currentTime") long now);
 
-    List<OrderRecord> getTodayOrderByUserId(@Param("uid") long uid, @Param("foodId") long foodId, @Param("currentTime") long now);
+    int deleteTodayAll(@Param("uid") long uid, @Param("currentTime") long now);
+
+    List<OrderRecord> getTodayOrderByUserId(@Param("uid") long uid, @Param("currentTime") long now);
 }

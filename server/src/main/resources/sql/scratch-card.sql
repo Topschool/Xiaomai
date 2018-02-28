@@ -5,7 +5,7 @@ CREATE TABLE scratch_record(
   uid BIGINT ,
   result DECIMAL,
   create_time LONG
-);
+) DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS today_scratch_pool;
 CREATE TABLE today_scratch_pool(
@@ -14,5 +14,5 @@ CREATE TABLE today_scratch_pool(
   uid BIGINT,
   name VARCHAR(5),
   scratched BOOLEAN
-);
+) DEFAULT CHARSET=utf8mb4;
 

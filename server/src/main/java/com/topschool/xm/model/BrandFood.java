@@ -16,6 +16,12 @@ public class BrandFood {
     public BrandFood() {
     }
 
+    public BrandFood(String name, BigDecimal price, Long brandId) {
+        this.name = name;
+        this.price = price;
+        this.brandId = brandId;
+    }
+
     public BrandFood(Long brandId, boolean selected) {
         this.brandId = brandId;
         this.selected = selected;

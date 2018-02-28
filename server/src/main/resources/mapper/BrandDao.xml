@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.topschool.xm.dao.orderfood.BrandDao">
 
-<!--auto generated Code-->
+    <!--auto generated Code-->
     <resultMap id="AllColumnMap" type="com.topschool.xm.model.Brand">
         <result column="id" property="id"/>
         <result column="name" property="name"/>
@@ -11,7 +11,7 @@
         <result column="description" property="description"/>
     </resultMap>
 
-<!--auto generated Code-->
+    <!--auto generated Code-->
     <sql id="all_column">
         id,
         name,
@@ -20,27 +20,27 @@
         description
     </sql>
 
-<!--auto generated Code-->
+    <!--auto generated Code-->
     <insert id="insert">
         INSERT INTO brand
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="pojo.id != null"> id, </if>
-            <if test="pojo.name != null"> name, </if>
-            <if test="pojo.logoUrl != null"> logo_url, </if>
-            <if test="pojo.selected != null"> selected, </if>
-            <if test="pojo.description != null"> description, </if>
+            <if test="pojo.id != null">id,</if>
+            <if test="pojo.name != null">name,</if>
+            <if test="pojo.logoUrl != null">logo_url,</if>
+            <if test="pojo.selected != null">selected,</if>
+            <if test="pojo.description != null">description,</if>
         </trim>
         VALUES
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="pojo.id != null"> #{pojo.id}, </if>
-            <if test="pojo.name != null"> #{pojo.name}, </if>
-            <if test="pojo.logoUrl != null"> #{pojo.logoUrl}, </if>
-            <if test="pojo.selected != null"> #{pojo.selected}, </if>
-            <if test="pojo.description != null"> #{pojo.description}, </if>
+            <if test="pojo.id != null">#{pojo.id},</if>
+            <if test="pojo.name != null">#{pojo.name},</if>
+            <if test="pojo.logoUrl != null">#{pojo.logoUrl},</if>
+            <if test="pojo.selected != null">#{pojo.selected},</if>
+            <if test="pojo.description != null">#{pojo.description},</if>
         </trim>
     </insert>
 
-<!--auto generated Code-->
+    <!--auto generated Code-->
     <insert id="insertList">
         INSERT INTO brand(
         <include refid="all_column"/>
@@ -56,35 +56,48 @@
         </foreach>
     </insert>
 
-<!--auto generated Code-->
-     <update id="update">
+    <!--auto generated Code-->
+    <update id="update">
         UPDATE brand
         <set>
-            <if test="pojo.id != null"> id = #{pojo.id}, </if>
-            <if test="pojo.name != null"> name = #{pojo.name}, </if>
-            <if test="pojo.logoUrl != null"> logo_url = #{pojo.logoUrl}, </if>
-            <if test="pojo.selected != null"> selected = #{pojo.selected}, </if>
-            <if test="pojo.description != null"> description = #{pojo.description} </if>
+            <if test="pojo.id != null">id = #{pojo.id},</if>
+            <if test="pojo.name != null">name = #{pojo.name},</if>
+            <if test="pojo.logoUrl != null">logo_url = #{pojo.logoUrl},</if>
+            <if test="pojo.selected != null">selected = #{pojo.selected},</if>
+            <if test="pojo.description != null">description = #{pojo.description}</if>
         </set>
-         WHERE id = #{pojo.id}
+        WHERE id = #{pojo.id}
     </update>
 
-<!--auto generated Code-->
+    <!--auto generated Code-->
     <select id="select" resultMap="AllColumnMap">
-        SELECT <include refid="all_column"/>
+        SELECT
+        <include refid="all_column"/>
         FROM brand
         <where>
-            <if test="pojo.id != null"> AND id = #{pojo.id} </if>
-            <if test="pojo.name != null"> AND name = #{pojo.name} </if>
-            <if test="pojo.logoUrl != null"> AND logo_url = #{pojo.logoUrl} </if>
-            <if test="pojo.selected != null"> AND selected = #{pojo.selected} </if>
-            <if test="pojo.description != null"> AND description = #{pojo.description} </if>
+            <if test="pojo.id != null">AND id = #{pojo.id}</if>
+            <if test="pojo.name != null">AND name = #{pojo.name}</if>
+            <if test="pojo.logoUrl != null">AND logo_url = #{pojo.logoUrl}</if>
+            <if test="pojo.selected != null">AND selected = #{pojo.selected}</if>
+            <if test="pojo.description != null">AND description = #{pojo.description}</if>
         </where>
-        LIMIT 1000 
+        LIMIT 1000
+    </select>
+    <select id="selectById" resultMap="AllColumnMap">
+        SELECT *
+        FROM brand
+        WHERE id = #{id};
+    </select>
+    <select id="selectTodaySelect" resultMap="AllColumnMap">
+        SELECT *
+        FROM brand
+        WHERE selected=TRUE
+        LIMIT 1;
     </select>
 
-<!--auto generated Code-->
+    <!--auto generated Code-->
     <delete id="delete">
-        DELETE FROM brand where id = #{pojo.id}
+        DELETE FROM brand
+        WHERE id = #{pojo.id}
     </delete>
 </mapper>
