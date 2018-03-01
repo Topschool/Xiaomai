@@ -34,18 +34,12 @@ public class DefaultScratchCardServiceImpl implements ScratchCardService {
     @Autowired
     private TodayPool todayPool;
 
-    @Transactional(rollbackFor = Throwable.class)
+    @Transactional(rollbackFor = RuntimeException.class)
     @Override
     public Map scratch(long uid) throws SystemException {
         UserInfo userInfo = userInfoDao.selectById(uid);
         if (userInfo == null) {
             throw new SystemException(SystemError.USER_NOT_EXIST);
-        }
-        if (getUserTodayStatus(uid)) {
-            throw new SystemException(SystemError.SCRATCH_CARD_REPEAT);
-        }
-        if (todayPool.getStatus().getCode() == 0 || todayPool.getStatus().getCode() == 1) {
-            throw new SystemException(SystemError.SCRATCH_CARD_SYSTEM_UNINIT);
         }
         //随机获取一个整数，作为抽取的位置
         int randomPosition = RandomUtil.generationRandom(0, todayPool.getPool().size());

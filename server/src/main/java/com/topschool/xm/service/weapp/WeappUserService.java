@@ -1,8 +1,11 @@
 package com.topschool.xm.service.weapp;
 
 import com.alibaba.fastjson.JSONObject;
+import com.topschool.xm.exception.SystemException;
 import com.topschool.xm.model.TokenInfo;
 import com.topschool.xm.enums.Address;
+
+import java.util.Map;
 
 
 /**
@@ -52,4 +55,12 @@ public interface WeappUserService {
      * @return true表示存在，反之不存在
      */
     boolean userExist(long uid);
+
+    /**
+     * 获取用户状态
+     *
+     * @param uid 用户id
+     * @return 用户状态信息
+     */
+    Map getUserStatus(long uid) throws SystemException;
 }

@@ -29,6 +29,8 @@ public enum SystemError {
     SIGNAL_ILLEGAL(5001, "邀请码非法"),
     ADDRESS_CODE_NOT_EXIST(5002,"地址编码非法"),
 
+    SYSTEM_ERROE(6000, "系统出错");
+
     ;
     private int code;
     private String description;

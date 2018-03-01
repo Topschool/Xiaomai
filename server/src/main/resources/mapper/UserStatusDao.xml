@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.topschool.xm.dao.UserStatusDao">
+
+<!--auto generated Code-->
+    <resultMap id="AllColumnMap" type="com.topschool.xm.model.UserStatus">
+        <result column="id" property="id"/>
+        <result column="allow_ordering" property="allowOrdering"/>
+    </resultMap>
+
+<!--auto generated Code-->
+    <sql id="all_column">
+        id,
+        allow_ordering
+    </sql>
+
+<!--auto generated Code-->
+    <insert id="insert">
+        INSERT INTO user_status
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id != null"> id, </if>
+            <if test="pojo.allow_ordering != null"> allow_ordering, </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id != null"> #{pojo.id}, </if>
+            <if test="pojo.allow_ordering != null"> #{pojo.allow_ordering}, </if>
+        </trim>
+    </insert>
+
+<!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO user_status(
+        <include refid="all_column"/>
+        )VALUES
+        <foreach collection="pojos" item="pojo" index="index" separator=",">
+            (
+            #{pojo.id},
+            #{pojo.allow_ordering}
+            )
+        </foreach>
+    </insert>
+
+<!--auto generated Code-->
+    <update id="update">
+        UPDATE user_status
+        <set>
+            <if test="pojo.id != null"> id = #{pojo.id}, </if>
+            <if test="pojo.allow_ordering != null"> allow_ordering=#{pojo.allow_ordering} </if>
+        </set>
+         WHERE id = #{pojo.id}
+    </update>
+
+<!--auto generated Code-->
+    <select id="select" resultMap="AllColumnMap">
+        SELECT <include refid="all_column"/>
+        FROM user_status
+        <where>
+            <if test="pojo.id != null"> AND id = #{pojo.id} </if>
+            <if test="pojo.allow_ordering != null"> AND allow_ordering=#{pojo.allow_ordering} </if>
+        </where>
+        LIMIT 1000 
+    </select>
+    <select id="selectById" resultMap="AllColumnMap">
+        select *
+        from user_status
+        WHERE id=#{id};
+    </select>
+
+    <!--auto generated Code-->
+    <delete id="delete">
+        DELETE FROM user_status where id = #{pojo.id}
+    </delete>
+</mapper>

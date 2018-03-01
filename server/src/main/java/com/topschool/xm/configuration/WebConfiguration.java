@@ -1,12 +1,13 @@
 package com.topschool.xm.configuration;
 
-import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.alibaba.fastjson.util.IOUtils;
-import com.topschool.xm.interceptor.AdminInterceptor;
-import com.topschool.xm.interceptor.WxApiInterceptor;
+import com.topschool.xm.interceptor.OrderFoodInterceptor;
+import com.topschool.xm.interceptor.ScratchCardInterceptor;
+import com.topschool.xm.interceptor.WeappApiInterceptor;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -17,7 +18,6 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.thymeleaf.TemplateEngine;
@@ -42,6 +42,12 @@ public class WebConfiguration extends WebMvcConfigurerAdapter implements Applica
     @Value("${thymeleaf.cache}")
     private boolean thymeleafCache;
     private ApplicationContext applicationContext;
+    @Autowired
+    private OrderFoodInterceptor orderFoodInterceptor;
+    @Autowired
+    private WeappApiInterceptor weappApiInterceptor;
+    @Autowired
+    private ScratchCardInterceptor scratchCardInterceptor;
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
@@ -74,9 +80,9 @@ public class WebConfiguration extends WebMvcConfigurerAdapter implements Applica
         converter.setSupportedMediaTypes(supportedMediaTypes);
         FastJsonConfig fastJsonConfig = new FastJsonConfig();
         fastJsonConfig.setSerializerFeatures(
-                SerializerFeature.WriteNullListAsEmpty,
-                SerializerFeature.WriteMapNullValue,
-                SerializerFeature.WriteNullStringAsEmpty
+//                SerializerFeature.WriteNullListAsEmpty,
+//                SerializerFeature.WriteMapNullValue,
+//                SerializerFeature.WriteNullStringAsEmpty
         );
         converter.setFastJsonConfig(fastJsonConfig);
         converters.add(converter);
@@ -86,7 +92,9 @@ public class WebConfiguration extends WebMvcConfigurerAdapter implements Applica
     public void addInterceptors(InterceptorRegistry registry) {
         super.addInterceptors(registry);
 //        registry.addInterceptor(new AdminInterceptor()).addPathPatterns("/admin/**", "admin");
-        registry.addInterceptor(new WxApiInterceptor()).addPathPatterns("/wechat_applet_api/**");
+        registry.addInterceptor(weappApiInterceptor).addPathPatterns("/v2/**");
+        registry.addInterceptor(scratchCardInterceptor).addPathPatterns("/v2/scratch_card/**");
+        registry.addInterceptor(orderFoodInterceptor).addPathPatterns("/v2/order_food/**");
     }
 
     @Override
