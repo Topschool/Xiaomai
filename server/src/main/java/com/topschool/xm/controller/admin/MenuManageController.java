@@ -1,6 +1,7 @@
 package com.topschool.xm.controller.admin;
 
-import com.topschool.xm.exception.BrandNotFoundException;
+import com.topschool.xm.exception.SystemException;
+import com.topschool.xm.model.ResultBody;
 import com.topschool.xm.service.admin.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,13 +33,13 @@ public class MenuManageController {
     }
 
     @GetMapping("/brand/{id}")
-    public Object foodList(@PathVariable(value = "id") Integer brandId) {
+    public ResultBody<?> foodList(@PathVariable(value = "id") Integer brandId) {
         List list = menuService.getMenuItem(brandId);
-        return list;
+        return new ResultBody<>(list);
     }
 
     @PostMapping("/brand/new")
-    public Object addBrand(@RequestParam(value = "name") String name,
+    public ResultBody<?> addBrand(@RequestParam(value = "name") String name,
                            @RequestParam(value = "logo", required = false) MultipartFile logo,
                            @RequestParam(value = "description", required = false) String description) throws IOException {
         menuService.addMenu(name, logo, description);
@@ -46,16 +47,16 @@ public class MenuManageController {
     }
 
     @PostMapping("/brand/update")
-    public Object updateBrand(@RequestParam(value = "brandId") Integer brandId,
+    public ResultBody<?> updateBrand(@RequestParam(value = "brandId") Integer brandId,
                               @RequestParam(value = "name", required = false) String name,
                               @RequestParam(value = "logo", required = false) MultipartFile logo,
-                              @RequestParam(value = "description", required = false) String description) throws IOException, BrandNotFoundException {
+                              @RequestParam(value = "description", required = false) String description) throws IOException, SystemException {
         menuService.updateMenu(brandId, name, logo, description);
         return null;
     }
 
     @PostMapping("/brand/delete")
-    public Object deleteBrand(Integer id) throws BrandNotFoundException {
+    public ResultBody<?> deleteBrand(Integer id) throws SystemException {
         menuService.deleteMenu(id);
         return null;
     }

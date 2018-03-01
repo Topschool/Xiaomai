@@ -1,9 +1,8 @@
 package com.topschool.xm.controller.admin;
 
+import com.topschool.xm.model.ResultBody;
 import com.topschool.xm.service.admin.TodayMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,14 +18,14 @@ public class OrderFoodManageController {
     private TodayMenuService todayMenuService;
 
     @PostMapping("/start")
-    public ResponseEntity<?> start(){
+    public ResultBody<?> start(){
         todayMenuService.init();
-        return new ResponseEntity<>("success", HttpStatus.OK);
+        return new ResultBody<>();
     }
 
     @PostMapping("/stop")
-    public ResponseEntity<?> stop(){
+    public ResultBody<?> stop(){
         todayMenuService.stop();
-        return new ResponseEntity<>("success", HttpStatus.OK);
+        return new ResultBody<>();
     }
 }

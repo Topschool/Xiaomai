@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.topschool.xm.dao.UserInfoDao;
 import com.topschool.xm.model.TokenInfo;
 import com.topschool.xm.service.weapp.WeappUserService;
-import com.topschool.xm.util.Address;
+import com.topschool.xm.enums.Address;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,7 +1,6 @@
 package com.topschool.xm.controller.weapp;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import com.topschool.xm.model.ResultBody;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,8 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class BoardingController {
 
     @GetMapping()
-    public ResponseEntity<?> boarding() {
-        ResponseEntity responseEntity = new ResponseEntity(HttpStatus.OK);
-        return null;
+    public ResultBody<?> boarding() {
+        return new ResultBody<>();
     }
 }

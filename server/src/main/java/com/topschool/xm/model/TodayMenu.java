@@ -1,6 +1,6 @@
 package com.topschool.xm.model;
 
-import com.topschool.xm.util.OrderFoodStatus;
+import com.topschool.xm.enums.OrderFoodStatus;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

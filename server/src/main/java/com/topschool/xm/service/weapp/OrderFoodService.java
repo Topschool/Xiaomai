@@ -1,6 +1,6 @@
 package com.topschool.xm.service.weapp;
 
-import com.topschool.xm.exception.OderFoodException;
+import com.topschool.xm.exception.SystemException;
 import com.topschool.xm.model.TodayMenu;
 
 import java.util.Map;
@@ -40,7 +40,7 @@ public interface OrderFoodService {
      * @param uid     用户id
      * @param foodIds 商品id集合
      */
-    void booking(long uid, long[] foodIds) throws OderFoodException;
+    void booking(long uid, long[] foodIds) throws SystemException;
 
     /**
      * 取消uid用户的今日的foodId的订单

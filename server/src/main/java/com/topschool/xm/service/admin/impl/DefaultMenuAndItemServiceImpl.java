@@ -3,15 +3,15 @@ package com.topschool.xm.service.admin.impl;
 import com.dingup.util.GOssUtil;
 import com.topschool.xm.dao.orderfood.BrandDao;
 import com.topschool.xm.dao.orderfood.BrandFoodDao;
-import com.topschool.xm.exception.BrandNotFoundException;
-import com.topschool.xm.exception.FoodNotExistException;
+import com.topschool.xm.enums.SystemError;
+import com.topschool.xm.exception.SystemException;
 import com.topschool.xm.model.Brand;
 import com.topschool.xm.model.BrandFood;
 import com.topschool.xm.model.TodayMenu;
 import com.topschool.xm.service.admin.MenuItemService;
 import com.topschool.xm.service.admin.MenuService;
 import com.topschool.xm.service.admin.TodayMenuService;
-import com.topschool.xm.util.OrderFoodStatus;
+import com.topschool.xm.enums.OrderFoodStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -39,10 +39,10 @@ public class DefaultMenuAndItemServiceImpl implements MenuItemService, MenuServi
     private TodayMenu todayMenu;
 
     @Override
-    public void updateItem(long id, String name, float price) throws FoodNotExistException {
+    public void updateItem(long id, String name, float price) throws SystemException {
         BrandFood food = foodDao.selectById(id);
         if (food == null) {
-            throw new FoodNotExistException();
+            throw new SystemException(SystemError.FOOD_NOT_EXIST);
         }
         food.setName(name);
         food.setPrice(BigDecimal.valueOf(price));
@@ -50,18 +50,21 @@ public class DefaultMenuAndItemServiceImpl implements MenuItemService, MenuServi
     }
 
     @Override
-    public void deleteItem(long foodId) throws FoodNotExistException {
+    public void deleteItem(long foodId) throws SystemException {
         BrandFood food = foodDao.selectById(foodId);
         if (food == null) {
-            throw new FoodNotExistException();
+            throw new SystemException(SystemError.FOOD_NOT_EXIST);
         }
         food.setSelected(false);
         foodDao.update(food);
     }
 
     @Override
-    public void addItem(String name, float price, long brandId) throws BrandNotFoundException {
+    public void addItem(String name, float price, long brandId) throws SystemException {
         BrandFood food = new BrandFood(name, BigDecimal.valueOf(price), brandId);
+        if (brandDao.selectById(brandId)==null) {
+            throw new SystemException(SystemError.BRAND_NOT_EXIST);
+        }
         foodDao.insert(food);
     }
 
@@ -76,10 +79,10 @@ public class DefaultMenuAndItemServiceImpl implements MenuItemService, MenuServi
     }
 
     @Override
-    public void updateMenu(Integer id, String name, MultipartFile logo, String description) throws BrandNotFoundException, IOException {
+    public void updateMenu(Integer id, String name, MultipartFile logo, String description) throws SystemException, IOException {
         Brand brand = brandDao.selectById(id);
         if (brand == null) {
-            throw new BrandNotFoundException();
+            throw new SystemException(SystemError.BRAND_NOT_EXIST);
         }
         brand.setName(name);
         GOssUtil.deleteObjectInOss(brand.getLogoUrl());
@@ -90,10 +93,10 @@ public class DefaultMenuAndItemServiceImpl implements MenuItemService, MenuServi
     }
 
     @Override
-    public void deleteMenu(long brandId) throws BrandNotFoundException {
+    public void deleteMenu(long brandId) throws SystemException {
         Brand brand = brandDao.selectById(brandId);
         if (brand == null) {
-            throw new BrandNotFoundException();
+            throw new SystemException(SystemError.BRAND_NOT_EXIST);
         }
         brand.setSelected(false);
         brandDao.update(brand);

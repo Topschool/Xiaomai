@@ -3,13 +3,14 @@ package com.topschool.xm.service.weapp.impl;
 import com.topschool.xm.dao.UserInfoDao;
 import com.topschool.xm.dao.orderfood.BrandFoodDao;
 import com.topschool.xm.dao.orderfood.OrderRecordDao;
-import com.topschool.xm.exception.OderFoodException;
+import com.topschool.xm.enums.SystemError;
+import com.topschool.xm.exception.SystemException;
 import com.topschool.xm.model.BrandFood;
 import com.topschool.xm.model.OrderRecord;
 import com.topschool.xm.model.TodayMenu;
 import com.topschool.xm.model.UserInfo;
 import com.topschool.xm.service.weapp.OrderFoodService;
-import com.topschool.xm.util.OrderFoodStatus;
+import com.topschool.xm.enums.OrderFoodStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -77,12 +78,12 @@ public class DefaultOrderFoodServiceImpl implements OrderFoodService {
 
     @Transactional(rollbackFor = Throwable.class)
     @Override
-    public void booking(long uid, long[] foodIds) throws OderFoodException {
+    public void booking(long uid, long[] foodIds) throws SystemException {
         if (todayMenu.getStatus()== OrderFoodStatus.STOPED) {
-            throw new OderFoodException("订餐已经结束");
+            throw new SystemException(SystemError.ORDER_FOOD_SYSTEM_STOP);
         }
         if (todayMenu.getStatus()== OrderFoodStatus.UNINIT) {
-            throw new OderFoodException("订餐还未开始");
+            throw new SystemException(SystemError.ORDER_FOOD_SYSTEM_NOT_START);
         }
         for (long foodId : foodIds) {
             booking(uid, foodId);

@@ -1,4 +1,4 @@
-package com.topschool.xm.util;
+package com.topschool.xm.enums;
 
 /**
  * @author 小强

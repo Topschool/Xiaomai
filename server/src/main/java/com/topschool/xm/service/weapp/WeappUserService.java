@@ -2,7 +2,7 @@ package com.topschool.xm.service.weapp;
 
 import com.alibaba.fastjson.JSONObject;
 import com.topschool.xm.model.TokenInfo;
-import com.topschool.xm.util.Address;
+import com.topschool.xm.enums.Address;
 
 
 /**

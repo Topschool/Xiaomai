@@ -1,10 +1,9 @@
 package com.topschool.xm.controller.weapp;
 
-import com.topschool.xm.exception.OderFoodException;
+import com.topschool.xm.exception.SystemException;
+import com.topschool.xm.model.ResultBody;
 import com.topschool.xm.service.weapp.OrderFoodService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,28 +23,28 @@ public class OrderFoodController {
     private OrderFoodService orderFoodService;
 
     @PostMapping("/booking")
-    public ResponseEntity<?> booking(long uid, long[] foods) throws OderFoodException {
+    public ResultBody<?> booking(long uid, long[] foods) throws SystemException {
         orderFoodService.booking(uid, foods);
         Map order = orderFoodService.getUserTodayOrder(uid);
-        return new ResponseEntity<>(order, HttpStatus.OK);
+        return new ResultBody<>(order);
     }
 
     @PostMapping("/cancel")
-    public ResponseEntity<?> cancel(long uid){
+    public ResultBody<?> cancel(long uid){
         orderFoodService.cancel(uid);
         Map order = orderFoodService.getUserTodayOrder(uid);
-        return new ResponseEntity<>(order, HttpStatus.OK);
+        return new ResultBody<>(order);
     }
 
     @GetMapping("/menu")
-    public ResponseEntity<?> getTodayMenu(){
-        return new ResponseEntity<>(orderFoodService.getTodayMenu(), HttpStatus.OK);
+    public ResultBody<?> getTodayMenu(){
+        return new ResultBody<>(orderFoodService.getTodayMenu());
     }
 
     @GetMapping("/user_order")
-    public ResponseEntity<?> getOrder(long uid){
+    public ResultBody<?> getOrder(long uid){
         Map order = orderFoodService.getUserTodayOrder(uid);
-        return new ResponseEntity<>(order, HttpStatus.OK);
+        return new ResultBody<>(order);
     }
 
 }

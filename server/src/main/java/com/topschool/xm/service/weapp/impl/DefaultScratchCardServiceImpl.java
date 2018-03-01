@@ -4,8 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.topschool.xm.dao.UserInfoDao;
 import com.topschool.xm.dao.scratchcard.CardDao;
 import com.topschool.xm.dao.scratchcard.ScratchRecordDao;
-import com.topschool.xm.exception.ScratchCardException;
-import com.topschool.xm.exception.UserNotFoundException;
+import com.topschool.xm.enums.SystemError;
+import com.topschool.xm.exception.SystemException;
 import com.topschool.xm.model.Card;
 import com.topschool.xm.model.ScratchRecord;
 import com.topschool.xm.model.TodayPool;
@@ -18,8 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 
 /**
  * @author 小强
@@ -38,19 +36,16 @@ public class DefaultScratchCardServiceImpl implements ScratchCardService {
 
     @Transactional(rollbackFor = Throwable.class)
     @Override
-    public Map scratch(long uid) throws ScratchCardException, UserNotFoundException {
+    public Map scratch(long uid) throws SystemException {
         UserInfo userInfo = userInfoDao.selectById(uid);
-        if (userInfo==null) {
-            throw new UserNotFoundException();
+        if (userInfo == null) {
+            throw new SystemException(SystemError.USER_NOT_EXIST);
         }
         if (getUserTodayStatus(uid)) {
-            throw new ScratchCardException("今日已刮卡");
+            throw new SystemException(SystemError.SCRATCH_CARD_REPEAT);
         }
-        if (todayPool.getStatus().getCode() == 0) {
-            throw new ScratchCardException("今日刮卡已经结束");
-        }
-        if (todayPool.getStatus().getCode() == -1) {
-            throw new ScratchCardException("今日刮卡未开始");
+        if (todayPool.getStatus().getCode() == 0 || todayPool.getStatus().getCode() == 1) {
+            throw new SystemException(SystemError.SCRATCH_CARD_SYSTEM_UNINIT);
         }
         //随机获取一个整数，作为抽取的位置
         int randomPosition = RandomUtil.generationRandom(0, todayPool.getPool().size());
@@ -69,13 +64,13 @@ public class DefaultScratchCardServiceImpl implements ScratchCardService {
         //将记录存入今日刮卡状态里
         cardDao.update(card);
         //将当前记录更新入缓存中
-        if (card.getPrice().equals(BigDecimal.valueOf(8))){
-            todayPool.getTop2()[0]=card;
+        if (card.getPrice().equals(BigDecimal.valueOf(8))) {
+            todayPool.getTop2()[0] = card;
         }
-        if (card.getPrice().equals(BigDecimal.valueOf(6))){
-            todayPool.getTop2()[1]=card;
+        if (card.getPrice().equals(BigDecimal.valueOf(6))) {
+            todayPool.getTop2()[1] = card;
         }
-        if (card.getPrice().equals(BigDecimal.valueOf(0))){
+        if (card.getPrice().equals(BigDecimal.valueOf(0))) {
             todayPool.getLast2().add(card);
         }
         todayPool.getTodayList().add(card);
@@ -123,7 +118,7 @@ public class DefaultScratchCardServiceImpl implements ScratchCardService {
 
     private Map<String, Object> cardToMap(Card card) {
         Map<String, Object> map = new HashMap<>(3);
-        if (card.getName()!=null) {
+        if (card.getName() != null) {
             map.put("uid", card.getUid());
             map.put("name", card.getName());
         }
@@ -142,7 +137,7 @@ public class DefaultScratchCardServiceImpl implements ScratchCardService {
     private List<Map> toMapList(Card[] cards) {
         List<Map> list = new ArrayList<>();
         for (Card card : cards) {
-            if (card==null){
+            if (card == null) {
                 continue;
             }
             list.add(cardToMap(card));

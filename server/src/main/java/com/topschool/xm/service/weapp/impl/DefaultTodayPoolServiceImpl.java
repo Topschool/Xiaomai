@@ -6,7 +6,7 @@ import com.topschool.xm.model.Card;
 import com.topschool.xm.model.TodayPool;
 import com.topschool.xm.service.weapp.TodayPoolService;
 import com.topschool.xm.util.RandomUtil;
-import com.topschool.xm.util.ScratchCardStatus;
+import com.topschool.xm.enums.ScratchCardStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

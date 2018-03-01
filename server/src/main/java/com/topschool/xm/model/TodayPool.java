@@ -1,6 +1,6 @@
 package com.topschool.xm.model;
 
-import com.topschool.xm.util.ScratchCardStatus;
+import com.topschool.xm.enums.ScratchCardStatus;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

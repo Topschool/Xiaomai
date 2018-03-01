@@ -1,8 +1,8 @@
 package com.topschool.xm.controller.admin;
 
 
-import com.topschool.xm.exception.BrandNotFoundException;
-import com.topschool.xm.exception.FoodNotExistException;
+import com.topschool.xm.exception.SystemException;
+import com.topschool.xm.model.ResultBody;
 import com.topschool.xm.service.admin.MenuItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,23 +21,23 @@ public class FoodManageController {
     private MenuItemService menuItemService;
 
     @PostMapping("/menu_item/update")
-    public Object update(@RequestParam("id") Integer id,
-                         @RequestParam(value = "name", required = false) String name,
-                         @RequestParam(value = "price", required = false) float price) throws FoodNotExistException {
+    public ResultBody<?> update(@RequestParam("id") Integer id,
+                             @RequestParam(value = "name", required = false) String name,
+                             @RequestParam(value = "price", required = false) float price) throws SystemException {
         menuItemService.updateItem(id, name, price);
         return null;
     }
 
     @PostMapping("/menu_item/new")
-    public Object addMenuItem(@RequestParam("id") Integer brandId,
+    public ResultBody<?> addMenuItem(@RequestParam("id") Integer brandId,
                               @RequestParam("name") String name,
-                              @RequestParam("price") float price) throws BrandNotFoundException {
+                              @RequestParam("price") float price) throws SystemException {
         menuItemService.addItem(name, price, brandId);
         return null;
     }
 
     @PostMapping("/menu_item/delete")
-    public Object deleteMenuItem(@RequestParam("id") Integer itemId) throws FoodNotExistException {
+    public ResultBody<?> deleteMenuItem(@RequestParam("id") Integer itemId) throws SystemException {
         menuItemService.deleteItem(itemId);
         return null;
     }

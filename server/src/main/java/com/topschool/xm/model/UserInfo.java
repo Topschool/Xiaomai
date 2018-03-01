@@ -1,6 +1,6 @@
 package com.topschool.xm.model;
 
-import com.topschool.xm.util.Address;
+import com.topschool.xm.enums.Address;
 
 /**
  * @author 小强
