@@ -4,18 +4,18 @@ package com.topschool.xm.model;
  * @author 小强
  */
 public class TokenInfo {
-    private long id;
+    private String sessionId;
     private String unionId;
     private String token;
     private boolean expired;
     private long createTime;
 
-    public long getId() {
-        return id;
+    public String getSessionId() {
+        return sessionId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
     }
 
     public String getUnionId() {

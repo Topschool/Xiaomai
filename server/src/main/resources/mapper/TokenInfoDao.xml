@@ -4,7 +4,7 @@
 
     <!--auto generated Code-->
     <resultMap id="AllColumnMap" type="com.topschool.xm.model.TokenInfo">
-        <result column="id" property="id"/>
+        <result column="session_id" property="sessionId"/>
         <result column="union_id" property="unionId"/>
         <result column="token" property="token"/>
         <result column="create_time" property="createTime"/>
@@ -12,7 +12,7 @@
 
     <!--auto generated Code-->
     <sql id="all_column">
-        id,
+        session_id,
         union_id,
         token,
         create_time
@@ -22,14 +22,14 @@
     <insert id="insert">
         INSERT INTO token_info
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="pojo.id != null">id,</if>
+            <if test="pojo.sessionId != null">session_id,</if>
             <if test="pojo.unionId != null">union_id,</if>
             <if test="pojo.token != null">token,</if>
             <if test="pojo.createTime != null">create_time,</if>
         </trim>
         VALUES
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="pojo.id != null">#{pojo.id},</if>
+            <if test="pojo.sessionId != null">#{pojo.sessionId},</if>
             <if test="pojo.unionId != null">#{pojo.unionId},</if>
             <if test="pojo.token != null">#{pojo.token},</if>
             <if test="pojo.createTime != null">#{pojo.createTime},</if>
@@ -43,7 +43,7 @@
         )VALUES
         <foreach collection="pojos" item="pojo" index="index" separator=",">
             (
-            #{pojo.id},
+            #{pojo.sessionId},
             #{pojo.unionId},
             #{pojo.token},
             #{pojo.createTime}
@@ -55,12 +55,12 @@
     <update id="update">
         UPDATE token_info
         <set>
-            <if test="pojo.id != null">id = #{pojo.id},</if>
+            <if test="pojo.sessionId != null">session_id = #{pojo.sessionId},</if>
             <if test="pojo.unionId != null">union_id = #{pojo.unionId},</if>
             <if test="pojo.token != null">token = #{pojo.token},</if>
             <if test="pojo.createTime != null">create_time = #{pojo.createTime}</if>
         </set>
-        WHERE id = #{pojo.id}
+        WHERE session_id = #{pojo.sessionId}
     </update>
 
     <!--auto generated Code-->
@@ -69,7 +69,7 @@
         <include refid="all_column"/>
         FROM token_info
         <where>
-            <if test="pojo.id != null">AND id = #{pojo.id}</if>
+            <if test="pojo.sessionId != null">AND session_id = #{pojo.sessionId}</if>
             <if test="pojo.unionId != null">AND union_id = #{pojo.unionId}</if>
             <if test="pojo.token != null">AND token = #{pojo.token}</if>
             <if test="pojo.createTime != null">AND create_time = #{pojo.createTime}</if>
@@ -88,10 +88,16 @@
         from token_info T, user_info U
         WHERE U.id=#{uid} AND T.union_id=U.union_id;
     </select>
+    <select id="getBySessionId" resultMap="AllColumnMap">
+        select
+        <include refid="all_column"/>
+        from token_info
+        WHERE session_id=#{sessionId};
+    </select>
 
     <!--auto generated Code-->
     <delete id="delete">
         DELETE FROM token_info
-        WHERE id = #{pojo.id}
+        WHERE session_id = #{pojo.sessionId}
     </delete>
 </mapper>

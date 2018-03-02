@@ -9,6 +9,7 @@
         <result column="nickname" property="nickname"/>
         <result column="union_id" property="unionId"/>
         <result column="password" property="password"/>
+        <result column="address" property="address"/>
         <result column="create_time" property="createTime"/>
     </resultMap>
 
@@ -19,6 +20,7 @@
         nickname,
         union_id,
         password,
+        address,
         create_time
     </sql>
 
@@ -31,6 +33,7 @@
             <if test="pojo.nickname != null"> nickname, </if>
             <if test="pojo.unionId != null"> union_id, </if>
             <if test="pojo.password != null"> password, </if>
+            <if test="pojo.address != null"> address, </if>
             <if test="pojo.createTime != null"> create_time, </if>
         </trim>
         VALUES
@@ -40,6 +43,7 @@
             <if test="pojo.nickname != null"> #{pojo.nickname}, </if>
             <if test="pojo.unionId != null"> #{pojo.unionId}, </if>
             <if test="pojo.password != null"> #{pojo.password}, </if>
+            <if test="pojo.address != null"> #{pojo.address}, </if>
             <if test="pojo.createTime != null"> #{pojo.createTime}, </if>
         </trim>
     </insert>
@@ -56,6 +60,7 @@
             #{pojo.nickname},
             #{pojo.unionId},
             #{pojo.password},
+            #{pojo.address},
             #{pojo.createTime}
             )
         </foreach>
@@ -70,6 +75,7 @@
             <if test="pojo.nickname != null"> nickname = #{pojo.nickname}, </if>
             <if test="pojo.unionId != null"> union_id = #{pojo.unionId}, </if>
             <if test="pojo.password != null"> password = #{pojo.password}, </if>
+            <if test="pojo.address != null"> address = #{pojo.address}, </if>
             <if test="pojo.createTime != null"> create_time = #{pojo.createTime} </if>
         </set>
          WHERE id = #{pojo.id}
@@ -85,14 +91,20 @@
             <if test="pojo.nickname != null"> AND nickname = #{pojo.nickname} </if>
             <if test="pojo.unionId != null"> AND union_id = #{pojo.unionId} </if>
             <if test="pojo.password != null"> AND password = #{pojo.password} </if>
+            <if test="pojo.address != null"> AND address = #{pojo.address} </if>
             <if test="pojo.createTime != null"> AND create_time = #{pojo.createTime} </if>
         </where>
         LIMIT 1000 
     </select>
     <select id="selectById" resultMap="AllColumnMap">
-        select *
+        select <include refid="all_column"/>
         from user_info
         WHERE id=#{id};
+    </select>
+    <select id="selectByUnionId" resultMap="AllColumnMap">
+        select <include refid="all_column"/>
+        from user_info
+        WHERE union_id=#{id};
     </select>
 
     <!--auto generated Code-->

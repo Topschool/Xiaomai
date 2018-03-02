@@ -1,4 +1,4 @@
-package com.topschool.xm.interceptor;
+package com.topschool.xm.handle;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
  * @author 小强
  */
 @Component
-public class AdminInterceptor extends HandlerInterceptorAdapter {
+public class AdminHandle extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session = request.getSession();

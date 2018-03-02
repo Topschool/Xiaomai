@@ -18,7 +18,8 @@ public enum SystemError {
 
     //用户认证相关
     USER_NOT_EXIST(3000, "用户不存在"),
-    USER_CERTIFICATION_FAIL(3001, "用户认证失败"),
+    USER_HAS_EXIST(3001, "用户已经存在"),
+    USER_CERTIFICATION_FAIL(3002, "用户认证失败"),
 
     //小程序相关
     TOKEN_ILLEGAL(4000, "token不合法"),

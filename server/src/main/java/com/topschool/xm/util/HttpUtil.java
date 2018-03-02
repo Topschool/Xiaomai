@@ -14,7 +14,6 @@ public class HttpUtil {
         StringBuilder sb = new StringBuilder();
         try {
             HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-//            connection.connect();
             BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream(), "utf-8"));
             String line = null;
             while ((line = reader.readLine()) != null) {

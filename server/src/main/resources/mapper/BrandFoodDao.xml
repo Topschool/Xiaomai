@@ -6,6 +6,7 @@
     <resultMap id="AllColumnMap" type="com.topschool.xm.model.BrandFood">
         <result column="id" property="id"/>
         <result column="name" property="name"/>
+        <result column="img_url" property="imgUrl"/>
         <result column="price" property="price"/>
         <result column="brand_id" property="brandId"/>
         <result column="selected" property="selected"/>
@@ -15,6 +16,7 @@
     <sql id="all_column">
         id,
         name,
+        img_url,
         price,
         brand_id,
         selected
@@ -26,6 +28,7 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="pojo.id != null"> id, </if>
             <if test="pojo.name != null"> name, </if>
+            <if test="pojo.imgUrl != null"> img_url, </if>
             <if test="pojo.price != null"> price, </if>
             <if test="pojo.brandId != null"> brand_id, </if>
             <if test="pojo.selected != null"> selected, </if>
@@ -34,6 +37,7 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="pojo.id != null"> #{pojo.id}, </if>
             <if test="pojo.name != null"> #{pojo.name}, </if>
+            <if test="pojo.imgUrl != null"> #{pojo.imgUrl}, </if>
             <if test="pojo.price != null"> #{pojo.price}, </if>
             <if test="pojo.brandId != null"> #{pojo.brandId}, </if>
             <if test="pojo.selected != null"> #{pojo.selected}, </if>
@@ -49,6 +53,7 @@
             (
             #{pojo.id},
             #{pojo.name},
+            #{pojo.imgUrl}
             #{pojo.price},
             #{pojo.brandId}
             #{pojo.selected}
@@ -57,13 +62,14 @@
     </insert>
 
 <!--auto generated Code-->
-    <update id="update">
+     <update id="update">
         UPDATE brand_food
         <set>
             <if test="pojo.id != null"> id = #{pojo.id}, </if>
             <if test="pojo.name != null"> name = #{pojo.name}, </if>
+            <if test="pojo.imgUrl != null"> imgUrl = #{pojo.imgUrl}, </if>
             <if test="pojo.price != null"> price = #{pojo.price}, </if>
-            <if test="pojo.brandId != null"> brand_id = #{pojo.brandId} </if>
+            <if test="pojo.brandId != null"> brand_id = #{pojo.brandId}, </if>
             <if test="pojo.selected != null"> selected = #{pojo.selected} </if>
         </set>
          WHERE id = #{pojo.id}
@@ -76,6 +82,7 @@
         <where>
             <if test="pojo.id != null"> AND id = #{pojo.id} </if>
             <if test="pojo.name != null"> AND name = #{pojo.name} </if>
+            <if test="pojo.imgUlr != null"> AND name = #{pojo.imgUrl} </if>
             <if test="pojo.price != null"> AND price = #{pojo.price} </if>
             <if test="pojo.brandId != null"> AND brand_id = #{pojo.brandId} </if>
             <if test="pojo.selected != null"> AND selected = #{pojo.selected} </if>

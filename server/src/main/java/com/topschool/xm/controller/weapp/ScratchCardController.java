@@ -22,8 +22,7 @@ public class ScratchCardController {
 
     @Autowired
     private ScratchCardService scratchCardService;
-    @Autowired
-    private TodayPoolService todayPoolService;
+
 
     @PostMapping("/scratch")
     public ResultBody<?> scratchCard(long uid) throws SystemException {
@@ -31,7 +30,7 @@ public class ScratchCardController {
     }
 
     @GetMapping("/today_scratch_card_info")
-    public ResultBody<?> getTodayInfo(){
+    public ResultBody<?> getTodayInfo(long uid){
         Map<String, Object> result = new HashMap<>(5);
         result.put("totalNum", scratchCardService.getTodayTotal());
         result.put("topList", scratchCardService.getTodayTopList());
@@ -39,12 +38,6 @@ public class ScratchCardController {
         result.put("todayList", scratchCardService.getTodayResult());
         result.put("totalTop", scratchCardService.getTotalTopResult());
         return new ResultBody<>(result);
-    }
-
-    @GetMapping("/init")
-    public ResultBody<?> init(){
-        todayPoolService.init();
-        return new ResultBody<>();
     }
 
     @GetMapping("/user_status")

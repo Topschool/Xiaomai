@@ -3,9 +3,10 @@ package com.topschool.xm.configuration;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.alibaba.fastjson.util.IOUtils;
-import com.topschool.xm.interceptor.OrderFoodInterceptor;
-import com.topschool.xm.interceptor.ScratchCardInterceptor;
-import com.topschool.xm.interceptor.WeappApiInterceptor;
+import com.topschool.xm.handle.BoardingHandle;
+import com.topschool.xm.handle.OrderFoodHandle;
+import com.topschool.xm.handle.ScratchCardHandle;
+import com.topschool.xm.handle.WeappApiHandle;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -43,11 +44,13 @@ public class WebConfiguration extends WebMvcConfigurerAdapter implements Applica
     private boolean thymeleafCache;
     private ApplicationContext applicationContext;
     @Autowired
-    private OrderFoodInterceptor orderFoodInterceptor;
+    private OrderFoodHandle orderFoodHandle;
     @Autowired
-    private WeappApiInterceptor weappApiInterceptor;
+    private WeappApiHandle weappApiHandle;
     @Autowired
-    private ScratchCardInterceptor scratchCardInterceptor;
+    private ScratchCardHandle scratchCardHandle;
+    @Autowired
+    private BoardingHandle boardingHandle;
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
@@ -92,9 +95,10 @@ public class WebConfiguration extends WebMvcConfigurerAdapter implements Applica
     public void addInterceptors(InterceptorRegistry registry) {
         super.addInterceptors(registry);
 //        registry.addInterceptor(new AdminInterceptor()).addPathPatterns("/admin/**", "admin");
-        registry.addInterceptor(weappApiInterceptor).addPathPatterns("/v2/**");
-        registry.addInterceptor(scratchCardInterceptor).addPathPatterns("/v2/scratch_card/**");
-        registry.addInterceptor(orderFoodInterceptor).addPathPatterns("/v2/order_food/**");
+        registry.addInterceptor(weappApiHandle).addPathPatterns("/v2/**");
+        registry.addInterceptor(boardingHandle).addPathPatterns("/v2/boarding");
+        registry.addInterceptor(scratchCardHandle).addPathPatterns("/v2/scratch_card/**");
+        registry.addInterceptor(orderFoodHandle).addPathPatterns("/v2/order_food/**");
     }
 
     @Override

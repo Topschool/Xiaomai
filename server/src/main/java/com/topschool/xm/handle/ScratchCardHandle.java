@@ -1,4 +1,4 @@
-package com.topschool.xm.interceptor;
+package com.topschool.xm.handle;
 
 import com.topschool.xm.enums.SystemError;
 import com.topschool.xm.exception.SystemException;
@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author 小强
  */
 @Component
-public class ScratchCardInterceptor extends HandlerInterceptorAdapter {
+public class ScratchCardHandle extends HandlerInterceptorAdapter {
 
     @Autowired
     private ScratchCardService scratchCardService;

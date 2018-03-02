@@ -21,4 +21,5 @@ public interface UserInfoDao {
 
     UserInfo selectById(long id);
 
+    UserInfo selectByUnionId(String id);
 }

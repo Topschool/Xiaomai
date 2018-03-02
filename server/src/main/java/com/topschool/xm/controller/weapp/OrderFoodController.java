@@ -37,7 +37,7 @@ public class OrderFoodController {
     }
 
     @GetMapping("/menu")
-    public ResultBody<?> getTodayMenu(long uid){
+    public ResultBody<?> getTodayMenu(){
         return new ResultBody<>(orderFoodService.getTodayMenu());
     }
 
@@ -46,5 +46,4 @@ public class OrderFoodController {
         Map order = orderFoodService.getUserTodayOrder(uid);
         return new ResultBody<>(order);
     }
-
 }

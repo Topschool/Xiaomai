@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 public class BrandFood {
     private Long id;
     private String name;
+    private String imgUrl;
     private BigDecimal price;
     private Long brandId;
     private boolean selected;
@@ -25,6 +26,14 @@ public class BrandFood {
     public BrandFood(Long brandId, boolean selected) {
         this.brandId = brandId;
         this.selected = selected;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 
     public Long getId() {

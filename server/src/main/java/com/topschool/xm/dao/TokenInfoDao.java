@@ -40,6 +40,14 @@ public interface TokenInfoDao {
     /**
      * 通过unionId获取token
      *
+     * @param sessionId sessionId
+     * @return 获取到的token记录
+     */
+    TokenInfo getBySessionId(@Param("sessionId") String sessionId);
+
+    /**
+     * 通过unionId获取token
+     *
      * @param unionId unionId
      * @return 获取到的token记录
      */

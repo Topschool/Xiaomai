@@ -15,7 +15,7 @@ public class RestExceptionHandle {
     @ExceptionHandler(RuntimeException.class)
     public ResultBody<?> handle(WebRequest request, RuntimeException e){
         if (e instanceof SystemException){
-            return new ResultBody<>(e);
+            return new ResultBody<>(((SystemException) e).getCode(), e.getMessage());
         }
         if (e instanceof IllegalArgumentException){
             return new ResultBody<>(-2, e.getMessage());

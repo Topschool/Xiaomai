@@ -1,8 +1,7 @@
-package com.topschool.xm.interceptor;
+package com.topschool.xm.handle;
 
 import com.topschool.xm.enums.SystemError;
 import com.topschool.xm.exception.SystemException;
-import com.topschool.xm.service.weapp.ScratchCardService;
 import com.topschool.xm.service.weapp.WeappUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,7 +15,7 @@ import java.util.Map;
  * @author 小强
  */
 @Component
-public class OrderFoodInterceptor extends HandlerInterceptorAdapter {
+public class OrderFoodHandle extends HandlerInterceptorAdapter {
 
     @Autowired
     private WeappUserService weappUserService;
@@ -25,6 +24,7 @@ public class OrderFoodInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         Long uid = Long.parseLong(request.getParameter("uid"));
         Map map = weappUserService.getUserStatus(uid);
+        assert map!=null;
         if (!(Boolean)map.get("allowOrdering")) {
             throw new SystemException(SystemError.ORDER_FOOD_NO_PERMISSION);
         }

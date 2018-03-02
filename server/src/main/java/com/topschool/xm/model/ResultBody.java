@@ -22,11 +22,6 @@ public class ResultBody<T> {
         this.code=1;
     }
 
-    public ResultBody(SystemException e) {
-        this.code = e.getCode();
-        this.error = e.getMessage();
-    }
-
     public ResultBody(int code, String error) {
         this.code = code;
         this.error = error;

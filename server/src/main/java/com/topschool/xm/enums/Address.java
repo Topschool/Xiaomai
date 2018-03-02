@@ -1,5 +1,7 @@
 package com.topschool.xm.enums;
 
+import com.topschool.xm.exception.SystemException;
+
 /**
  * @author 小强
  */
@@ -21,16 +23,16 @@ public enum Address {
         return code;
     }
 
-    public void setCode(int code) {
-        this.code = code;
-    }
-
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public static Address valueOf(int code){
+        for (Address address : values()) {
+            if (address.getCode()==code){
+                return address;
+            }
+        }
+        throw new SystemException(SystemError.ADDRESS_CODE_NOT_EXIST);
     }
-
 }

@@ -11,9 +11,9 @@ public class UserInfo {
     private String nickname;
     private String unionId;
     private String password;
-    private boolean admin;
+    private Boolean admin;
     private Address address;
-    private long createTime;
+    private Long createTime;
 
     public long getId() {
         return id;
@@ -55,11 +55,11 @@ public class UserInfo {
         this.password = password;
     }
 
-    public boolean getAdmin() {
+    public Boolean getAdmin() {
         return admin;
     }
 
-    public void setAdmin(boolean admin) {
+    public void setAdmin(Boolean admin) {
         this.admin = admin;
     }
 
@@ -71,11 +71,11 @@ public class UserInfo {
         this.address = address;
     }
 
-    public long getCreateTime() {
+    public Long getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(long createTime) {
+    public void setCreateTime(Long createTime) {
         this.createTime = createTime;
     }
 }

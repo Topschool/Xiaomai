@@ -21,24 +21,25 @@ public interface WeappUserService {
      * @param iv   偏移量
      * @return 生成的token
      */
-    TokenInfo getToken(String code, String data, String iv);
+    TokenInfo getJsSession(String code, String data, String iv);
 
     /**
      * 通过uid获取用户信息
      *
-     * @param uid 用户id
+     * @param sessionId 用户id
      * @return 用户信息
      */
-    JSONObject getUserInfo(String uid);
+    JSONObject getUserInfo(String sessionId);
 
     /**
      * 用户入伙
      *
-     * @param name    用户名
-     * @param address 用户所在地
+     * @param name      用户名
+     * @param address   用户所在地
+     * @param sessionId sessionId
      * @return 用户个人信息
      */
-    JSONObject registe(String name, Address address, String token);
+    JSONObject register(String name, Address address, String sessionId);
 
     /**
      * 验证token
@@ -55,6 +56,8 @@ public interface WeappUserService {
      * @return true表示存在，反之不存在
      */
     boolean userExist(long uid);
+
+    boolean userExist(String sessionId);
 
     /**
      * 获取用户状态
