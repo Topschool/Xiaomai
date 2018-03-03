@@ -12,7 +12,7 @@ public class BrandFood {
     private String imgUrl;
     private BigDecimal price;
     private Long brandId;
-    private boolean selected;
+    private Boolean selected;
 
     public BrandFood() {
     }
@@ -68,11 +68,11 @@ public class BrandFood {
         this.brandId = brandId;
     }
 
-    public boolean isSelected() {
+    public Boolean isSelected() {
         return selected;
     }
 
-    public void setSelected(boolean selected) {
+    public void setSelected(Boolean selected) {
         this.selected = selected;
     }
 }

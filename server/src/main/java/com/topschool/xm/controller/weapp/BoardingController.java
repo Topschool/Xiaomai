@@ -22,9 +22,9 @@ public class BoardingController {
     private WeappUserService weappUserService;
 
     @PostMapping()
-    public ResultBody<?> boarding(String name, int addressCode, @RequestHeader(value="jssession") String sessionId) {
-        Address address = Address.valueOf(addressCode);
-        JSONObject user = weappUserService.register(name.trim(), address, sessionId);
+    public ResultBody<?> boarding(String username, int area, @RequestHeader(value="jssession") String sessionId) {
+        Address address = Address.valueOf(area);
+        JSONObject user = weappUserService.register(username.trim(), address, sessionId);
         return new ResultBody<>(user);
     }
 

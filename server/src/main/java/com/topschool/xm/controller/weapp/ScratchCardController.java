@@ -30,7 +30,7 @@ public class ScratchCardController {
     }
 
     @GetMapping("/today_scratch_card_info")
-    public ResultBody<?> getTodayInfo(long uid){
+    public ResultBody<?> getTodayInfo(){
         Map<String, Object> result = new HashMap<>(5);
         result.put("totalNum", scratchCardService.getTodayTotal());
         result.put("topList", scratchCardService.getTodayTopList());

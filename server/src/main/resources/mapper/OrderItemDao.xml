@@ -1,51 +1,55 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.topschool.xm.dao.orderfood.OrderRecordDao">
+<mapper namespace="com.topschool.xm.dao.orderfood.OrderItemDao">
 
     <!--auto generated Code-->
-    <resultMap id="AllColumnMap" type="com.topschool.xm.model.OrderRecord">
-        <result column="id" property="id"/>
+    <resultMap id="AllColumnMap" type="com.topschool.xm.model.OrderItem">
+        <id column="id" property="id"/>
+        <result column="order_id" property="orderId"/>
         <result column="food_id" property="foodId"/>
-        <result column="user_id" property="userId"/>
+        <result column="count" property="count"/>
         <result column="create_time" property="createTime"/>
     </resultMap>
 
     <!--auto generated Code-->
     <sql id="all_column">
         id,
+        order_id,
         food_id,
-        user_id,
+        count,
         create_time
     </sql>
 
     <!--auto generated Code-->
     <insert id="insert">
-        INSERT INTO order_record
+        INSERT INTO order_item
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="pojo.id != null">id,</if>
+            <if test="pojo.orderId != null">order_id,</if>
             <if test="pojo.foodId != null">food_id,</if>
-            <if test="pojo.userId != null">user_id,</if>
+            <if test="pojo.count != null">count,</if>
             <if test="pojo.createTime != null">create_time,</if>
         </trim>
         VALUES
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="pojo.id != null">#{pojo.id},</if>
+            <if test="pojo.orderId != null">#{pojo.orderId},</if>
             <if test="pojo.foodId != null">#{pojo.foodId},</if>
-            <if test="pojo.userId != null">#{pojo.userId},</if>
+            <if test="pojo.count != null">#{pojo.count},</if>
             <if test="pojo.createTime != null">#{pojo.createTime},</if>
         </trim>
     </insert>
 
     <!--auto generated Code-->
     <insert id="insertList">
-        INSERT INTO order_record(
-        <include refid="all_column"/>
+        INSERT INTO order_item(
+          order_id, food_id, count, create_time
         )VALUES
         <foreach collection="pojos" item="pojo" index="index" separator=",">
             (
-            #{pojo.id},
+            #{pojo.orderId},
             #{pojo.foodId},
-            #{pojo.userId},
+            #{pojo.count},
             #{pojo.createTime}
             )
         </foreach>
@@ -53,11 +57,12 @@
 
     <!--auto generated Code-->
     <update id="update">
-        UPDATE order_record
+        UPDATE order_item
         <set>
             <if test="pojo.id != null">id = #{pojo.id},</if>
+            <if test="pojo.orderId != null">id = #{pojo.orderId},</if>
             <if test="pojo.foodId != null">food_id = #{pojo.foodId},</if>
-            <if test="pojo.userId != null">user_id = #{pojo.userId},</if>
+            <if test="pojo.count != null">count = #{pojo.count},</if>
             <if test="pojo.createTime != null">create_time = #{pojo.createTime}</if>
         </set>
         WHERE id = #{pojo.id}
@@ -67,30 +72,29 @@
     <select id="select" resultMap="AllColumnMap">
         SELECT
         <include refid="all_column"/>
-        FROM order_record
+        FROM order_item
         <where>
             <if test="pojo.id != null">AND id = #{pojo.id}</if>
+            <if test="pojo.orderId != null">AND order_id = #{pojo.orderId}</if>
             <if test="pojo.foodId != null">AND food_id = #{pojo.foodId}</if>
-            <if test="pojo.userId != null">AND user_id = #{pojo.userId}</if>
+            <if test="pojo.count != null">AND count = #{pojo.count}</if>
             <if test="pojo.createTime != null">AND create_time = #{pojo.createTime}</if>
         </where>
         LIMIT 1000
     </select>
-    <select id="getTodayOrderByUserId" resultType="com.topschool.xm.model.OrderRecord">
-        SELECT *
-        FROM order_record
-        WHERE user_id = #{uid} AND to_days(from_unixtime(create_time DIV 1000)) = to_days(#{currentTime});
+    <select id="getOrderItemByOrderId" resultMap="AllColumnMap">
+        select *
+        from order_item
+        WHERE order_id=#{id};
     </select>
 
     <!--auto generated Code-->
     <delete id="delete">
-        DELETE FROM order_record
-        WHERE id = #{uid} AND food_id = #{foodId} AND
-              to_days(from_unixtime(create_time DIV 1000)) = to_days(#{currentTime})
+        DELETE FROM order_item
+        WHERE order_id = #{orderId} AND food_id = #{foodId}
     </delete>
 
-    <delete id="deleteTodayAll">
-        DELETE FROM order_record
-        WHERE id = #{uid} AND to_days(from_unixtime(create_time DIV 1000)) = to_days(#{currentTime})
+    <delete id="deleteByOrderId">
+        DELETE FROM order_item WHERE order_id=#{id}
     </delete>
 </mapper>

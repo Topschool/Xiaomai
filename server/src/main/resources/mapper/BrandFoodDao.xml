@@ -67,7 +67,7 @@
         <set>
             <if test="pojo.id != null"> id = #{pojo.id}, </if>
             <if test="pojo.name != null"> name = #{pojo.name}, </if>
-            <if test="pojo.imgUrl != null"> imgUrl = #{pojo.imgUrl}, </if>
+            <if test="pojo.imgUrl != null"> img_url = #{pojo.imgUrl}, </if>
             <if test="pojo.price != null"> price = #{pojo.price}, </if>
             <if test="pojo.brandId != null"> brand_id = #{pojo.brandId}, </if>
             <if test="pojo.selected != null"> selected = #{pojo.selected} </if>
@@ -82,7 +82,7 @@
         <where>
             <if test="pojo.id != null"> AND id = #{pojo.id} </if>
             <if test="pojo.name != null"> AND name = #{pojo.name} </if>
-            <if test="pojo.imgUlr != null"> AND name = #{pojo.imgUrl} </if>
+            <if test="pojo.imgUrl != null"> AND img_url = #{pojo.imgUrl} </if>
             <if test="pojo.price != null"> AND price = #{pojo.price} </if>
             <if test="pojo.brandId != null"> AND brand_id = #{pojo.brandId} </if>
             <if test="pojo.selected != null"> AND selected = #{pojo.selected} </if>

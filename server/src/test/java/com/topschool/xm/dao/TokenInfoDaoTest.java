@@ -52,6 +52,7 @@ public class TokenInfoDaoTest {
     @Test
     public void update() {
         TokenInfo tokenInfo = tokenInfoDao.getByUnionId("asdaqwd");
+        tokenInfo.setSessionId("asdawqdawd");
         tokenInfo.setExpired(false);
         assertEquals(1, tokenInfoDao.update(tokenInfo));
     }

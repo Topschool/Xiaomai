@@ -1,26 +1,24 @@
 package com.topschool.xm.service.weapp.impl;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.topschool.xm.dao.UserInfoDao;
 import com.topschool.xm.dao.orderfood.BrandFoodDao;
-import com.topschool.xm.dao.orderfood.OrderRecordDao;
+import com.topschool.xm.dao.orderfood.OrderDao;
+import com.topschool.xm.dao.orderfood.OrderItemDao;
 import com.topschool.xm.enums.SystemError;
 import com.topschool.xm.exception.SystemException;
-import com.topschool.xm.model.BrandFood;
-import com.topschool.xm.model.OrderRecord;
-import com.topschool.xm.model.TodayMenu;
-import com.topschool.xm.model.UserInfo;
+import com.topschool.xm.model.*;
 import com.topschool.xm.service.weapp.OrderFoodService;
 import com.topschool.xm.enums.OrderFoodStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 
 /**
  * @author 小强
@@ -34,7 +32,9 @@ public class DefaultOrderFoodServiceImpl implements OrderFoodService {
     @Autowired
     private BrandFoodDao brandFoodDao;
     @Autowired
-    private OrderRecordDao orderRecordDao;
+    private OrderItemDao orderItemDao;
+    @Autowired
+    private OrderDao orderDao;
     @Autowired
     private UserInfoDao userInfoDao;
 
@@ -43,19 +43,24 @@ public class DefaultOrderFoodServiceImpl implements OrderFoodService {
     public Map getUserTodayOrder(long uid) {
         UserInfo userInfo = userInfoDao.selectById(uid);
         assert userInfo != null;
-        List<OrderRecord> records = orderRecordDao.getTodayOrderByUserId(uid, System.currentTimeMillis());
-        Map<String, Object> result = new ConcurrentHashMap<>(5);
-        BigDecimal difference = BigDecimal.valueOf(-20);
-        List<Map> order = new ArrayList<>();
-        for (OrderRecord record : records) {
-            Map map = recordToMap(record);
-            difference = difference.add((BigDecimal) map.get("price"));
-            order.add(map);
+        Order order = getUserOrder(uid);
+        Map<String, Object> result = new HashMap<>();
+        result.put("uid", order.getUid());
+        result.put("remark", order.getRemark());
+        JSONArray items = new JSONArray();
+        double difference = -20;
+        for (OrderItem orderItem : order.getItems()) {
+            JSONObject item = new JSONObject();
+            BrandFood food = brandFoodDao.selectById(orderItem.getFoodId());
+            item.put("foodId", orderItem.getFoodId());
+            item.put("count", orderItem.getCount());
+            item.put("foodName", food.getName());
+            item.put("total", orderItem.getCount()*food.getPrice().doubleValue());
+            difference+=orderItem.getCount()*food.getPrice().doubleValue();
+            items.add(item);
         }
-        result.put("uid", uid);
-        result.put("username", userInfo.getName());
-        result.put("order", order.size() == 0 ? null : order);
-        result.put("difference", difference.floatValue() >= 0f ? difference : 0);
+        result.put("difference", difference);
+        result.put("orderItems", items);
         return result;
     }
 
@@ -67,51 +72,56 @@ public class DefaultOrderFoodServiceImpl implements OrderFoodService {
         return null;
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
-    public void booking(long uid, long foodId) {
-        OrderRecord orderRecord = new OrderRecord();
-        orderRecord.setUserId(uid);
-        orderRecord.setFoodId(foodId);
-        orderRecord.setCreateTime(System.currentTimeMillis());
-        orderRecordDao.insert(orderRecord);
+    public void booking(Order form) {
+        Order order = orderDao.selectByUid(form.getUid(), System.currentTimeMillis());
+        if (order==null){
+            form.setCreateTime(System.currentTimeMillis());
+            orderDao.insert(form);
+            order = orderDao.selectByUid(form.getUid(), System.currentTimeMillis());
+        }
+        order.setCreateTime(System.currentTimeMillis());
+        order.setRemark(order.getRemark());
+        orderDao.update(order);
+        for (OrderItem orderItem : form.getItems()) {
+            orderItem.setId(null);
+            orderItem.setOrderId(order.getId());
+            orderItem.setCount(orderItem.getCount()==null?1:orderItem.getCount());
+        }
+        orderItemDao.insertList(form.getItems());
     }
 
-    @Transactional(rollbackFor = Throwable.class)
-    @Override
-    public void booking(long uid, long[] foodIds) throws SystemException {
-        if (todayMenu.getStatus()== OrderFoodStatus.STOPED) {
-            throw new SystemException(SystemError.ORDER_FOOD_SYSTEM_STOP);
-        }
-        if (todayMenu.getStatus()== OrderFoodStatus.UNINIT) {
-            throw new SystemException(SystemError.ORDER_FOOD_SYSTEM_NOT_START);
-        }
-        for (long foodId : foodIds) {
-            booking(uid, foodId);
-        }
-    }
 
     @Override
     public void cancel(long uid, long foodId) {
-        orderRecordDao.delete(uid, foodId, System.currentTimeMillis());
+        Order order = orderDao.selectByUid(uid, System.currentTimeMillis());
+        orderItemDao.delete(order.getId(), foodId);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void cancel(long uid) {
-        orderRecordDao.deleteTodayAll(uid, System.currentTimeMillis());
+        Order order = orderDao.selectByUid(uid, System.currentTimeMillis());
+        if (order==null) {
+            throw new SystemException(SystemError.ORDER_NOT_EXIST);
+        }
+        orderDao.deleteByOrderId(order.getId());
+        orderItemDao.deleteByOrderId(order.getId());
     }
 
     @Override
     public boolean getUserTodayOrderStatus(long uid) {
-        return orderRecordDao.getTodayOrderByUserId(uid, System.currentTimeMillis()) != null;
+        return orderItemDao.getOrderItemByOrderId(uid) != null;
     }
 
-    private Map recordToMap(OrderRecord record) {
-        BrandFood food = brandFoodDao.selectById(record.getFoodId());
-        assert food != null;
-        ConcurrentMap<String, Object> map = new ConcurrentHashMap<>(3);
-        map.put("foodId", record.getFoodId());
-        map.put("foodName", food.getName());
-        map.put("price", food.getPrice());
-        return map;
+    private Order getUserOrder(Long uid){
+        Order order = orderDao.selectByUid(uid, System.currentTimeMillis());
+        if (order==null) {
+            throw new SystemException(SystemError.ORDER_NOT_EXIST);
+        }
+        List<OrderItem>orderItems = orderItemDao.getOrderItemByOrderId(order.getId());
+        order.setItems(orderItems);
+        return order;
     }
 }

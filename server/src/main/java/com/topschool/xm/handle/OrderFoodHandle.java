@@ -22,12 +22,16 @@ public class OrderFoodHandle extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        Long uid = Long.parseLong(request.getParameter("uid"));
-        Map map = weappUserService.getUserStatus(uid);
-        assert map!=null;
-        if (!(Boolean)map.get("allowOrdering")) {
-            throw new SystemException(SystemError.ORDER_FOOD_NO_PERMISSION);
+        String uidStr = request.getParameter("uid");
+        if (uidStr!=null){
+            Long uid = Long.parseLong(uidStr);
         }
+//        Map map = weappUserService.getUserStatus(uid);
+//        assert map!=null;
+//        if (!(Boolean)map.get("allowOrdering")) {
+//            throw new SystemException(SystemError.ORDER_FOOD_NO_PERMISSION);
+//        }
+        Map map = request.getParameterMap();
         return super.preHandle(request, response, handler);
     }
 }

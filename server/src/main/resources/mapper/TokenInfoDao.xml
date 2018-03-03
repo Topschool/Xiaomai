@@ -60,7 +60,7 @@
             <if test="pojo.token != null">token = #{pojo.token},</if>
             <if test="pojo.createTime != null">create_time = #{pojo.createTime}</if>
         </set>
-        WHERE session_id = #{pojo.sessionId}
+        WHERE union_id = #{pojo.unionId}
     </update>
 
     <!--auto generated Code-->

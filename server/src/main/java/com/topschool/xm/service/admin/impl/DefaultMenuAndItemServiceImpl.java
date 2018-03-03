@@ -115,7 +115,8 @@ public class DefaultMenuAndItemServiceImpl implements MenuItemService, MenuServi
     @Override
     public void init() {
         Brand brand = brandDao.selectTodaySelect();
-        List<BrandFood> items = foodDao.select(new BrandFood(brand.getId(), true));
+        BrandFood food=new BrandFood(brand.getId(), true);
+        List<BrandFood> items = foodDao.select(food);
         todayMenu.setTodayBrand(brand);
         todayMenu.setStatus(OrderFoodStatus.STARTING);
         todayMenu.setMenu(items);

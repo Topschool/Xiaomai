@@ -17,6 +17,7 @@ import com.topschool.xm.util.HttpUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -47,11 +48,16 @@ public class DefaultWeappUserServiceImpl implements WeappUserService {
     @Override
     public TokenInfo getJsSession(String code, String data, String iv) {
         JSONObject result = HttpUtil.getJson(String.format(getSessionKeyUrlTemplate, appID, appSecret, code));
+//        if (result.get())
         String wechatUserInfoStr = AESUtil.decrypt(data, result.getString("session_key"), iv, "utf-8");
         JSONObject wechatUserInfo = JSONObject.parseObject(wechatUserInfoStr);
         TokenInfo tokenInfo = new TokenInfo();
         tokenInfo.setSessionId(UUID.randomUUID().toString().replace("-", ""));
-        tokenInfo.setUnionId((String) wechatUserInfo.get("unionId"));
+        String unionId = (String) wechatUserInfo.get("unionId");
+        if (unionId==null) {
+            throw new SystemException(SystemError.WEAPP_NOT_BOUND_OPEN_PLATFORM);
+        }
+        tokenInfo.setUnionId(unionId);
         tokenInfo.setCreateTime(System.currentTimeMillis());
         if (tokenInfoDao.getByUnionId(tokenInfo.getUnionId()) == null) {
             tokenInfoDao.insert(tokenInfo);

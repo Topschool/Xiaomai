@@ -17,10 +17,20 @@ CREATE TABLE brand_food(
   selected BOOLEAN DEFAULT TRUE
 ) DEFAULT CHARSET=utf8mb4 ;
 
-DROP TABLE IF EXISTS order_record;
-CREATE TABLE order_record(
+DROP TABLE IF EXISTS order_info ;
+
+CREATE TABLE order_info(
+  id INTEGER PRIMARY KEY AUTO_INCREMENT,
+  uid INTEGER NOT NULL ,
+  remark VARCHAR(255),
+  create_time BIGINT
+) DEFAULT CHARSET=utf8mb4;
+DROP TABLE IF EXISTS order_item;
+
+CREATE TABLE order_item(
   id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  order_id BIGINT,
   food_id BIGINT,
-  user_id BIGINT,
+  count INTEGER,
   create_time BIGINT
 ) DEFAULT CHARSET=utf8mb4;

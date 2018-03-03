@@ -8,7 +8,7 @@ public class Brand {
     private Long id;
     private String name;
     private String logoUrl;
-    private boolean selected = false;
+    private Boolean selected = false;
     private String description;
 
     public Long getId() {
@@ -35,11 +35,11 @@ public class Brand {
         this.logoUrl = logoUrl;
     }
 
-    public boolean isSelected() {
+    public Boolean isSelected() {
         return selected;
     }
 
-    public void setSelected(boolean selected) {
+    public void setSelected(Boolean selected) {
         this.selected = selected;
     }
 
