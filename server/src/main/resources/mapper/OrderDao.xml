@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.topschool.xm.dao.orderfood.OrderDao">
+
+<!--auto generated Code-->
+    <resultMap id="AllColumnMap" type="com.topschool.xm.model.Order">
+        <id column="id" property="id"/>
+        <result column="uid" property="uid"/>
+        <result column="remark" property="remark"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+<!--auto generated Code-->
+    <sql id="all_column">
+        id,
+        uid,
+        remark,
+        create_time
+    </sql>
+
+<!--auto generated Code-->
+    <insert id="insert">
+        INSERT INTO order_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id != null"> id, </if>
+            <if test="pojo.uid != null"> uid, </if>
+            <if test="pojo.remark != null"> remark, </if>
+            <if test="pojo.createTime != null"> create_time, </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id != null"> #{pojo.id}, </if>
+            <if test="pojo.uid != null"> #{pojo.uid}, </if>
+            <if test="pojo.remark != null"> #{pojo.remark}, </if>
+            <if test="pojo.createTime != null"> #{pojo.createTime}, </if>
+        </trim>
+    </insert>
+
+<!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO order_info(
+        <include refid="all_column"/>
+        )VALUES
+        <foreach collection="pojos" item="pojo" index="index" separator=",">
+            (
+            #{pojo.id},
+            #{pojo.uid},
+            #{pojo.remark},
+            #{pojo.createTime}
+            )
+        </foreach>
+    </insert>
+
+<!--auto generated Code-->
+    <update id="update">
+        UPDATE order_info
+        <set>
+            <if test="pojo.id != null"> id = #{pojo.id}, </if>
+            <if test="pojo.uid != null"> uid = #{pojo.uid}, </if>
+            <if test="pojo.remark != null"> remark = #{pojo.remark}, </if>
+            <if test="pojo.createTime != null"> create_time = #{pojo.createTime} </if>
+        </set>
+         WHERE id = #{pojo.id}
+    </update>
+
+<!--auto generated Code-->
+    <select id="select" resultMap="AllColumnMap">
+        SELECT <include refid="all_column"/>
+        FROM order_info
+        <where>
+            <if test="pojo.id != null"> AND id = #{pojo.id} </if>
+            <if test="pojo.uid != null"> AND uid = #{pojo.uid} </if>
+            <if test="pojo.remark != null"> AND remark = #{pojo.remark} </if>
+            <if test="pojo.createTime != null"> AND create_time = #{pojo.createTime} </if>
+        </where>
+        LIMIT 1000 
+    </select>
+
+    <select id="selectByUid" resultMap="AllColumnMap">
+        select *
+        from order_info
+        WHERE uid = #{uid} AND to_days(from_unixtime(create_time DIV 1000)) = to_days(from_unixtime(#{now} DIV 1000));
+    </select>
+
+    <delete id="deleteByOrderId">
+        DELETE FROM order_info WHERE id=#{id}
+    </delete>
+</mapper>
