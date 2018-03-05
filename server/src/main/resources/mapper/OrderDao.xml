@@ -3,7 +3,7 @@
 <mapper namespace="com.topschool.xm.dao.orderfood.OrderDao">
 
 <!--auto generated Code-->
-    <resultMap id="AllColumnMap" type="com.topschool.xm.model.Order">
+    <resultMap id="AllColumnMap" type="com.topschool.xm.model.orderfood.Order">
         <id column="id" property="id"/>
         <result column="uid" property="uid"/>
         <result column="remark" property="remark"/>

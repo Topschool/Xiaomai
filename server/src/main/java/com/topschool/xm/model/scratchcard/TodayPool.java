@@ -1,4 +1,4 @@
-package com.topschool.xm.model;
+package com.topschool.xm.model.scratchcard;
 
 import com.topschool.xm.enums.ScratchCardStatus;
 import org.springframework.stereotype.Component;

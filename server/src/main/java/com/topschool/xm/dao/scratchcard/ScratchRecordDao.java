@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 import java.util.Map;
 
-import com.topschool.xm.model.ScratchRecord;
+import com.topschool.xm.model.scratchcard.ScratchRecord;
 import org.springframework.stereotype.Component;
 
 /**

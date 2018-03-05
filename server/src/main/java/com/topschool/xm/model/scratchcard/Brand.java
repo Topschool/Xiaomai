@@ -1,4 +1,4 @@
-package com.topschool.xm.model;
+package com.topschool.xm.model.scratchcard;
 
 /**
  * @author 小强

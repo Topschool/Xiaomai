@@ -1,4 +1,4 @@
-package com.topschool.xm.model;
+package com.topschool.xm.model.user;
 
 import com.topschool.xm.enums.Address;
 

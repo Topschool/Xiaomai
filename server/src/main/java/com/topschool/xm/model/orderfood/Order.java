@@ -1,4 +1,4 @@
-package com.topschool.xm.model;
+package com.topschool.xm.model.orderfood;
 
 
 import javax.validation.constraints.NotNull;
@@ -9,9 +9,7 @@ import java.util.List;
  */
 public class Order {
     private Long id;
-    @NotNull
     private Long uid;
-    @NotNull
     private List<OrderItem> items;
     private String remark;
     private Long createTime;

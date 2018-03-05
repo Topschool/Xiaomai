@@ -3,7 +3,7 @@
 <mapper namespace="com.topschool.xm.dao.UserInfoDao">
 
 <!--auto generated Code-->
-    <resultMap id="AllColumnMap" type="com.topschool.xm.model.UserInfo">
+    <resultMap id="AllColumnMap" type="com.topschool.xm.model.user.UserInfo">
         <result column="id" property="id"/>
         <result column="name" property="name"/>
         <result column="nickname" property="nickname"/>

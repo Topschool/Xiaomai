@@ -2,7 +2,7 @@ package com.topschool.xm.dao;
 
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
-import com.topschool.xm.model.UserStatus;
+import com.topschool.xm.model.user.UserStatus;
 import org.springframework.stereotype.Component;
 
 @Component

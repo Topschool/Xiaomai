@@ -1,8 +1,8 @@
 package com.topschool.xm.service.admin;
 
 import com.topschool.xm.exception.SystemException;
-import com.topschool.xm.model.Brand;
-import com.topschool.xm.model.BrandFood;
+import com.topschool.xm.model.scratchcard.Brand;
+import com.topschool.xm.model.orderfood.BrandFood;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;

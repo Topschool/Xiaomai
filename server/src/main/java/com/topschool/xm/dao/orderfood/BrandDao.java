@@ -2,7 +2,7 @@ package com.topschool.xm.dao.orderfood;
 
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
-import com.topschool.xm.model.Brand;
+import com.topschool.xm.model.scratchcard.Brand;
 import org.springframework.stereotype.Component;
 
 

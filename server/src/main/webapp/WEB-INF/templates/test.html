@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+    <script src="../static/axios.min.js" th:src="@{/static/axios.min.js}"></script>
+</head>
+<body>
+
+<script type="text/javascript">
+
+    var order = {
+        "uid":"123456",
+        remark:".."
+    };
+
+    for(var i=0; i<10; i++){
+        order['items['+i+'].foodId'] = i;
+        order['items['+i+'].count'] = 1;
+    }
+    console.log(order);
+
+
+    var param = new URLSearchParams();
+    param.append("uid", "123456");
+    param.append("items[0].foodId", 11);
+    param.append("items[1].foodId", 10);
+    param.append("items[0].count", 1);
+    param.append("items[1].count", 2);
+    param.append("remark", "..");
+    // axios({
+    //     url: '/test/post',
+    //     data: order,
+    //     dataType: 'json',
+    //     type: 'POST',
+    //     success: res=>{
+    //         console.log(res)
+    //     }
+    // });
+
+    axios.post(
+        '/test/post',
+        param
+    ).then(res=>{
+        console.log(res)
+    })
+
+
+</script>
+
+
+
+</body>
+</html>

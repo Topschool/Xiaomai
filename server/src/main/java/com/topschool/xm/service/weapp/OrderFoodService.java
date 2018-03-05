@@ -1,8 +1,8 @@
 package com.topschool.xm.service.weapp;
 
 import com.topschool.xm.exception.SystemException;
-import com.topschool.xm.model.Order;
-import com.topschool.xm.model.TodayMenu;
+import com.topschool.xm.model.orderfood.Order;
+import com.topschool.xm.model.orderfood.TodayMenu;
 
 import java.util.Map;
 

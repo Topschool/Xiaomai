@@ -2,7 +2,7 @@ package com.topschool.xm.dao.scratchcard;
 
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
-import com.topschool.xm.model.Card;
+import com.topschool.xm.model.scratchcard.Card;
 import org.springframework.stereotype.Component;
 
 /**

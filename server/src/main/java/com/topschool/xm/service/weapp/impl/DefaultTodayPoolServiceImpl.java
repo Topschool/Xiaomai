@@ -2,8 +2,8 @@ package com.topschool.xm.service.weapp.impl;
 
 import com.topschool.xm.dao.scratchcard.CardDao;
 import com.topschool.xm.dao.scratchcard.ScratchRecordDao;
-import com.topschool.xm.model.Card;
-import com.topschool.xm.model.TodayPool;
+import com.topschool.xm.model.scratchcard.Card;
+import com.topschool.xm.model.scratchcard.TodayPool;
 import com.topschool.xm.service.weapp.TodayPoolService;
 import com.topschool.xm.util.RandomUtil;
 import com.topschool.xm.enums.ScratchCardStatus;

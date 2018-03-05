@@ -1,6 +1,7 @@
-package com.topschool.xm.model;
+package com.topschool.xm.model.orderfood;
 
 import com.topschool.xm.enums.OrderFoodStatus;
+import com.topschool.xm.model.scratchcard.Brand;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

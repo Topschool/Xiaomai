@@ -1,8 +1,7 @@
 package com.topschool.xm.dao.orderfood;
 
 import com.topschool.xm.Application;
-import com.topschool.xm.model.Brand;
-import com.topschool.xm.model.BrandFood;
+import com.topschool.xm.model.orderfood.BrandFood;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

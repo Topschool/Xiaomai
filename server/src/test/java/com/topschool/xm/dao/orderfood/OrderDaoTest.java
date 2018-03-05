@@ -1,9 +1,8 @@
 package com.topschool.xm.dao.orderfood;
 
-import com.sun.org.apache.xpath.internal.operations.Or;
 import com.topschool.xm.Application;
-import com.topschool.xm.model.Order;
-import com.topschool.xm.model.OrderItem;
+import com.topschool.xm.model.orderfood.Order;
+import com.topschool.xm.model.orderfood.OrderItem;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

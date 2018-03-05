@@ -2,7 +2,7 @@ package com.topschool.xm.dao;
 
 import com.topschool.xm.Application;
 import com.topschool.xm.enums.Address;
-import com.topschool.xm.model.UserInfo;
+import com.topschool.xm.model.user.UserInfo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

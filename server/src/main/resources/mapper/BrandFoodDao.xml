@@ -3,7 +3,7 @@
 <mapper namespace="com.topschool.xm.dao.orderfood.BrandFoodDao">
 
 <!--auto generated Code-->
-    <resultMap id="AllColumnMap" type="com.topschool.xm.model.BrandFood">
+    <resultMap id="AllColumnMap" type="com.topschool.xm.model.orderfood.BrandFood">
         <result column="id" property="id"/>
         <result column="name" property="name"/>
         <result column="img_url" property="imgUrl"/>

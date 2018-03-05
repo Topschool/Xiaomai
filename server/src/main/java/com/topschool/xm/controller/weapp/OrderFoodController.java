@@ -4,12 +4,17 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.topschool.xm.exception.SystemException;
 import com.topschool.xm.model.*;
+import com.topschool.xm.model.orderfood.BrandFood;
+import com.topschool.xm.model.orderfood.Order;
+import com.topschool.xm.model.orderfood.OrderItem;
+import com.topschool.xm.model.orderfood.TodayMenu;
+import com.topschool.xm.model.vo.FoodOrderForm;
 import com.topschool.xm.service.weapp.OrderFoodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -24,10 +29,22 @@ public class OrderFoodController {
     private OrderFoodService orderFoodService;
 
     @PostMapping("/booking")
-    public ResultBody<?> booking(@Valid Order order) throws SystemException {
-        order.setId(null);
-        order.setCreateTime(null);
-        orderFoodService.booking(order);
+    public ResultBody<?> booking(@Valid FoodOrderForm order) throws SystemException {
+        Order orderForm = new Order();
+        orderForm.setUid(order.getUid());
+        orderForm.setItems(new ArrayList<>());
+        outer:
+        for (Long id : order.getFoods()) {
+            for (OrderItem orderItem : orderForm.getItems()) {
+                if (orderItem.getFoodId().equals(id)){
+                    orderItem.setCount(orderItem.getCount()+1);
+                    continue outer;
+                }
+            }
+            orderForm.getItems().add(new OrderItem(id));
+        }
+        orderForm.setRemark(order.getRemark());
+        orderFoodService.booking(orderForm);
         Map result = orderFoodService.getUserTodayOrder(order.getUid());
         return new ResultBody<>(result);
     }

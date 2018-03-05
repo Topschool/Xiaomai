@@ -2,7 +2,7 @@ package com.topschool.xm.handle;
 
 import com.topschool.xm.enums.SystemError;
 import com.topschool.xm.exception.SystemException;
-import com.topschool.xm.model.TodayPool;
+import com.topschool.xm.model.scratchcard.TodayPool;
 import com.topschool.xm.service.weapp.ScratchCardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

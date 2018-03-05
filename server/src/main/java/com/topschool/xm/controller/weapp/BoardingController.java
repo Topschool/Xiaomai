@@ -3,7 +3,7 @@ package com.topschool.xm.controller.weapp;
 import com.alibaba.fastjson.JSONObject;
 import com.topschool.xm.enums.Address;
 import com.topschool.xm.model.ResultBody;
-import com.topschool.xm.model.TokenInfo;
+import com.topschool.xm.model.user.TokenInfo;
 import com.topschool.xm.service.weapp.WeappUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;

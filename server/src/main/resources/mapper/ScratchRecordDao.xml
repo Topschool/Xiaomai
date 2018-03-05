@@ -3,7 +3,7 @@
 <mapper namespace="com.topschool.xm.dao.scratchcard.ScratchRecordDao">
 
 <!--auto generated Code-->
-    <resultMap id="AllColumnMap" type="com.topschool.xm.model.ScratchRecord">
+    <resultMap id="AllColumnMap" type="com.topschool.xm.model.scratchcard.ScratchRecord">
         <result column="id" property="id"/>
         <result column="uid" property="uid"/>
         <result column="result" property="result"/>

@@ -3,7 +3,7 @@
 <mapper namespace="com.topschool.xm.dao.UserStatusDao">
 
 <!--auto generated Code-->
-    <resultMap id="AllColumnMap" type="com.topschool.xm.model.UserStatus">
+    <resultMap id="AllColumnMap" type="com.topschool.xm.model.user.UserStatus">
         <result column="id" property="id"/>
         <result column="allow_ordering" property="allowOrdering"/>
     </resultMap>

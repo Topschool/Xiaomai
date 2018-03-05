@@ -1,7 +1,7 @@
 package com.topschool.xm.dao;
 
 import com.topschool.xm.Application;
-import com.topschool.xm.model.TokenInfo;
+import com.topschool.xm.model.user.TokenInfo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
