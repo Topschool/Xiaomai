@@ -35,7 +35,14 @@ public enum SystemError {
     SYSTEM_ERROE(6000, "系统出错"),
 
     //虚拟账户相关
-    ACCOUNT_STATUS_NOT_EXIST(7000, "非法账户状态")
+    ACCOUNT_STATUS_NOT_EXIST(7000, "非法账户状态"),
+    ACCOUNT_NOT_EXIST(7001, "用户不存在"),
+    ACCOUNT_INSUFFICIENT_BALANCE(7002, "余额不足"),
+
+    //交易相关
+    TRANSACTION_NOT_EXIST(8000, "交易不存在"),
+    NO_PERMISSION_MODIFY_TRANSACTION(8001, "没有权限修改别人的交易"),
+    NOT_NEEDED_REPAY(8002, "已完成支付"),
 
     ;
 
